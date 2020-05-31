@@ -160,8 +160,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     x += '<option value="'+ data[1][i].vinirid +'">'+ data[1][i].tebal +' mm x '+ data[1][i].panjang +' x '+ data[1][i].lebar +'</option>';
                 }
                 $('#id_vinir').html(x);
-                // console.log(data[1]);
-                // console.log(x);
             },
             error : function(){
                 alert('Data Belum Ada!');

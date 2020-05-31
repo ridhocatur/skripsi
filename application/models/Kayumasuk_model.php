@@ -56,7 +56,6 @@ class Kayumasuk_model extends CI_Model {
         ->where($this->kayu_masuk.'.id', $id);
         $query = $this->db->get();
         return $query->row();
-        // return $this->db->get_where($this->kayu_masuk, ["id" => $id])->row();
     }
 
     public function getDetail ($id)
