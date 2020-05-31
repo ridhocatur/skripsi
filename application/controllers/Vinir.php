@@ -89,7 +89,6 @@ class Vinir extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
-
 	public function tambahMasuk()
 	{
 		$valid = $this->form_validation;
@@ -99,7 +98,9 @@ class Vinir extends CI_Controller {
 			$this->Vinirmasuk_model->save();
 			$this->session->set_flashdata('success', 'Berhasil Di Simpan');
 		} else {
-			$this->session->set_flashdata('danger', 'Gagal Di Simpan');
+			// $this->session->set_flashdata('danger', 'Gagal Di Simpan');
+			echo $this->db->last_query();
+			var_dump($_POST); die();
 		}
 		redirect(site_url('vinirmasuk'));
 	}
@@ -148,14 +149,12 @@ class Vinir extends CI_Controller {
 		echo json_encode(array($kayulog, $vinir));
 	}
 
-	public function cariMasuk()
+	public function cariUkuran()
 	{
-		$id1 = $_POST['id_jenis'];
-		$id2 = $_POST['id_ukuran'];
-		if(isset($id2,$id2)){
-			$cari = $this->Vinirmasuk_model->getJenisUkuran($id1, $id2);
-		}
-		echo json_encode($cari);
+		$id = $_POST['id_vinir'];
+		// $id = '5ec8bbfed6731';
+		$data = $this->Vinir_model->getByUkuran($id);
+		echo json_encode($data);
 	}
 
 }

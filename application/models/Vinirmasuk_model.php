@@ -18,22 +18,12 @@ class Vinirmasuk_model extends CI_Model {
                 'rules' => 'required'
             ],
             [
-				'field' => 'id_kayu',
-                'label' => '',
-                'rules' => 'required'
-            ],
-            [
-				'field' => 'id_vinir',
-                'label' => 'Tebal & Ukuran',
-                'rules' => 'required'
-            ],
-            [
-				'field' => 'kubikasi',
+				'field' => 'kubikvinirmasuk',
                 'label' => 'Kubikasi',
                 'rules' => 'numeric|required'
             ],
             [
-				'field' => 'stok',
+				'field' => 'stokvinirmasuk',
                 'label' => 'Stok',
                 'rules' => 'numeric|required'
             ],
@@ -62,19 +52,6 @@ class Vinirmasuk_model extends CI_Model {
         return $query->result();
     }
 
-    public function getJenisUkuran ($id1, $id2)
-    {
-        $this->db->select($this->jeniskayu.'.kd_kayu, '.$this->jeniskayu.'.nama, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, '.$this->vinir.'.id as vinirid, '.$this->kayu.'.id as kayuid ')
-        ->from($this->jeniskayu)
-        ->join($this->vinir, $this->vinir.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
-        ->join($this->kayu, $this->kayu.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
-        ->join($this->ukuran, $this->vinir.'.id_ukuran = '.$this->ukuran.'.id', 'left')
-        ->where($this->jeniskayu, ["id" => $id1])
-        ->where($this->ukuran, ["id" => $id2]);
-        $query = $this->db->get();
-        return $query->row();
-    }
-
     public function getById ($id)
     {
         return $this->db->get_where($this->vinir_masuk, ["id" => $id])->row();
@@ -88,8 +65,8 @@ class Vinirmasuk_model extends CI_Model {
             'id_kayu' => $post["id_kayu"],
             'id_vinir' => $post["id_vinir"],
             'tgl' => $post["tgl"],
-            'stok_masuk' => $post["stok"],
-            'kubik_masuk' => $post["kubikasi"],
+            'stok_masuk' => $post["stokvinirmasuk"],
+            'kubik_masuk' => $post["kubikvinirmasuk"],
             'jml_log' => $post["kayu_log"],
             'keterangan' => $post["keterangan"]
         );
@@ -102,10 +79,12 @@ class Vinirmasuk_model extends CI_Model {
         $post = $this->input->post();
         $data = array(
             'id' => $post["id"],
-            'kd_jeniskayu' => $post["kd_jeniskayu"],
-            'id_jenis' => $post["kd_jenis"],
-            'stok' => $post["stok"],
-            'kubikasi' => $post["kubikasi"],
+            'id_kayu' => $post["id_kayu"],
+            'id_vinir' => $post["id_vinir"],
+            'tgl' => $post["tgl"],
+            'stok_masuk' => $post["stokvinirmasuk"],
+            'kubik_masuk' => $post["kubikvinirmasuk"],
+            'jml_log' => $post["kayu_log"],
             'keterangan' => $post["keterangan"]
         );
         return $this->db->update($this->vinir_masuk, $data, array('id' => $post['id']));

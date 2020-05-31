@@ -69,6 +69,16 @@ class Vinir_model extends CI_Model {
         return $query->result();
     }
 
+    public function getByUkuran($id)
+    {
+        $this->db->select($this->vinir.'.tebal, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, ')
+        ->from($this->vinir)
+        ->join($this->ukuran, $this->vinir.'.id_ukuran =.'.$this->ukuran.'.id', 'left')
+        ->where($this->vinir.'.id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
     public function save()
     {
         $post = $this->input->post();

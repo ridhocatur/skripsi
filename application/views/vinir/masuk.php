@@ -96,23 +96,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="id_vinir" class="col-sm-3 col-form-label text-md-right">Tebal & Ukuran</label>
                 <div class="col-md-8">
-                    <select class="form-control" name="id_vinir" id="id_vinir">
+                    <select class="form-control" name="id_vinir" id="id_vinir" onchange="autofill();">
                       <option selected disabled>-- Pilih Data --</option>
                     </select>
                 </div>
             </div>
+            <input type="hidden" id="tbl" name="tbl" value="">
+            <input type="hidden" id="pjg" name="pjg" value="">
+            <input type="hidden" id="lbr" name="lbr" value="">
 
             <div class="form-group row">
-                <label for="stok" class="col-sm-3 col-form-label text-md-right">Stok</label>
+                <label for="stokvinirmasuk" class="col-sm-3 col-form-label text-md-right">Stok</label>
                 <div class="col-md-8">
-                    <input id="stok" type="text" class="form-control" name="stok" required autocomplete="stok">
+                    <input id="stokvinirmasuk" type="text" class="form-control" name="stokvinirmasuk" required autocomplete="stokvinirmasuk" onchange="hitungkubik()">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="kubikasi" class="col-sm-3 col-form-label text-md-right">Kubikasi</label>
+                <label for="kubikvinirmasuk" class="col-sm-3 col-form-label text-md-right">Kubikasi</label>
                 <div class="col-md-8">
-                    <input id="kubikasi" type="text" class="form-control" name="kubikasi" autocomplete="kubikasi">
+                    <input id="kubikvinirmasuk" type="text" class="form-control" name="kubikvinirmasuk" autocomplete="kubikvinirmasuk" readonly>
                 </div>
             </div>
 
@@ -144,7 +147,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
     function jenis(){
         var id = document.getElementById('jeniskayu').value;
-        var x = "";
         $.ajax({
             url:"<?php echo base_url();?>vinirmasuk/cariJenis",
             data: {id : id},
@@ -165,5 +167,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 alert('Data Belum Ada!');
             }
         });
+    }
+    function autofill(){
+        var id = document.getElementById('id_vinir').value;
+        $.ajax({
+            url:"<?php echo base_url();?>vinirmasuk/cariUkuran",
+            data: {id_vinir : id},
+            type: "post",
+            dataType: "JSON",
+            success:function(data){
+                var t = parseFloat((data.tebal)/10);
+                var p = parseFloat((data.panjang)/10);
+                var l = parseFloat((data.lebar)/10);
+                $('#tbl').val(t);
+                $('#pjg').val(p);
+                $('#lbr').val(l);
+            },
+            error : function(){
+                alert('Data Belum Ada!');
+            }
+        });
+    }
+    function hitungkubik() {
+        var tbl = $('#tbl').val();
+        var pjg = $('#pjg').val();
+        var lbr = $('#lbr').val();
+        var stokvinir = $('#stokvinirmasuk').val();
+        var kubik = parseFloat((tbl*pjg*lbr)/1000000) * stokvinir;
+        if (!isNaN(kubik) && kubik.length != 0){
+            $('#kubikvinirmasuk').val(kubik.toFixed(2));
+        }
     }
 </script>
