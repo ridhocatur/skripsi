@@ -7,16 +7,16 @@ class Plywood extends CI_Controller {
 	{
 		parent::__construct();
 		check_not_login();
-		$this->load->model(array('Kayulog_model','Jeniskayu_model','Vinir_model','Vinirmasuk_model','Ukuran_model'));
+		$this->load->model(array('Vinir_model','Ukuran_model','Plywood_model'));
 	}
 
 	public function index()
 	{
-		$data['title'] = "Data Vinir";
-		$data['isi'] = "vinir/index";
+		$data['title'] = "Data Produksi Plywood";
+		$data['isi'] = "plywood/index";
 		$data['vinir'] = $this->Vinir_model->getJoinAll();
-		$data['jenis'] = $this->Jeniskayu_model->getAll();
 		$data['ukuran'] = $this->Ukuran_model->getAll();
+		$data['plywood'] = $this->Plywood_model->getAll();
 		$this->load->view('template',$data);
 	}
 
@@ -70,73 +70,6 @@ class Plywood extends CI_Controller {
 		redirect(site_url('vinirmasuk'));
 	}
 
-
-	// ---------------------------------------------
-	// Vinir Masuk
-	// ---------------------------------------------
-
-	public function vinirmasuk()
-	{
-		$data['title'] = "Data Hasil Kupasan Kayu Log (Vinir)";
-		$data['isi'] = "vinir/masuk";
-		$data['vinirmasuk'] = $this->Vinirmasuk_model->getJoinAll();
-        $data['vinir'] = $this->Vinir_model->getJoinAll();
-        $data['jeniskayu'] = $this->Jeniskayu_model->getAll();
-		$this->load->view('template', $data);
-	}
-
-	public function tambahMasuk()
-	{
-		$valid = $this->form_validation;
-		$valid->set_rules($this->Vinirmasuk_model->rules());
-
-		if ($valid->run() == TRUE) {
-			$this->Vinirmasuk_model->save();
-			$this->session->set_flashdata('success', 'Berhasil Di Simpan');
-		} else {
-			// $this->session->set_flashdata('danger', 'Gagal Di Simpan');
-			echo $this->db->last_query();
-			var_dump($_POST); die();
-		}
-		redirect(site_url('vinirmasuk'));
-	}
-
-	public function geteditMasuk()
-    {
-		echo json_encode($this->Vinirmasuk_model->getById($_POST['id']));
-    }
-
-	public function ubahMasuk()
-	{
-		$id = $this->input->post('id');
-		if(!isset($id)) redirect('vinirmasuk');
-
-		$valid = $this->form_validation;
-		$valid->set_rules($this->Vinirmasuk_model->rules());
-
-		if ($valid->run() == TRUE) {
-			$this->Vinirmasuk_model->update($id);
-			$this->session->set_flashdata('info', 'Berhasil Di Ubah');
-		} else {
-			$this->session->set_flashdata('danger', 'Gagal Di Ubah');
-		}
-
-		$data["vinirmasuk"] = $this->Vinirmasuk_model->getById($id);
-		if(!$data["vinirmasuk"]) show_404();
-
-		redirect(site_url('vinirmasuk'));
-	}
-
-	public function hapusMasuk($id = null)
-	{
-		if(!isset($id)) show_404();
-
-		if ($this->Vinirmasuk_model->delete($id)){
-			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
-		}
-		redirect(site_url('vinirmasuk'));
-	}
-
 	public function cariJenis()
 	{
 		$id = $_POST['id'];
@@ -147,9 +80,8 @@ class Plywood extends CI_Controller {
 
 	public function cariUkuran()
 	{
-		$id = $_POST['id_vinir'];
-		// $id = '5ec8bbfed6731';
-		$data = $this->Vinir_model->getByUkuran($id);
+		$id = $_POST['id_ukuran'];
+		$data = $this->Plywood_model->getByUkuran($id);
 		echo json_encode($data);
 	}
 

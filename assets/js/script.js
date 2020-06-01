@@ -363,13 +363,13 @@ $(function () {
         kalkulasi();
       });
 
-      //----------------- Vinir Keluar
-    $('.tambahVinirKeluar').on('click', function() {
+      //----------------- Plywood
+    $('.tambahPlywood').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/vinirkeluar/tambah')
+        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/plywood/tambah')
         // $('#formModal')[0].reset();
     });
-    //---- sambungan form.php untuk kalkulasi total Vinir Keluar
+    //---- sambungan form.php untuk kalkulasi total Plywood
     $("body").on('keyup', '.vinir_stok_keluar', function(e) {
         e.preventDefault();
         calc_stok();
@@ -427,6 +427,25 @@ $(function () {
     });
 
     // Menghitung Kubikasi dalam Kayu Masuk
+    $(document).ready(function () {
+        $(document).on("change", "input[name^=panjang],input[name^=diameter1],input[name^=diameter2]", function () {
+            $("input[name^=jmlstokkayu]").trigger("change");
+        });
+        $(document).on("change", "input[name^=jmlstokkayu]", function () {
+            var stok = $(this).val() == "" ? 0 : $(this).val();
+            var p = $(this).closest("td").siblings().find("input[name^=panjang]").val();
+            var d1 = $(this).closest("td").siblings().find("input[name^=diameter1]").val();
+            var d2 = $(this).closest("td").siblings().find("input[name^=diameter2]").val();
+            var kubik = parseFloat((p*d1*d2*0.7854)/1000000) * stok;
+            if (!isNaN(kubik) && kubik.length != 0){
+                $(this).closest("td").siblings().find("input[name^=jmlkubikkayu]").val(kubik.toFixed(2));
+                kubik_kayu();
+                stok_kayu();
+            }
+        });
+    });
+
+    // Menghitung Kubikasi dalam Pkywood
     $(document).ready(function () {
         $(document).on("change", "input[name^=panjang],input[name^=diameter1],input[name^=diameter2]", function () {
             $("input[name^=jmlstokkayu]").trigger("change");

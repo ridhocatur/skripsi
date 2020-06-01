@@ -86,8 +86,6 @@ $route['gluemix/geteditGlue'] = "Bahanbantu/geteditGlue";
 $route['gluemix/hapusGlue/(:any)'] = "Bahanbantu/hapusGlue/$1";
 $route['gluemix/detailGlue/(:any)'] = "Bahanbantu/detailGlue/$1";
 
-$route['plywood'] = "";
-
 $route['laporan/bahanbantu'] = "Laporan/bahanbantu";
 $route['laporan/laporanbahanbantu'] = "Laporan/laporanbahanbantu";
 $route['laporan/bahanmasuk'] = "Laporan/bahanmasuk";
