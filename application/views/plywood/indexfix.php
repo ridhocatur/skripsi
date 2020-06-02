@@ -115,19 +115,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                     <tr style="text-align:center">
                         <th style="width: 10%"></th>
+                        <!-- <th style="width: 40%">Ukuran</th> -->
                         <th style="width: 50%">Vinir</th>
+                        <!-- <th style="width: 20%">Kubikasi</th> -->
                         <th style="width: 10%"></th>
                     </tr>
                 </thead>
                 <tbody id="form-body">
                     <tr style="text-align:center">
                         <td></td>
+                        <!-- <td>
+                            <select class="form-control idukuran" name="id_ukuran[]" id="id_ukuran" onchange="ukuran()">
+                                <option selected disabled>-- Pilih Data --</option>
+                                <?php foreach($ukuran as $data): ?>
+                                    <option value="<?= $data->id; ?>"><?= $data->panjang; ?> x <?= $data->lebar; ?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </td> -->
                         <td>
                             <select class="form-control" name="id_vinir[]" id="id_vinir" onchange="autofill()">
                               <option selected disabled>-- Pilih Data --</option>
                             </select>
-                            <input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value="">
+                            <input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value="" onchange="tebal()">
                         </td>
+                        <!-- <td>
+                            <input id="vinirstokkeluar" type="text" class="form-control vinir_stok_keluar" name="vinirstokkeluar[]" required>
+                        </td>
+                        <td>
+                            <input id="kubikkeluar" type="text" class="form-control kubik_keluar" name="kubikkeluar[]" required autocomplete="kubikasi">
+                        </td> -->
                         <td>
                             <div class="input-group-btn">
                             <button class="btn btn-success" onclick="add_form()" type="button">+</button>
@@ -174,6 +190,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     var max_field = 21;
     var x = 1;
 
+    // html += '<tr style="text-align:center">';
+    // html += '<td></td>';
+    // html += '<td><select class="form-control idukuran" name="id_ukuran[]" id="" onchange="ukuran()"><option selected disabled>-- Pilih Data --</option><?php foreach($ukuran as $data): ?><option value="<?= $data->id; ?>"><?= $data->panjang; ?> x <?= $data->lebar; ?></option><?php endforeach;?></select></td>';
+    // html += '<td><select class="form-control" name="id_vinir[]" id="" onchange="autofill()"><option selected disabled>-- Pilih Data --</option></select><input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value="" onchange="tebal()"></td>';
+    // html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">-</button></td>';
+    // html += '</tr>';
+
+
     function add_form()
     {
         if (x == max_field) {
@@ -194,7 +218,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     for (i in data){
                         html += '<option value="'+ data[i].vinirid +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
                     }
-                    html += '<input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value=""></td>';
+                    html += '<input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value="" onchange="tebal()"></td>';
                     html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">-</button></td>';
                     html += '</select>';
                     html += '</tr>';
@@ -218,7 +242,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     function autofill(){
         var id = document.getElementById('id_vinir').value;
-        var total = 0;
         $.ajax({
             url:"<?php echo base_url();?>vinirmasuk/cariUkuran",
             data: {id_vinir : id},
@@ -236,16 +259,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 alert('Data Belum Ada!');
             }
         });
-        $(".tbl_ply").each(function() {
-            if (!isNaN(this.value) && this.value.length != 0) {
-            total += parseFloat(this.value);
-            }
-        });
-        $('#total_tbl').val(total.toFixed(1));
     }
 
     function ukuran(){
         var id = $("#id_ukuran").val();
+        console.log(id);
         $.ajax({
             url:"<?php echo base_url();?>plywood/cariUkuran",
             data: {id_ukuran : id},
@@ -266,15 +284,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
 
-    // function tebal() {
-    //     var total = 0;
-    //     $(".tbl_ply").each(function() {
-    //         if (!isNaN(this.value) && this.value.length != 0) {
-    //         total += parseFloat(this.value);
-    //         }
-    //     });
-    //     $('#total_tbl').val(total.toFixed(1));
-    // }
+    function ukuran2(id){
+        $('.idukuran').each(function() {
+            var id = $(this).val();
+            console.log(id);
+            $.ajax({
+                url:"<?php echo base_url();?>plywood/cariUkuran",
+                data: {id_ukuran : id},
+                type: "post",
+                dataType: "JSON",
+                success:function(data){
+                    var x = "";
+                    var i;
+                    x += '<option selected disabled>-- Pilih Data --</option>';
+                    for (i in data){
+                        x += '<option value="'+ data[i].vinirid +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
+                    }
+                    id.html(x);
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown){
+                    alert('Data Belum Ada atau ada Kesalahan '+XMLHttpRequest.responseText);
+                }
+            });
+        });
+    }
+
+    function tebal() {
+        var total = 0;
+        $(".tbl_ply").each(function() {
+            if (!isNaN(this.value) && this.value.length != 0) {
+            total += parseFloat(this.value);
+            }
+        });
+        $('#total_tbl').val(total.toFixed(1));
+    }
 
     function stok() {
         var total = 0;
