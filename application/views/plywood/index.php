@@ -123,7 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr style="text-align:center">
                         <td></td>
                         <td>
-                            <select class="form-control" name="id_vinir[]" id="id_vinir" onchange="autofill()">
+                            <select class="form-control idvinir" name="id_vinir[]" id="id_vinir" onchange="autofill(this)">
                               <option selected disabled>-- Pilih Data --</option>
                             </select>
                             <input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value="">
@@ -189,7 +189,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var html = '';
                     html += '<tr style="text-align:center">';
                     html += '<td></td>';
-                    html += '<td><select class="form-control" name="id_vinir[]" id="id_vinir" onchange="autofill()">';
+                    html += '<td><select class="form-control idvinir" name="id_vinir[]" id="id_vinir" onchange="autofill(this)">';
                     html += '<option selected disabled>-- Pilih Data --</option>';
                     for (i in data){
                         html += '<option value="'+ data[i].vinirid +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
@@ -204,6 +204,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     alert('Data Belum Ada atau ada Kesalahan '+XMLHttpRequest.responseText);
                 }
             });
+            tebal();
             x++;
         }
     }
@@ -211,14 +212,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     function del_form(id)
     {
         id.closest('tr').remove();
-        // calc_stok();
-        // calc_kubik();
+        tebal();
         x--;
     }
 
-    function autofill(){
-        var id = document.getElementById('id_vinir').value;
-        var total = 0;
+    function autofill(id_value){
+        var id= id_value.value;
         $.ajax({
             url:"<?php echo base_url();?>vinirmasuk/cariUkuran",
             data: {id_vinir : id},
@@ -236,12 +235,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 alert('Data Belum Ada!');
             }
         });
-        $(".tbl_ply").each(function() {
-            if (!isNaN(this.value) && this.value.length != 0) {
-            total += parseFloat(this.value);
-            }
-        });
-        $('#total_tbl').val(total.toFixed(1));
     }
 
     function ukuran(){
@@ -266,15 +259,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
 
-    // function tebal() {
-    //     var total = 0;
-    //     $(".tbl_ply").each(function() {
-    //         if (!isNaN(this.value) && this.value.length != 0) {
-    //         total += parseFloat(this.value);
-    //         }
-    //     });
-    //     $('#total_tbl').val(total.toFixed(1));
-    // }
+    function tebal() {
+        var total = 0;
+        $(".tbl_ply").each(function() {
+            if (!isNaN(this.value) && this.value.length != 0) {
+            total += parseFloat(this.value);
+            }
+        });
+        $('#total_tbl').val(total.toFixed(1));
+    }
 
     function stok() {
         var total = 0;
