@@ -397,35 +397,6 @@ $(function () {
         kubik_kayu();
       });
 
-      // ------------------- TOMBOL LAPORAN
-    $(".clearForm").on('click',function(){
-        $('#datepicker1').datepicker('value', '');
-        $('#datepicker2').datepicker('value', '');
-        $('#id_supplier').val('');
-        $('#id_kayu').val('');
-        $('#shift').val('');
-    });
-
-    $("#menu_utama").on('change', function(){
-        if (this.value == 'bahanbantu') {
-            $('#menu_bahan').attr('style', 'display: show');
-            $('#menu_kayu').attr('style', 'display: none');
-            $('#menu_vinir').attr('style', 'display: none');
-        } else if(this.value == 'kayulog') {
-            $('#menu_bahan').attr('style', 'display: none');
-            $('#menu_kayu').attr('style', 'display: show');
-            $('#menu_vinir').attr('style', 'display: none');
-        } else if(this.value == 'vinir') {
-            $('#menu_bahan').attr('style', 'display: none');
-            $('#menu_kayu').attr('style', 'display: none');
-            $('#menu_vinir').attr('style', 'display: show');
-        } else {
-            $('#menu_bahan').attr('style', 'display: none');
-            $('#menu_kayu').attr('style', 'display: none');
-            $('#menu_vinir').attr('style', 'display: none');
-        }
-    });
-
     // Menghitung Kubikasi dalam Kayu Masuk
     $(document).ready(function () {
         $(document).on("change", "input[name^=panjang],input[name^=diameter1],input[name^=diameter2]", function () {

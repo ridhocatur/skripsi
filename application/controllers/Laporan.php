@@ -6,13 +6,19 @@ class Laporan extends CI_Controller {
 	public function __construct()
     {
     	parent::__construct();
-    	$this->load->model(array('Bahanbantu_model','Bahanmasuk_model','Gluemix_model','Kayulog_model','Kayumasuk_model','Pegawai_model','Vinir_model','Vinirmasuk_model'));
+    	$this->load->model(array('Bahanbantu_model','Bahanmasuk_model','Gluemix_model','Kayulog_model','Kayumasuk_model','Pegawai_model','Vinir_model','Vinirmasuk_model','Jeniskayu_model','Ukuran_model','Kategori_model','Supplier_model'));
         check_not_login();
     }
 
     public function index() {
     	$data['title'] = "Cetak Laporan";
-		$data['isi'] = "laporan/index";
+        $data['isi'] = "laporan/index";
+        $data['ukuran'] = $this->Ukuran_model->getAll();
+        $data['jeniskayu'] = $this->Jeniskayu_model->getAll();
+        $data['kategori'] = $this->Kategori_model->getAll();
+        $data['supbahan'] = $this->Supplier_model->SupBahan();
+        $data['supkayu'] = $this->Supplier_model->SupKayu();
+        $data['kayulog'] = $this->Kayulog_model->getAll();
 		$this->load->view('template',$data);
     }
 
