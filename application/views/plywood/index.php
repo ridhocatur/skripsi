@@ -217,17 +217,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function autofill(id_value){
-        var id= id_value.value;
+        var id = id_value.value;
         $.ajax({
             url:"<?php echo base_url();?>vinirmasuk/cariUkuran",
             data: {id_vinir : id},
             type: "post",
             dataType: "JSON",
             success:function(data){
-                var t = parseFloat((data.tebal)/10);
+                // console.log(data);
+                // var t = ;
                 var p = parseFloat((data.panjang)/10);
                 var l = parseFloat((data.lebar)/10);
-                $('#tblply').val(t);
+                $('#id_vinir').change(function(){
+                    $('td').find('input[name^=tblply]').val(parseFloat((data.tebal)/10));
+                });
                 $('#pjgply').val(p);
                 $('#lbrply').val(l);
             },

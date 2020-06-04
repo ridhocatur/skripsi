@@ -35,7 +35,7 @@ class Vinir extends CI_Controller {
 		} else {
 			$this->session->set_flashdata('danger', 'Gagal Di Simpan');
 		}
-		redirect(site_url('vinirmasuk'));
+		redirect(site_url('vinir'));
 	}
 
 	public function getedit()
@@ -49,7 +49,7 @@ class Vinir extends CI_Controller {
 		if(!isset($id)) redirect('vinir');
 
 		$valid = $this->form_validation;
-		$valid->set_rules($this->Vinir_model->rules());
+		$valid->set_rules($this->Vinir_model->rulesEdit());
 
 		if ($valid->run() == TRUE) {
 			$this->Vinir_model->update($id);
@@ -61,7 +61,7 @@ class Vinir extends CI_Controller {
 		$data["vinir"] = $this->Vinir_model->getById($id);
 		if(!$data["vinir"]) show_404();
 
-		redirect(site_url('vinirmasuk'));
+		redirect(site_url('vinir'));
 	}
 
 	public function hapus($id = null)
@@ -71,7 +71,7 @@ class Vinir extends CI_Controller {
 		if ($this->Vinir_model->delete($id)){
 			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
 		}
-		redirect(site_url('vinirmasuk'));
+		redirect(site_url('vinir'));
 	}
 
 

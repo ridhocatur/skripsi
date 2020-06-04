@@ -38,6 +38,27 @@ class Vinir_model extends CI_Model {
 		];
     }
 
+    public function rulesEdit()
+	{
+		return [
+            [
+				'field' => 'tebal',
+                'label' => 'Ukuran',
+                'rules' => 'required'
+            ],
+            [
+				'field' => 'kubikasi',
+                'label' => 'Kubikasi',
+                'rules' => 'numeric|required'
+            ],
+            [
+				'field' => 'stok',
+                'label' => 'Stok',
+                'rules' => 'numeric|required'
+            ],
+		];
+    }
+
     public function getAll ()
     {
         return $this->db->get($this->vinir)->result();
@@ -113,6 +134,7 @@ class Vinir_model extends CI_Model {
         $post = $this->input->post();
         $data = array(
             'id' => $post["id"],
+            'tebal' => str_replace(",",".",$post["tebal"]),
             'stok' => $post["stok"],
             'kubikasi' => $post["kubikasi"],
             'keterangan' => $post["keterangan"]
