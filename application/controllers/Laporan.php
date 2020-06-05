@@ -26,16 +26,15 @@ class Laporan extends CI_Controller {
     //  BAHAN BANTU
     // ----------------------------------------------
 
-	public function bahanbantu()
+	public function stokbahan()
     {
-        $data['title'] = "Cetak Laporan Stok Bahan Bantu";
-		$data['isi'] = "laporan/bahanbantu";
-		$data['supbahan'] = $this->Supplier_model->SupBahan();
-		$this->load->view('template',$data);
+        $id_kategori = $this->input->post('select1');
+        $data['title'] = "Laporan Stok Bahan Bantu";
+		$data['stokbahan'] = $this->Bahanbantu_model->report($id_kategori);
+		$this->load->view("laporan/bahanbantu/cetak_stok", $data);
     }
     public function laporanbahanbantu()
     {
-        // var_dump($_POST);
         $tgl_awal = $_POST['tgl_awal'];
         $tgl_akhir = $_POST['tgl_akhir'];
         $id_supplier = $_POST['id_supplier'];

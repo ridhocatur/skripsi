@@ -57,6 +57,20 @@ class Bahanbantu_model extends CI_Model {
         return $this->db->get_where($this->bahanbantu, ["id" => $id])->row();
     }
 
+    public function report($id_kategori)
+    {
+        $kondisi = "";
+        $query = $this->db->query("SELECT ".$this->bahanbantu.".* ,".$this->kategori.".nm_kateg FROM ".$this->bahanbantu."
+        LEFT JOIN ".$this->kategori." ON ".$this->bahanbantu.".id_kategori =.".$this->kategori.".id");
+        if ($id_kategori != ""){
+            $kondisi .= $this->db->query(" WHERE ".$this->kategori.".id = ".$id_kategori." ORDER BY ".$this->kategori.".nm_kateg ASC");
+        } else {
+            $kondisi .= $this->db->query(" ORDER BY ".$this->kategori.".nm_kateg ASC");
+        }
+        $hasil = $this->db->get($query . $kondisi);
+        return $hasil->result();
+    }
+
     public function save()
     {
         $post = $this->input->post();

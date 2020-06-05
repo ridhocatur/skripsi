@@ -117,18 +117,21 @@
 
     function menuBahan(){
         if ($('#menu_bahan').val() == 'stokbahan') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokbahan');
             $('#tglawal').attr('disabled', true);
             $('#tglakhir').attr('disabled', true);
             $('#select1').html(selkategori);
             $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_bahan').val() == 'bahanmasuk') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/bahanmasuk');
             $('#tglawal').attr('disabled', false);
             $('#tglakhir').attr('disabled', false);
             $('#select1').html(selkategori);
             $('#select2').html(selsupbahan);
             $('#shift').attr('disabled', true);
         } else if($('#menu_bahan').val() == 'gluemix') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/gluemix');
             $('#tglawal').attr('disabled', false);
             $('#tglakhir').attr('disabled', false);
             $('#select1').empty();
@@ -145,12 +148,14 @@
 
     function menuKayu(){
         if ($('#menu_kayu').val() == 'stokkayu') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokkayu');
             $('#tglawal').attr('disabled', true);
             $('#tglakhir').attr('disabled', true);
             $('#select1').html(seljeniskayu);
             $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_kayu').val() == 'kayumasuk') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/kayumasuk');
             $('#tglawal').attr('disabled', false);
             $('#tglakhir').attr('disabled', false);
             $('#select1').html(seljeniskayu);
@@ -167,18 +172,21 @@
 
     function menuVinir(){
         if ($('#menu_vinir').val() == 'stokvinir') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokvinir');
             $('#tglawal').attr('disabled', true);
             $('#tglakhir').attr('disabled', true);
             $('#select1').html(selukuran);
             $('#select2').html(seljeniskayu);
             $('#shift').attr('disabled', true);
         } else if($('#menu_vinir').val() == 'vinirmasuk') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/vinirmasuk');
             $('#tglawal').attr('disabled', false);
             $('#tglakhir').attr('disabled', false);
             $('#select1').html(selkayulog);
             $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_vinir').val() == 'plywood') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/plywood');
             $('#tglawal').attr('disabled', false);
             $('#tglakhir').attr('disabled', false);
         } else {
@@ -191,6 +199,7 @@
     }
 
     function clearForm(){
+        $('.card-body form').attr('action', '');
         $('#menu_utama').val('d');
         $('#menu_bahan').attr('style', 'display: none');
         $('#menu_kayu').attr('style', 'display: none');
