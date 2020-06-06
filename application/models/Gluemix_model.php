@@ -60,9 +60,9 @@ class Gluemix_model extends CI_Model {
             $kondisi .= " WHERE tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         }
         if ($shift != "" && $tipelem != "") {
-            $kondisi .= " AND shift = '$shift' AND tipe_lem = '$tipelem' ORDER BY tgl ASC";
+            $kondisi .= " AND shift = '$shift' AND tipe_glue = '$tipelem' ORDER BY tgl ASC";
         } else if ($shift == "" && $tipelem != "") {
-            $kondisi .= " AND tipe_lem = '$tipelem' ORDER BY tgl ASC";
+            $kondisi .= " AND tipe_glue = '$tipelem' ORDER BY tgl ASC";
         } else if ($shift != "" && $tipelem == "") {
             $kondisi .= " AND shift = '$shift' ORDER BY tgl ASC";
         }
