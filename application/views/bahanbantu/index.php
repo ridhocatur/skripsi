@@ -25,7 +25,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>No</th>
                 <th>Kode Bahan</th>
                 <th>Nama Bahan</th>
-                <th>Merk</th>
                 <th>Stok</th>
                 <th>Kategori</th>
                 <th>Keterangan</th>
@@ -38,7 +37,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?= $no++; ?></td>
                 <td><?= $data->kd_bahan; ?></td>
                 <td><?= $data->nama; ?></td>
-                <td><?= $data->merk; ?></td>
                 <td><?= $data->stok; ?>&nbsp;KG</td>
                 <td><?= $data->nm_kateg; ?></td>
                 <td><?= $data->keterangan; ?></td>

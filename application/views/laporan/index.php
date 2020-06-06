@@ -1,5 +1,5 @@
 <!-- Page Heading -->
-<div class="card shadow col-md-10">
+<div class="card shadow col-md-8">
 <div class="card-body">
     <form action="" method="POST">
         <div class="row">
@@ -34,45 +34,40 @@
                 </select>
             </div>
         </div>
-        <div class="mb-3 row">
-            <br>
-            <div class="tglawal col-md-6">
-                <label>Tanggal Awal</label>
-                <div class="input-group">
-                    <input id="tglawal" type="date" class="form-control" placeholder="Tanggal 1" name="tgl_awal" disabled>
-                </div>
-            </div>
-            <br>
-            <div class="tglakhir col-md-6">
-                <label>Tanggal Akhir</label>
-                <div class="input-group">
-                    <input id="tglakhir" type="date" class="form-control" placeholder="Tanggal 2" name="tgl_akhir" disabled>
-                </div>
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <div class="col-md-4">
-                <select class="form-control" name="select1" id="select1">
-                </select>
-            </div>
-            <div class="col-md-4">
-                <select class="form-control" name="select2" id="select2">
-                </select>
-            </div>
-            <div class="col-md-4">
-                <select class="form-control" name="select3" id="select3">
-                </select>
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <div class="col-md-4">
-                <select class="form-control" name="shift" id="shift" disabled>
-                    <option value="d" selected disabled>-- Pilih Shift --</option>
-                    <option value="">Semua Shift</option>
-                    <option value="1">Shift 1</option>
-                    <option value="2">Shift 2</option>
-                </select>
-            </div>
+        <div class="row">
+        <table class="table table-borderless">
+            <tr>
+                <td style="width: 50%;" align="center" rowspan="3">
+                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" value="">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                    <input type="hidden" name="satutgl" id="satutgl" value="">
+                    <input type="hidden" name="duatgl" id="duatgl" value="">
+
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 25%;">
+                    <select class="form-control" name="select1" id="select1">
+                    </select>
+                </td>
+                <td style="width: 25%;">
+                    <select class="form-control" name="select2" id="select2">
+                    </select>
+                </td>
+                <tr>
+                    <td colspan="2">
+                        <select class="form-control" name="shift" id="shift" disabled>
+                            <option value="d" selected disabled>-- Pilih Shift --</option>
+                            <option value="">Semua Shift</option>
+                            <option value="1">Shift 1</option>
+                            <option value="2">Shift 2</option>
+                        </select>
+                    </td>
+                </tr>
+            </tr>
+        </table>
         </div>
         <button type="submit" class="btn btn-outline-success tombolcetak" formtarget="_blank">Tampilkan</button>
         <button type="button" class="btn btn-outline-danger" onclick="clearForm()">Clear</button>
@@ -93,6 +88,8 @@
     var selsupkayu = '<option selected disabled>- Pilih Supplier -</option><option value="">Semua Supplier</option><?php foreach($supkayu as $data): ?><option value="<?= $data->id; ?>"><?= $data->nm_sup; ?></option><?php endforeach; ?>';
 
     var selkayulog = '<option selected disabled>- Pilih Kode Log -</option><option value="">Semua Kayu Log</option><?php foreach($kayulog as $data): ?><option value="<?= $data->id; ?>"><?= $data->kd_kayu; ?></option><?php endforeach; ?>';
+
+    var seltipeglue ='<option selected disabled>-- Pilih Tipe Lem --</option><option value="">Semua Tipe Lem</option><option value="Type-1 Melamine">Type-1 Melamine</option><option value="Type-2 LFE">Type-2 LFE</option>';
 
     function menuUtama()
     {
@@ -127,14 +124,14 @@
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/bahanmasuk');
             $('#tglawal').attr('disabled', false);
             $('#tglakhir').attr('disabled', false);
-            $('#select1').html(selkategori);
-            $('#select2').html(selsupbahan);
+            $('#select1').html(selsupbahan);
+            $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_bahan').val() == 'gluemix') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/gluemix');
             $('#tglawal').attr('disabled', false);
             $('#tglakhir').attr('disabled', false);
-            $('#select1').empty();
+            $('#select1').html(seltipeglue);
             $('#select2').empty();
             $('#shift').attr('disabled', false);
         } else {
@@ -209,5 +206,7 @@
         $('#select1').empty();
         $('#select2').empty();
         $('#shift').val('d').attr('disabled', true);
-    };
+        $('input[type^=radio]').prop('checked', false);
+        $('#reportrange').val('');
+    }
 </script>

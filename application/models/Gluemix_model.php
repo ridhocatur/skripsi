@@ -40,7 +40,7 @@ class Gluemix_model extends CI_Model {
 
     public function getDetail ($id)
     {
-        $this->db->select($this->dtl_gluemix.'.* ,'.$this->bahanbantu.'.kd_bahan,'.$this->bahanbantu.'.merk,'.$this->gluemix.'.total,'.$this->gluemix.'.tipe_glue')->from($this->dtl_gluemix)->join($this->bahanbantu, $this->bahanbantu.'.id = '. $this->dtl_gluemix.'.id_bahan', 'left')->join($this->gluemix, $this->gluemix.'.id = '. $this->dtl_gluemix.'.id_gluemix', 'left')->where($this->gluemix.'.id', $id);
+        $this->db->select($this->dtl_gluemix.'.* ,'.$this->bahanbantu.'.kd_bahan,'.$this->gluemix.'.total,'.$this->gluemix.'.tipe_glue')->from($this->dtl_gluemix)->join($this->bahanbantu, $this->bahanbantu.'.id = '. $this->dtl_gluemix.'.id_bahan', 'left')->join($this->gluemix, $this->gluemix.'.id = '. $this->dtl_gluemix.'.id_gluemix', 'left')->where($this->gluemix.'.id', $id);
         $query = $this->db->get();
         return $query->result();
     }
@@ -48,6 +48,26 @@ class Gluemix_model extends CI_Model {
     public function getById ($id)
     {
         return $this->db->get_where($this->gluemix, ["id" => $id])->row();
+    }
+
+    public function report($tgl_awal, $tgl_akhir, $shift, $tipelem)
+    {
+        $kondisi = "";
+        $sql = "SELECT ".$this->gluemix.".* FROM ".$this->gluemix;
+        if ($tgl_awal == $tgl_akhir) {
+            $kondisi .= " WHERE tgl = '$tgl_awal'";
+        } else if ($tgl_awal != $tgl_akhir) {
+            $kondisi .= " WHERE tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
+        }
+        if ($shift != "" && $tipelem != "") {
+            $kondisi .= " AND shift = '$shift' AND tipe_lem = '$tipelem' ORDER BY tgl ASC";
+        } else if ($shift == "" && $tipelem != "") {
+            $kondisi .= " AND tipe_lem = '$tipelem' ORDER BY tgl ASC";
+        } else if ($shift != "" && $tipelem == "") {
+            $kondisi .= " AND shift = '$shift' ORDER BY tgl ASC";
+        }
+        $query = $this->db->query($sql.$kondisi);
+        return $query->result_array();
     }
 
     public function save()
@@ -67,7 +87,6 @@ class Gluemix_model extends CI_Model {
         $data2 = array();
         for ($i=0 ; $i < $count ; $i++) {
             $data2[] = array(
-                'id'=> uniqid(),
                 'id_bahan'=> $post["id_bahan"][$i],
                 'id_gluemix'=> $get_id,
                 'stok_keluar'=> $post["stokkeluar"][$i]

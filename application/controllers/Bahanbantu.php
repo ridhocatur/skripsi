@@ -164,7 +164,12 @@ class BahanBantu extends CI_Controller {
 		$data['title'] = "Data Pengolahan Lem (Gluemix)";
 		$data['isi'] = "bahanbantu/gluemix";
 		$data['gluemix'] = $this->gluemix->getAll();
-		$data['bahanbantu'] = $this->bahanbantu->getAll();
+		$data['lfe'] = $this->bahanbantu->getLfe();
+		$data['mf'] = $this->bahanbantu->getMf();
+		$data['tepung'] = $this->bahanbantu->getTepung();
+		$data['hu100'] = $this->bahanbantu->get100();
+		$data['hu103'] = $this->bahanbantu->get103();
+		$data['hu360'] = $this->bahanbantu->get360();
 		$this->load->view('template', $data);
 	}
 
@@ -174,8 +179,6 @@ class BahanBantu extends CI_Controller {
 		$valid->set_rules($this->gluemix->rules());
 
 		if ($valid->run() == TRUE) {
-			// $gluemix = $this->input->post('gluemix', TRUE);
-			// $dtl_gluemix = $this->input->post('dtl_gluemix', TRUE);
 			$this->gluemix->save();
 			$this->session->set_flashdata('success', 'Berhasil Di Simpan');
 		} else {

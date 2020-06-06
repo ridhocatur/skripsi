@@ -28,11 +28,6 @@ class Bahanbantu_model extends CI_Model {
                 'rules' => 'required'
             ],
             [
-				'field' => 'merk',
-                'label' => 'Merk',
-                'rules' => 'required'
-            ],
-            [
 				'field' => 'stok',
                 'label' => 'Stok',
                 'rules' => 'numeric'
@@ -43,6 +38,37 @@ class Bahanbantu_model extends CI_Model {
     public function getAll ()
     {
         return $this->db->get($this->bahanbantu)->result();
+    }
+
+    public function getLfe ()
+    {
+        $this->db->like('kd_bahan','lfe');
+        return $this->db->get($this->bahanbantu)->row();
+    }
+    public function getMf ()
+    {
+        $this->db->like('kd_bahan','mf');
+        return $this->db->get($this->bahanbantu)->row();
+    }
+    public function getTepung ()
+    {
+        $this->db->like('kd_bahan','tpng')->or_like('nama', 'tepung');
+        return $this->db->get($this->bahanbantu)->row();
+    }
+    public function get100 ()
+    {
+        $this->db->like('kd_bahan','100');
+        return $this->db->get($this->bahanbantu)->row();
+    }
+    public function get103 ()
+    {
+        $this->db->like('kd_bahan','103');
+        return $this->db->get($this->bahanbantu)->row();
+    }
+    public function get360 ()
+    {
+        $this->db->like('kd_bahan','360');
+        return $this->db->get($this->bahanbantu)->row();
     }
 
     public function getJoinAll ()
@@ -59,16 +85,14 @@ class Bahanbantu_model extends CI_Model {
 
     public function report($id_kategori)
     {
-        $kondisi = "";
-        $query = $this->db->query("SELECT ".$this->bahanbantu.".* ,".$this->kategori.".nm_kateg FROM ".$this->bahanbantu."
-        LEFT JOIN ".$this->kategori." ON ".$this->bahanbantu.".id_kategori =.".$this->kategori.".id");
-        if ($id_kategori != ""){
-            $kondisi .= $this->db->query(" WHERE ".$this->kategori.".id = ".$id_kategori." ORDER BY ".$this->kategori.".nm_kateg ASC");
-        } else {
-            $kondisi .= $this->db->query(" ORDER BY ".$this->kategori.".nm_kateg ASC");
+        $this->db->select($this->bahanbantu.'.* ,'.$this->kategori.'.nm_kateg')
+        ->from($this->bahanbantu)
+        ->join($this->kategori, $this->bahanbantu.'.id_kategori = '.$this->kategori.'.id', 'left');
+        if ($id_kategori != "") {
+            $this->db->where($this->kategori.'.id', $id_kategori);
         }
-        $hasil = $this->db->get($query . $kondisi);
-        return $hasil->result();
+        $query = $this->db->get_where();
+        return $query->result();
     }
 
     public function save()
@@ -78,7 +102,6 @@ class Bahanbantu_model extends CI_Model {
             'id' => uniqid(),
             'kd_bahan' => $post["kd_bahan"],
             'nama' => $post["nama"],
-            'merk' => $post["merk"],
             'stok' => $post["stok"],
             'id_kategori' => $post["id_kategori"],
             'keterangan' => $post["keterangan"]
@@ -94,7 +117,6 @@ class Bahanbantu_model extends CI_Model {
             'id' => $post["id"],
             'kd_bahan' => $post["kd_bahan"],
             'nama' => $post["nama"],
-            'merk' => $post["merk"],
             'stok' => $post["stok"],
             'id_kategori' => $post["id_kategori"],
             'keterangan' => $post["keterangan"]

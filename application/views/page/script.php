@@ -2,6 +2,8 @@
 <script src="<?= base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url(); ?>assets/datatables/DataTables-1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/daterangepicker/moment.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/daterangepicker/daterangepicker.min.js"></script>
 
 <!-- Core plugin JavaScript-->
 <script src="<?= base_url(); ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -157,14 +159,34 @@ $(document).ready(function() {
         });
     });
 </script>
-<!-- <script>
-    $('#datepicker1').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd'
-    });
-    $('#datepicker2').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd'
-    });
-</script> -->
+<!-- Script DateTimePicker -->
+<script type="text/javascript">
+$(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+        $('#satutgl').val(start.format('YYYY-MM-DD'));
+        $('#duatgl').val(end.format('YYYY-MM-DD'));
+    }
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        autoApply: true,
+        "opens": "center",
+        "drops": "auto",
+        ranges: {
+           'Hari Ini': [moment(), moment()],
+           'Kemaren': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
+           '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
+           'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+           'Bulan Lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+    cb(start, end);
+});
+</script>
 

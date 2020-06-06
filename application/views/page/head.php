@@ -19,5 +19,6 @@
   <!-- Custom styles for this page -->
   <link href="<?= base_url(); ?>assets/datatables/DataTables-1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="<?= base_url(); ?>assets/datatables/Buttons-1.6.2/css/buttons.dataTables.min.css" rel="stylesheet">
+  <link href="<?= base_url(); ?>assets/css/daterangepicker.css" rel="stylesheet">
 
 </head>

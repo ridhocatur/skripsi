@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- MODAL Tambah Data-->
 <div class="modal fade" id="tampilModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ModalLabel">Tambah Data Gluemix</h5>
@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="tipe_glue" class="col-sm-3 col-form-label text-md-right">Jenis Lem</label>
                 <div class="col-md-8">
-                  <select class="form-control" name="tipe_glue" id="tipe_glue">
+                  <select class="form-control" name="tipe_glue" id="tipe_glue" onchange="pilihGlue()">
                     <option value="" selected disabled>-- Pilih Data --</option>
                     <option value="Type-1 Melamine">Type-1 Melamine</option>
                     <option value="Type-2 LFE">Type-2 LFE</option>
@@ -95,42 +95,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
 
-            <table class="table table-borderless">
-                <thead>
-                    <tr style="text-align:center">
-                        <th style="width: 10%"></th>
-                        <th style="width: 40%">Kode Bahan</th>
-                        <th style="width: 40%">Jml. Pemakaian</th>
-                        <th style="width: 10%"></th>
-                    </tr>
-                </thead>
-                <tbody id="form-body">
-                    <tr style="text-align:center">
-                        <td></td>
-                        <td>
-                            <select class="form-control" name="id_bahan[]" id="id_bahan">
-                              <option selected disabled>-- Pilih Data --</option>
-                              <?php foreach($bahanbantu as $data): ?>
-                                <option value="<?= $data->id; ?>"><?= $data->kd_bahan; ?></option>
-                              <?php endforeach;?>
-                            </select>
-                        </td>
-                        <td>
-                            <input id="stokkeluar" name="stokkeluar[]" type="text" class="form-control calc_stok_keluar" autocomplete="stokkeluar">
-                        </td>
-                        <td>
-                            <div class="input-group-btn">
-                            <button class="btn btn-success" onclick="add_form()" type="button">+</button>
-                        </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="form-group row">
+                <label for="total" class="col-sm-3 col-form-label text-md-right">Glue LFE</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $lfe->id ?>">
+                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar lfe" name="stokkeluar[]" value="0" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="total" class="col-sm-3 col-form-label text-md-right">Glue MF</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $mf->id ?>">
+                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar mf" name="stokkeluar[]" value="0" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="total" class="col-sm-3 col-form-label text-md-right">Tepung</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $tepung->id ?>">
+                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar tepung" name="stokkeluar[]" value="0" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="total" class="col-sm-3 col-form-label text-md-right">HU-100</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu100->id ?>">
+                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu100" name="stokkeluar[]" value="0" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="total" class="col-sm-3 col-form-label text-md-right">HU-103</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu103->id ?>">
+                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu103" name="stokkeluar[]" value="0" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="total" class="col-sm-3 col-form-label text-md-right">HU-360</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu360->id ?>">
+                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu360" name="stokkeluar[]" value="0" readonly>
+                </div>
+            </div>
 
             <div class="form-group row">
                 <label for="total" class="col-sm-3 col-form-label text-md-right">Total</label>
                 <div class="col-md-8">
-                    <input id="total" type="text" class="form-control" name="total" autocomplete="total" value="">
+                    <input id="total" type="text" class="form-control" name="total" autocomplete="total" value="" readonly>
                 </div>
             </div>
 
@@ -168,27 +184,23 @@ function kalkulasi() {
   }
 	</script>
 <script type="text/javascript">
-        function add_form()
+        function pilihGlue()
         {
-            var html = '';
-
-            html += '<tr style="text-align:center">';
-            html += '<td></td>';
-            html += '<td><select class="form-control" name="id_bahan[]" id="id_bahan"><option selected disabled>-- Pilih Data --</option><?php foreach($bahanbantu as $data): ?><option value="<?= $data->id; ?>"><?= $data->kd_bahan; ?></option><?php endforeach;?></select></td>';
-            html += '<td><input id="stokkeluar" name="stokkeluar[]" type="text" class="form-control calc_stok_keluar" required autocomplete="stokkeluar"></td>';
-            html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">-</button></td>';
-            html += '</tr>';
-
-            $('#form-body').append(html);
-            $('#total').blur( function(){
-              kalkulasi();
-            });
-
-        }
-
-        function del_form(id)
-        {
-            id.closest('tr').remove();
+            if ($("#tipe_glue").val() == "Type-1 Melamine") {
+                $(".lfe").attr('readonly', true).val(0);
+                $(".mf").attr('readonly', false);
+                $(".tepung").attr('readonly', false);
+                $(".hu100").attr('readonly', true).val(0);
+                $(".hu103").attr('readonly', true).val(0);
+                $(".hu360").attr('readonly', false);
+            } else if ($("#tipe_glue").val() == "Type-2 LFE"){
+                $(".lfe").attr('readonly', false);
+                $(".mf").attr('readonly', true).val(0);
+                $(".tepung").attr('readonly', false);
+                $(".hu100").attr('readonly', false);
+                $(".hu103").attr('readonly', false)
+                $(".hu360").attr('readonly', true).val(0);
+            }
             kalkulasi();
         }
 </script>

@@ -59,7 +59,7 @@ class Bahanmasuk_model extends CI_Model {
 
     public function getJoinAll ()
     {
-        $this->db->select($this->bahanmasuk.'.* ,'.$this->supplier.'.nm_sup ,'.$this->bahanbantu.'.kd_bahan ,'.$this->bahanbantu.'.merk')->from($this->bahanmasuk);
+        $this->db->select($this->bahanmasuk.'.* ,'.$this->supplier.'.nm_sup ,'.$this->bahanbantu.'.kd_bahan ,')->from($this->bahanmasuk);
         $this->db->join($this->supplier, $this->bahanmasuk.'.id_supplier = '.$this->supplier.'.id', 'left');
         $this->db->join($this->bahanbantu, $this->bahanmasuk.'.id_bahan = '.$this->bahanbantu.'.id', 'left');
         $query = $this->db->get();
@@ -69,6 +69,29 @@ class Bahanmasuk_model extends CI_Model {
     public function getById ($id)
     {
         return $this->db->get_where($this->bahanmasuk, ["id" => $id])->row();
+    }
+
+    public function report($tglawal,$tglakhir,$supplier)
+    {
+        $kondisi = "";
+        $sql = "SELECT ".$this->bahanmasuk.".* ,".$this->supplier.".nm_sup ,".$this->bahanbantu.".kd_bahan
+        FROM ".$this->bahanmasuk."
+        LEFT JOIN ".$this->supplier." ON ".$this->bahanmasuk.".id_supplier = ".$this->supplier.".id
+        LEFT JOIN ".$this->bahanbantu." ON ".$this->bahanmasuk.".id_bahan = ".$this->bahanbantu.".id" ;
+        if ($tglawal == $tglakhir) {
+            $kondisi .= " WHERE ".$this->bahanmasuk.".tgl = '$tglawal'";
+        } else if ($tglawal != $tglakhir) {
+            $kondisi .= " WHERE ".$this->bahanmasuk.".tgl BETWEEN '$tglawal' AND '$tglakhir'";
+        }
+        if ($supplier != "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->bahanmasuk.".id_supplier = '$supplier' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->bahanmasuk.".id_supplier = '$supplier' ORDER BY tgl ASC";
+            }
+        }
+        $query = $this->db->query($sql.$kondisi);
+        return $query->result();
     }
 
     public function save()

@@ -55,9 +55,6 @@ $(function () {
             kd_bahan: {
                 required: true,
             },
-            merk: {
-                required: true,
-            },
 
             // Bahan Masuk
             id_bahan: {
@@ -179,6 +176,11 @@ $(function () {
             },
             email : {
                 email: "Harap masukkan email dengan benar"
+            },
+
+            // Bahan Bantu
+            kd_bahan: {
+                required: "Kolom masih kosong. Harap Diisi"
             },
 
             // Bahan Masuk

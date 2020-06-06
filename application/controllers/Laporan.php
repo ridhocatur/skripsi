@@ -33,35 +33,14 @@ class Laporan extends CI_Controller {
 		$data['stokbahan'] = $this->Bahanbantu_model->report($id_kategori);
 		$this->load->view("laporan/bahanbantu/cetak_stok", $data);
     }
-    public function laporanbahanbantu()
-    {
-        $tgl_awal = $_POST['tgl_awal'];
-        $tgl_akhir = $_POST['tgl_akhir'];
-        $id_supplier = $_POST['id_supplier'];
-        $data['judul'] = 'Laporan Pemasukan Bahan Bantu';
-        $data['bahanmasuk'] = $this->model('BahanMasuk_model')->getByDate($tgl_awal, $tgl_akhir, $id_supplier) ;
-        $this->view('laporan/bahanmasuk_detail', $data);
-    }
     public function bahanmasuk()
     {
-        $data['judul'] = 'Laporan Pemasukan Bahan Bantu';
-        $data['supplier'] = $this->model('Supplier_model')->getAll();
-        $this->view('templates/head', $data);
-        $this->view('templates/sidebar');
-        $this->view('templates/topbar');
-        $this->view('laporan/bahanmasuk', $data);
-        $this->view('templates/footer');
-        $this->view('templates/script');
-    }
-    public function laporanbahanmasuk()
-    {
-        // var_dump($_POST);
-        $tgl_awal = $_POST['tgl_awal'];
-        $tgl_akhir = $_POST['tgl_akhir'];
-        $id_supplier = $_POST['id_supplier'];
-        $data['judul'] = 'Laporan Pemasukan Bahan Bantu';
-        $data['bahanmasuk'] = $this->model('BahanMasuk_model')->getByDate($tgl_awal, $tgl_akhir, $id_supplier) ;
-        $this->view('laporan/bahanmasuk_detail', $data);
+        $tgl_awal = $this->input->post('satutgl');
+        $tgl_akhir = $this->input->post('duatgl');
+        $id_supplier = $this->input->post('select1');
+        $data['title'] = 'Laporan Pemasukan Bahan Bantu';
+        $data['bahanmasuk'] = $this->Bahanmasuk_model->report($tgl_awal, $tgl_akhir, $id_supplier) ;
+        $this->load->view('laporan/bahanbantu/cetak_masuk', $data);
     }
 
     // ----------------------------------------------
@@ -70,14 +49,31 @@ class Laporan extends CI_Controller {
 
     public function gluemix()
     {
-        $data['judul'] = 'Laporan Pengolahan Lem';
-        $data['supplier'] = $this->model('Supplier_model')->getAll();
-        $this->view('templates/head', $data);
-        $this->view('templates/sidebar');
-        $this->view('templates/topbar');
-        $this->view('laporan/gluemix', $data);
-        $this->view('templates/footer');
-        $this->view('templates/script');
+        $data['gluemix'] = [];
+        $tgl_awal = $this->input->post('satutgl');
+        $tgl_akhir = $this->input->post('duatgl');
+        $shift = $this->input->post('shift');
+        $tipelem = $this->input->post('select1');
+        $data['title'] = 'Laporan Gluemix';
+        $gluemix = $this->Gluemix_model->report($tgl_awal, $tgl_akhir, $shift, $tipelem);
+        $i = 0;
+        foreach($gluemix as $keluar){
+            $data['gluemix'][$i]['tipe_glue'] = $keluar['tipe_glue'];
+            $data['gluemix'][$i]['id'] = $keluar['id'];
+            $data['gluemix'][$i]['shift'] = $keluar['shift'];
+            $data['gluemix'][$i]['tgl'] = $keluar['tgl'];
+            $data['gluemix'][$i]['total'] = $keluar['total'];
+            $datagluemixdetail = $this->Gluemix_model->getDetail($keluar['id']);
+            $data['gluemix'][$i]['item'] = [];
+            foreach($datagluemixdetail as $gluemixdetail){
+                $data['gluemix'][$i]['item'][] = [
+                    'kd_bahan' => $gluemixdetail->kd_bahan,
+                    'stok_keluar' => $gluemixdetail->stok_keluar
+                ];
+            }
+            $i++;
+        }
+        $this->load->view('laporan/bahanbantu/cetak_gluemix', $data);
     }
     public function laporangluemix()
     {
@@ -87,24 +83,7 @@ class Laporan extends CI_Controller {
         $shift = $_POST['shift'];
         $data['judul'] = 'Laporan Pengolahan Lem';
         $gluemix = $this->model('Gluemix_model')->getDataforReport($tgl_awal, $tgl_akhir, $shift);
-        $i = 0;
-        foreach($gluemix as $keluar){
-            $data['gluemix'][$i]['gluemix'] = $keluar['gluemix'];
-            $data['gluemix'][$i]['id'] = $keluar['id'];
-            $data['gluemix'][$i]['shift'] = $keluar['shift'];
-            $data['gluemix'][$i]['tgl'] = $keluar['tgl'];
-            $datagluemixdetail = $this->model('Gluemix_model')->getDetail($keluar['id']);
-            $data['gluemix'][$i]['item'] = [];
 
-            foreach($datagluemixdetail as $gluemixdetail){
-                $data['gluemix'][$i]['item'][] = [
-                    'kd_bahan' => $gluemixdetail['kd_bahan'],
-                    'merk' => $gluemixdetail['merk'],
-                    'stok_keluar' => $gluemixdetail['stok_keluar']
-                ];
-            }
-            $i++;
-        }
         $this->view('laporan/gluemix_detail', $data);
     }
 
