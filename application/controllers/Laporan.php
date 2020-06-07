@@ -119,37 +119,20 @@ class Laporan extends CI_Controller {
     //  VINIR
     // ----------------------------------------------
 
+    public function stokvinir()
+    {
+        $id_ukuran = $this->input->post('select1');
+        $id_jenis = $this->input->post('select2');
+        $data['title'] = "Laporan Stok Vinir";
+		$data['stokvinir'] = $this->Vinir_model->report($id_ukuran,$id_jenis);
+        $this->load->view('laporan\vinir\cetak_stok', $data);
+    }
     public function vinirmasuk()
     {
-        $data['judul'] = 'Laporan Hasil Kupasan Kayu Log / Vinir';
-        $data['kayu'] = $this->model('Kayu_model')->getAll();
-        $this->view('templates/head', $data);
-        $this->view('templates/sidebar');
-        $this->view('templates/topbar');
-        $this->view('laporan/vinirmasuk', $data);
-        $this->view('templates/footer');
-        $this->view('templates/script');
-    }
-    public function laporanvinirmasuk()
-    {
-        $tgl_awal = $_POST['tgl_awal'];
-        $tgl_akhir = $_POST['tgl_akhir'];
-        $id_kayu = $_POST['id_kayu'];
-        $data['judul'] = 'Laporan Hasil Kupasan Kayu Log / Vinir';
-        $data['vinirmasuk'] = $this->model('VinirMasuk_model')->getDataforReport($tgl_awal, $tgl_akhir, $id_kayu);
-        $this->view('laporan/vinirmasuk_detail', $data);
-    }
-
-    public function vinirkeluar()
-    {
-        $data['judul'] = 'Laporan Penggunaan Vinir';
-        $data['supplier'] = $this->model('Supplier_model')->getAll();
-        $this->view('templates/head', $data);
-        $this->view('templates/sidebar');
-        $this->view('templates/topbar');
-        $this->view('laporan/vinirkeluar', $data);
-        $this->view('templates/footer');
-        $this->view('templates/script');
+        $id_kayu = $this->input->post('select1');
+        $data['title'] = "Laporan Stok Vinir";
+		$data['stokvinir'] = $this->Vinirmasuk_model->report($id_kayu);
+        $this->load->view('laporan\vinir\cetak_stok', $data);
     }
     public function laporanvinirkeluar()
     {

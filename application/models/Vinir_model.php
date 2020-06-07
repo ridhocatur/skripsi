@@ -100,6 +100,24 @@ class Vinir_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function report($id_ukuran,$id_jenis)
+    {
+        $kondisi = "";
+        $sql = "SELECT ".$this->vinir.".* ,".$this->ukuran.".panjang, ".$this->ukuran.".lebar, ".$this->jeniskayu.".nama
+        FROM ".$this->vinir."
+        LEFT JOIN ".$this->ukuran." ON ".$this->vinir.".id_ukuran = ".$this->ukuran.".id
+        LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id" ;
+        if ($id_ukuran != "" && $id_jenis != "") {
+            $kondisi .= " WHERE ".$this->ukuran.".id = '$id_ukuran' AND ".$this->jeniskayu.".id = '$id_jenis'";
+        } else if ($id_ukuran == "" && $id_jenis != "") {
+            $kondisi .= " WHERE ".$this->jeniskayu.".id = '$id_jenis'";
+        } else if ($id_ukuran != "" && $id_jenis == "") {
+            $kondisi .= " WHERE ".$this->ukuran.".id = '$id_ukuran'";
+        }
+        $query = $this->db->query($sql.$kondisi);
+        return $query->result();
+    }
+
     public function save()
     {
         $post = $this->input->post();
