@@ -59,6 +59,18 @@ class Kayulog_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function report($id_jenis)
+    {
+        $this->db->select($this->kayulog.'.* ,'.$this->jeniskayu.'.nama')
+        ->from($this->kayulog)
+        ->join($this->jeniskayu, $this->kayulog.'.id_jenis = '.$this->jeniskayu.'.id', 'left');
+        if ($id_jenis != "") {
+            $this->db->where($this->jeniskayu.'.id', $id_jenis);
+        }
+        $query = $this->db->get_where();
+        return $query->result();
+    }
+
     public function save()
     {
         $post = $this->input->post();

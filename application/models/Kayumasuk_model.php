@@ -7,6 +7,7 @@ class Kayumasuk_model extends CI_Model {
     private $kayu_masuk = 'kayu_masuk';
     private $dtl_kayu_masuk = 'dtl_kayu_masuk';
     private $supplier = 'supplier';
+    private $jeniskayu = 'jeniskayu';
 
     public function rules()
 	{
@@ -60,13 +61,60 @@ class Kayumasuk_model extends CI_Model {
 
     public function getDetail ($id)
     {
-        $this->db->select($this->dtl_kayu_masuk.'.* ,'.$this->kayulog.'.kd_kayu, '.$this->kayu_masuk.'.invoice, '.$this->kayu_masuk.'.tgl')
+        $this->db->select($this->dtl_kayu_masuk.'.* ,'.$this->kayulog.'.kd_kayu, '.$this->jeniskayu.'.nama ')
         ->from($this->dtl_kayu_masuk)
         ->join($this->kayulog, $this->kayulog.'.id = '. $this->dtl_kayu_masuk.'.id_kayu', 'left')
         ->join($this->kayu_masuk, $this->kayu_masuk.'.id = '. $this->dtl_kayu_masuk.'.id_masuk', 'left')
+        ->join($this->jeniskayu, $this->kayulog.'.id_jenis = '. $this->jeniskayu.'.id', 'left')
         ->where($this->kayu_masuk.'.id', $id);
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function getDetailReport ($id, $id_jenis)
+    {
+        // $this->db->select($this->dtl_kayu_masuk.'.* ,'.$this->kayulog.'.kd_kayu, '.$this->jeniskayu.'.nama ')
+        // ->from($this->dtl_kayu_masuk)
+        // ->join($this->kayulog, $this->kayulog.'.id = '. $this->dtl_kayu_masuk.'.id_kayu', 'left')
+        // ->join($this->kayu_masuk, $this->kayu_masuk.'.id = '. $this->dtl_kayu_masuk.'.id_masuk', 'left')
+        // ->join($this->jeniskayu, $this->kayulog.'.id_jenis = '. $this->jeniskayu.'.id', 'left')
+        // ->where($this->jeniskayu.'.id', $id_jenis);
+        // $query = $this->db->get();
+        // return $query->result();
+        $kondisi = "";
+        $sql = "SELECT ".$this->dtl_kayu_masuk.".*, ".$this->kayulog.".kd_kayu, ".$this->jeniskayu.".nama
+        FROM ".$this->dtl_kayu_masuk."
+        LEFT JOIN ".$this->kayulog." ON ".$this->dtl_kayu_masuk.".id_kayu = ".$this->kayulog.".id
+        LEFT JOIN ".$this->kayu_masuk." ON ".$this->dtl_kayu_masuk.".id_masuk = ".$this->kayu_masuk.".id
+        LEFT JOIN ".$this->jeniskayu." ON ".$this->kayulog.".id_jenis = ".$this->jeniskayu.".id";
+        if ($id != "" && $id_jenis != "") {
+            $kondisi .= " WHERE ".$this->kayu_masuk.".id = '$id' AND ".$this->jeniskayu.".id = '$id_jenis'";
+        } else if ($id != "" && $id_jenis == "") {
+            $kondisi .= " WHERE ".$this->kayu_masuk.".id = '$id'";
+        } else if ($id == ""  && $id_jenis != "") {
+            $kondisi .= " WHERE ".$this->jeniskayu.".id = '$id_jenis'";
+        }
+        $query = $this->db->query($sql.$kondisi);
+        return $query->result_array();
+    }
+
+    public function report($tgl_awal, $tgl_akhir, $supkayu)
+    {
+        $kondisi = "";
+        $sql = "SELECT ".$this->kayu_masuk.".*, ".$this->supplier.".nm_sup
+        FROM ".$this->kayu_masuk." LEFT JOIN ".$this->supplier." ON ".$this->kayu_masuk.".id_supplier = ".$this->supplier.".id";
+        if ($tgl_awal == $tgl_akhir) {
+            $kondisi .= " WHERE ".$this->kayu_masuk.".tgl = '$tgl_awal'";
+        } else if ($tgl_awal != $tgl_akhir) {
+            $kondisi .= " WHERE ".$this->kayu_masuk.".tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
+        }
+        if ($supkayu != "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->kayu_masuk.".id_supplier = '$supkayu' ORDER BY tgl ASC";
+            }
+        }
+        $query = $this->db->query($sql.$kondisi);
+        return $query->result_array();
     }
 
     public function save()

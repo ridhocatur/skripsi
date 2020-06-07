@@ -12,12 +12,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- membuang struktur untuk table trpbahanbaku.bahan_bantu
-DROP TABLE IF EXISTS `bahan_bantu`;
 CREATE TABLE IF NOT EXISTS `bahan_bantu` (
   `id` varchar(64) NOT NULL,
   `kd_bahan` varchar(20) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `merk` varchar(100) NOT NULL,
   `stok` int(20) NOT NULL,
   `id_kategori` varchar(64) NOT NULL,
   `keterangan` varchar(100) DEFAULT NULL,
@@ -25,16 +23,18 @@ CREATE TABLE IF NOT EXISTS `bahan_bantu` (
   KEY `id_kategori` (`id_kategori`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.bahan_bantu: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.bahan_bantu: ~6 rows (lebih kurang)
 /*!40000 ALTER TABLE `bahan_bantu` DISABLE KEYS */;
-REPLACE INTO `bahan_bantu` (`id`, `kd_bahan`, `nama`, `merk`, `stok`, `id_kategori`, `keterangan`) VALUES
-	('5ebd4988ecb89', 'GLUEMF01', 'Melamine Glue', 'Melamine GCKA', 50, '1', 'stok awal'),
-	('5ebd4d186bc91', 'GLUELFE02', 'Low Formaldehyde Emission', 'LFE A', 25, '1', 'Stok awal'),
-	('5ec8c2aed17c2', 'HU103', 'Hardener', 'Hardener', 50, '5', 'Stok awal');
+REPLACE INTO `bahan_bantu` (`id`, `kd_bahan`, `nama`, `stok`, `id_kategori`, `keterangan`) VALUES
+	('5ebd4988ecb89', 'GLUEMF', 'Melamine Glue', 353, '1', 'stok awal'),
+	('5ebd4d186bc91', 'GLUELFE', 'Low Formaldehyde Emission', 360, '1', 'Stok awal'),
+	('5ec8c2aed17c2', 'HU103', 'Hardener', 480, '5', 'Stok awal'),
+	('5edbb028f0ef0', 'HU100', 'HU-100', 482, '5', 'Stok awal'),
+	('5edbb03d3d40c', 'HU360', 'HU-360', 475, '5', 'Stok awal'),
+	('5edbb0b61f621', 'TPNG', 'Tepung', 285, '2', 'Stok awal');
 /*!40000 ALTER TABLE `bahan_bantu` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.bahan_masuk
-DROP TABLE IF EXISTS `bahan_masuk`;
 CREATE TABLE IF NOT EXISTS `bahan_masuk` (
   `id` varchar(64) NOT NULL,
   `invoice` varchar(20) NOT NULL,
@@ -58,30 +58,60 @@ REPLACE INTO `bahan_masuk` (`id`, `invoice`, `tgl`, `id_bahan`, `nama`, `stok_ma
 /*!40000 ALTER TABLE `bahan_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.dtl_gluemix
-DROP TABLE IF EXISTS `dtl_gluemix`;
 CREATE TABLE IF NOT EXISTS `dtl_gluemix` (
-  `id` varchar(64) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_bahan` varchar(64) NOT NULL,
   `id_gluemix` int(64) NOT NULL,
-  `stok_keluar` int(20) NOT NULL,
+  `stok_keluar` int(20) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id_bahan` (`id_bahan`),
   KEY `id_gluemix` (`id_gluemix`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.dtl_gluemix: ~3 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.dtl_gluemix: ~36 rows (lebih kurang)
 /*!40000 ALTER TABLE `dtl_gluemix` DISABLE KEYS */;
 REPLACE INTO `dtl_gluemix` (`id`, `id_bahan`, `id_gluemix`, `stok_keluar`) VALUES
-	('5ece56f56ef67', '5ebd4988ecb89', 6, 50),
-	('5ece56f56ef6d', '5ebd4d186bc91', 6, 50),
-	('5ece56f56ef6e', '5ec8c2aed17c2', 6, 50),
-	('5ece5719816b3', '5ebd4d186bc91', 7, 25);
+	(37, '5ebd4d186bc91', 12, 0),
+	(38, '5ebd4988ecb89', 12, 40),
+	(39, '5edbb0b61f621', 12, 29),
+	(40, '5edbb028f0ef0', 12, 0),
+	(41, '5ec8c2aed17c2', 12, 0),
+	(42, '5edbb03d3d40c', 12, 9),
+	(43, '5ebd4d186bc91', 13, 0),
+	(44, '5ebd4988ecb89', 13, 57),
+	(45, '5edbb0b61f621', 13, 40),
+	(46, '5edbb028f0ef0', 13, 0),
+	(47, '5ec8c2aed17c2', 13, 0),
+	(48, '5edbb03d3d40c', 13, 7),
+	(49, '5ebd4d186bc91', 14, 40),
+	(50, '5ebd4988ecb89', 14, 0),
+	(51, '5edbb0b61f621', 14, 22),
+	(52, '5edbb028f0ef0', 14, 5),
+	(53, '5ec8c2aed17c2', 14, 6),
+	(54, '5edbb03d3d40c', 14, 0),
+	(55, '5ebd4d186bc91', 15, 50),
+	(56, '5ebd4988ecb89', 15, 0),
+	(57, '5edbb0b61f621', 15, 37),
+	(58, '5edbb028f0ef0', 15, 4),
+	(59, '5ec8c2aed17c2', 15, 5),
+	(60, '5edbb03d3d40c', 15, 0),
+	(61, '5ebd4d186bc91', 16, 0),
+	(62, '5ebd4988ecb89', 16, 50),
+	(63, '5edbb0b61f621', 16, 44),
+	(64, '5edbb028f0ef0', 16, 0),
+	(65, '5ec8c2aed17c2', 16, 0),
+	(66, '5edbb03d3d40c', 16, 9),
+	(67, '5ebd4d186bc91', 17, 50),
+	(68, '5ebd4988ecb89', 17, 0),
+	(69, '5edbb0b61f621', 17, 43),
+	(70, '5edbb028f0ef0', 17, 9),
+	(71, '5ec8c2aed17c2', 17, 9),
+	(72, '5edbb03d3d40c', 17, 0);
 /*!40000 ALTER TABLE `dtl_gluemix` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.dtl_kayu_masuk
-DROP TABLE IF EXISTS `dtl_kayu_masuk`;
 CREATE TABLE IF NOT EXISTS `dtl_kayu_masuk` (
-  `id` int(64) NOT NULL AUTO_INCREMENT,
+  `id` int(64) unsigned NOT NULL AUTO_INCREMENT,
   `id_kayu` varchar(64) NOT NULL,
   `id_masuk` int(64) NOT NULL,
   `panjang` int(20) NOT NULL,
@@ -92,20 +122,21 @@ CREATE TABLE IF NOT EXISTS `dtl_kayu_masuk` (
   PRIMARY KEY (`id`),
   KEY `id_kayu` (`id_kayu`),
   KEY `id_masuk` (`id_masuk`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.dtl_kayu_masuk: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.dtl_kayu_masuk: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `dtl_kayu_masuk` DISABLE KEYS */;
 REPLACE INTO `dtl_kayu_masuk` (`id`, `id_kayu`, `id_masuk`, `panjang`, `diameter1`, `diameter2`, `stok_masuk`, `kubik_masuk`) VALUES
 	(6, '5ecb4d3e12f33', 2, 159, 65, 68, 100, 55.20),
 	(7, '5ecb4d4b5b93d', 2, 280, 66, 65, 210, 198.12),
-	(8, '5ecb4d587b02f', 2, 168, 54, 56, 379, 151.22);
+	(8, '5ecb4d587b02f', 2, 168, 54, 56, 379, 151.22),
+	(9, '5ecb4d3e12f33', 3, 160, 68, 65, 5100, 2832.72),
+	(10, '5ecb4d4b5b93d', 3, 185, 77, 84, 3100, 2913.36);
 /*!40000 ALTER TABLE `dtl_kayu_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.dtl_plywood
-DROP TABLE IF EXISTS `dtl_plywood`;
 CREATE TABLE IF NOT EXISTS `dtl_plywood` (
-  `id` varchar(64) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_vinir` varchar(64) NOT NULL,
   `id_plywood` int(64) NOT NULL,
   `stok_keluar` int(20) NOT NULL DEFAULT 0,
@@ -120,7 +151,6 @@ CREATE TABLE IF NOT EXISTS `dtl_plywood` (
 /*!40000 ALTER TABLE `dtl_plywood` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.gluemix
-DROP TABLE IF EXISTS `gluemix`;
 CREATE TABLE IF NOT EXISTS `gluemix` (
   `id` int(64) NOT NULL AUTO_INCREMENT,
   `tgl` date NOT NULL,
@@ -129,17 +159,20 @@ CREATE TABLE IF NOT EXISTS `gluemix` (
   `total` int(20) NOT NULL,
   `keterangan` varchar(100) DEFAULT 'NULL',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.gluemix: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.gluemix: ~6 rows (lebih kurang)
 /*!40000 ALTER TABLE `gluemix` DISABLE KEYS */;
 REPLACE INTO `gluemix` (`id`, `tgl`, `tipe_glue`, `shift`, `total`, `keterangan`) VALUES
-	(6, '2020-05-13', 'Type-2 LFE', '1', 150, ''),
-	(7, '2020-05-14', 'Type-2 LFE', '1', 25, '');
+	(12, '2020-05-18', 'Type-1 Melamine', '1', 78, ''),
+	(13, '2020-05-21', 'Type-1 Melamine', '2', 104, ''),
+	(14, '2020-05-29', 'Type-2 LFE', '2', 73, ''),
+	(15, '2020-06-02', 'Type-2 LFE', '2', 96, ''),
+	(16, '2020-06-03', 'Type-1 Melamine', '1', 103, ''),
+	(17, '2020-06-04', 'Type-2 LFE', '1', 111, '');
 /*!40000 ALTER TABLE `gluemix` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.jeniskayu
-DROP TABLE IF EXISTS `jeniskayu`;
 CREATE TABLE IF NOT EXISTS `jeniskayu` (
   `id` varchar(64) NOT NULL,
   `kd_jenis` varchar(20) NOT NULL,
@@ -160,7 +193,6 @@ REPLACE INTO `jeniskayu` (`id`, `kd_jenis`, `nama`, `keterangan`) VALUES
 /*!40000 ALTER TABLE `jeniskayu` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.kategori
-DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE IF NOT EXISTS `kategori` (
   `id` varchar(64) NOT NULL,
   `nm_kateg` varchar(100) NOT NULL,
@@ -180,7 +212,6 @@ REPLACE INTO `kategori` (`id`, `nm_kateg`, `keterangan`) VALUES
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.kayu
-DROP TABLE IF EXISTS `kayu`;
 CREATE TABLE IF NOT EXISTS `kayu` (
   `id` varchar(64) NOT NULL,
   `kd_kayu` varchar(20) NOT NULL,
@@ -195,13 +226,12 @@ CREATE TABLE IF NOT EXISTS `kayu` (
 -- Membuang data untuk tabel trpbahanbaku.kayu: ~2 rows (lebih kurang)
 /*!40000 ALTER TABLE `kayu` DISABLE KEYS */;
 REPLACE INTO `kayu` (`id`, `kd_kayu`, `id_jenis`, `stok`, `kubikasi`, `keterangan`) VALUES
-	('5ecb4d3e12f33', 'LOGMLP', '1', 100, 55.20, 'Stok awal'),
-	('5ecb4d4b5b93d', 'LOGDH1', '2', 210, 198.12, 'Stok awal'),
+	('5ecb4d3e12f33', 'LOGMLP', '1', 5200, 2887.92, 'Stok awal'),
+	('5ecb4d4b5b93d', 'LOGDH1', '2', 3310, 3111.48, 'Stok awal'),
 	('5ecb4d587b02f', 'LOGMSW', '4', 379, 151.22, 'Stok awal');
 /*!40000 ALTER TABLE `kayu` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.kayu_masuk
-DROP TABLE IF EXISTS `kayu_masuk`;
 CREATE TABLE IF NOT EXISTS `kayu_masuk` (
   `id` int(64) NOT NULL AUTO_INCREMENT,
   `id_supplier` varchar(64) NOT NULL,
@@ -212,16 +242,16 @@ CREATE TABLE IF NOT EXISTS `kayu_masuk` (
   `keterangan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_supplier` (`id_supplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel trpbahanbaku.kayu_masuk: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `kayu_masuk` DISABLE KEYS */;
 REPLACE INTO `kayu_masuk` (`id`, `id_supplier`, `invoice`, `tgl`, `jml_stok`, `jml_kubik`, `keterangan`) VALUES
-	(2, '4', 'AVC343', '2020-05-08', 689, 404.54, 'masuk');
+	(2, '4', 'AVC343', '2020-05-08', 689, 404.54, 'masuk'),
+	(3, '5ebeb29b38c36', 'KYHSZ81', '2020-05-20', 8200, 5746.08, '');
 /*!40000 ALTER TABLE `kayu_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.pegawai
-DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE IF NOT EXISTS `pegawai` (
   `id` varchar(64) NOT NULL,
   `nik` varchar(50) NOT NULL,
@@ -239,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
 -- Membuang data untuk tabel trpbahanbaku.pegawai: ~6 rows (lebih kurang)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-01 18:29:46', '2020-05-18 20:30:53'),
+	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-07 11:11:52', '2020-05-18 20:30:53'),
 	('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', '5aad4f2aede54_jpg_d6e6d07e022235c48a75238b6608d83d.jpg', 'manager', '2020-05-27 20:20:08', '2020-05-18 20:30:53'),
 	('5ebc04fa7112c', '34', 'admin', 'admin', 'Admin', '119976', '_34.jpg', 'admin', '2020-05-18 20:30:53', '2020-05-18 20:30:53'),
 	('5ebc0d91b1761', '2352345', 'cahbekasi', '860dec1a7a44b923c725901e11bc6363', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-05-27 20:20:40', '2020-05-18 20:30:53'),
@@ -247,7 +277,6 @@ REPLACE INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `ga
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.plywood
-DROP TABLE IF EXISTS `plywood`;
 CREATE TABLE IF NOT EXISTS `plywood` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tgl` date NOT NULL,
@@ -267,7 +296,6 @@ CREATE TABLE IF NOT EXISTS `plywood` (
 /*!40000 ALTER TABLE `plywood` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.supplier
-DROP TABLE IF EXISTS `supplier`;
 CREATE TABLE IF NOT EXISTS `supplier` (
   `id` varchar(64) NOT NULL,
   `nm_sup` varchar(100) NOT NULL,
@@ -293,7 +321,6 @@ REPLACE INTO `supplier` (`id`, `nm_sup`, `sup`, `alamat`, `email`, `telp`, `kete
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.ukuran
-DROP TABLE IF EXISTS `ukuran`;
 CREATE TABLE IF NOT EXISTS `ukuran` (
   `id` int(64) NOT NULL AUTO_INCREMENT,
   `panjang` int(11) NOT NULL,
@@ -315,7 +342,6 @@ REPLACE INTO `ukuran` (`id`, `panjang`, `lebar`) VALUES
 /*!40000 ALTER TABLE `ukuran` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.vinir
-DROP TABLE IF EXISTS `vinir`;
 CREATE TABLE IF NOT EXISTS `vinir` (
   `id` varchar(64) NOT NULL,
   `id_jenis` int(64) NOT NULL,
@@ -342,7 +368,6 @@ REPLACE INTO `vinir` (`id`, `id_jenis`, `tebal`, `id_ukuran`, `stok`, `kubikasi`
 /*!40000 ALTER TABLE `vinir` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.vinir_masuk
-DROP TABLE IF EXISTS `vinir_masuk`;
 CREATE TABLE IF NOT EXISTS `vinir_masuk` (
   `id` varchar(64) NOT NULL,
   `id_kayu` varchar(64) NOT NULL,
@@ -361,7 +386,6 @@ CREATE TABLE IF NOT EXISTS `vinir_masuk` (
 /*!40000 ALTER TABLE `vinir_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk trigger trpbahanbaku.bahanmasuk_delete
-DROP TRIGGER IF EXISTS `bahanmasuk_delete`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 DELIMITER //
 CREATE TRIGGER `bahanmasuk_delete` BEFORE DELETE ON `bahan_masuk` FOR EACH ROW BEGIN
@@ -372,7 +396,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.bahanmasuk_insert
-DROP TRIGGER IF EXISTS `bahanmasuk_insert`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 DELIMITER //
 CREATE TRIGGER `bahanmasuk_insert` AFTER INSERT ON `bahan_masuk` FOR EACH ROW BEGIN
@@ -383,7 +406,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.bahanmasuk_update
-DROP TRIGGER IF EXISTS `bahanmasuk_update`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 DELIMITER //
 CREATE TRIGGER `bahanmasuk_update` AFTER UPDATE ON `bahan_masuk` FOR EACH ROW BEGIN
@@ -394,7 +416,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.dtl_gluemix_delete
-DROP TRIGGER IF EXISTS `dtl_gluemix_delete`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `dtl_gluemix_delete` BEFORE DELETE ON `dtl_gluemix` FOR EACH ROW BEGIN
@@ -405,7 +426,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.dtl_gluemix_insert
-DROP TRIGGER IF EXISTS `dtl_gluemix_insert`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `dtl_gluemix_insert` AFTER INSERT ON `dtl_gluemix` FOR EACH ROW BEGIN
@@ -415,7 +435,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.dtl_kayumasuk_delete
-DROP TRIGGER IF EXISTS `dtl_kayumasuk_delete`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `dtl_kayumasuk_delete` AFTER DELETE ON `dtl_kayu_masuk` FOR EACH ROW BEGIN
@@ -426,7 +445,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.dtl_kayumasuk_insert
-DROP TRIGGER IF EXISTS `dtl_kayumasuk_insert`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `dtl_kayumasuk_insert` AFTER INSERT ON `dtl_kayu_masuk` FOR EACH ROW BEGIN
@@ -437,7 +455,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.gluemix_delete
-DROP TRIGGER IF EXISTS `gluemix_delete`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `gluemix_delete` AFTER DELETE ON `gluemix` FOR EACH ROW BEGIN
@@ -447,7 +464,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.kayulog_vinirmasuk_delete
-DROP TRIGGER IF EXISTS `kayulog_vinirmasuk_delete`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `kayulog_vinirmasuk_delete` AFTER DELETE ON `vinir_masuk` FOR EACH ROW BEGIN
@@ -458,7 +474,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.kayulog_vinirmasuk_insert
-DROP TRIGGER IF EXISTS `kayulog_vinirmasuk_insert`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `kayulog_vinirmasuk_insert` BEFORE INSERT ON `vinir_masuk` FOR EACH ROW BEGIN
@@ -469,7 +484,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.kayumasuk_delete
-DROP TRIGGER IF EXISTS `kayumasuk_delete`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `kayumasuk_delete` BEFORE DELETE ON `kayu_masuk` FOR EACH ROW BEGIN
@@ -479,7 +493,6 @@ DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- membuang struktur untuk trigger trpbahanbaku.vinirmasuk_insert
-DROP TRIGGER IF EXISTS `vinirmasuk_insert`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `vinirmasuk_insert` AFTER INSERT ON `vinir_masuk` FOR EACH ROW BEGIN

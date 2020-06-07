@@ -42,11 +42,6 @@ class Laporan extends CI_Controller {
         $data['bahanmasuk'] = $this->Bahanmasuk_model->report($tgl_awal, $tgl_akhir, $id_supplier) ;
         $this->load->view('laporan/bahanbantu/cetak_masuk', $data);
     }
-
-    // ----------------------------------------------
-    //  GLUEMIX
-    // ----------------------------------------------
-
     public function gluemix()
     {
         $data['gluemix'] = [];
@@ -75,88 +70,49 @@ class Laporan extends CI_Controller {
         }
         $this->load->view('laporan/bahanbantu/cetak_gluemix', $data);
     }
-    public function laporangluemix()
-    {
-        $data['gluemix'] = [];
-        $tgl_awal = $_POST['tgl_awal'];
-        $tgl_akhir = $_POST['tgl_akhir'];
-        $shift = $_POST['shift'];
-        $data['judul'] = 'Laporan Pengolahan Lem';
-        $gluemix = $this->model('Gluemix_model')->getDataforReport($tgl_awal, $tgl_akhir, $shift);
-
-        $this->view('laporan/gluemix_detail', $data);
-    }
-
-    public function laporangluemixsheet()
-    {
-        $data['gluemix'] = [];
-        $tgl_awal = $_POST['tgl_awal'];
-        $tgl_akhir = $_POST['tgl_akhir'];
-        $shift = $_POST['shift'];
-        $data['judul'] = 'Laporan Pengolahan Lem';
-        $gluemix = $this->model('Gluemix_model')->getDataforReportSheet($tgl_awal, $tgl_akhir, $shift);
-        $i = 0;
-        foreach($gluemix as $keluar){
-            $data['gluemix'][$i]['gluemix'] = $keluar['gluemix'];
-            $data['gluemix'][$i]['id'] = $keluar['id'];
-            $data['gluemix'][$i]['shift'] = $keluar['shift'];
-            $data['gluemix'][$i]['tgl'] = $keluar['tgl'];
-            $datagluemixdetail = $this->model('Gluemix_model')->getDetail($keluar['id']);
-            $data['gluemix'][$i]['item'] = [];
-
-            foreach($datagluemixdetail as $gluemixdetail){
-                $data['gluemix'][$i]['item'][] = [
-                    'kd_bahan' => $gluemixdetail['kd_bahan'],
-                    'merk' => $gluemixdetail['merk'],
-                    'stok_keluar' => $gluemixdetail['stok_keluar']
-                ];
-            }
-            $i++;
-        }
-        $this->view('laporan/gluemix_sheet', $data);
-    }
 
     // ----------------------------------------------
     //  KAYU LOG
     // ----------------------------------------------
 
+    public function stokkayu()
+    {
+        $id_jenis = $this->input->post('select1');
+        $data['title'] = "Laporan Stok Kayu Log";
+		$data['stokkayu'] = $this->Kayulog_model->report($id_jenis);
+        $this->load->view("laporan\kayulog\cetak_stok", $data);
+    }
     public function kayumasuk()
     {
-        $data['judul'] = 'Laporan Pemasukan Kayu Log';
-        $data['supplier'] = $this->model('Supplier_model')->getAll();
-        $this->view('templates/head', $data);
-        $this->view('templates/sidebar');
-        $this->view('templates/topbar');
-        $this->view('laporan/kayumasuk', $data);
-        $this->view('templates/footer');
-        $this->view('templates/script');
-    }
-    public function laporankayumasuk()
-    {
         $data['kayumasuk'] = [];
-        $tgl_awal = $_POST['tgl_awal'];
-        $tgl_akhir = $_POST['tgl_akhir'];
-        $id_supplier = $_POST['id_supplier'];
-        $data['judul'] = 'Laporan Pemasukan Kayu Log';
-        $kayumasuk = $this->model('KayuMasuk_model')->getDataByDate($tgl_awal, $tgl_akhir, $id_supplier);
+        $tgl_awal = $this->input->post('satutgl');
+        $tgl_akhir = $this->input->post('duatgl');
+        $id_jenis = $this->input->post('select1');
+        $supkayu = $this->input->post('select2');
+        $data['title'] = 'Laporan Pemasukan Kayu Log';
+        $kayumasuk = $this->Kayumasuk_model->report($tgl_awal, $tgl_akhir, $supkayu);
         $i = 0;
         foreach($kayumasuk as $masuk){
+            $data['kayumasuk'][$i]['id'] = $masuk['id'];
             $data['kayumasuk'][$i]['invoice'] = $masuk['invoice'];
-            $data['kayumasuk'][$i]['supplier'] = $masuk['nm_sup'];
-            $data['kayumasuk'][$i]['tanggal'] = $masuk['tgl'];
-            $datakayumasukdetail = $this->model('KayuMasuk_model')->getDetailbyInvoice($masuk['invoice']);
+            $data['kayumasuk'][$i]['nm_sup'] = $masuk['nm_sup'];
+            $data['kayumasuk'][$i]['tgl'] = $masuk['tgl'];
+            $datakayumasukdetail = $this->Kayumasuk_model->getDetailReport($masuk['id'], $id_jenis);
             $data['kayumasuk'][$i]['item'] = [];
-
             foreach($datakayumasukdetail as $kayudetail){
                 $data['kayumasuk'][$i]['item'][] = [
-                    'kdkayu' => $kayudetail['kd_kayu'],
-                    'stokmasuk' => $kayudetail['stok_masuk'],
-                    'kubikmasuk' => $kayudetail['kubik_masuk']
+                    'kd_kayu' => $kayudetail['kd_kayu'],
+                    'nama' => $kayudetail['nama'],
+                    'panjang' => $kayudetail['panjang'],
+                    'diameter1' => $kayudetail['diameter1'],
+                    'diameter2' => $kayudetail['diameter2'],
+                    'stok_masuk' => $kayudetail['stok_masuk'],
+                    'kubik_masuk' => $kayudetail['kubik_masuk']
                 ];
             }
             $i++;
         }
-        $this->view('laporan/kayumasuk_detail', $data);
+        $this->load->view('laporan\kayulog\cetak_masuk', $data);
     }
 
     // ----------------------------------------------
