@@ -38,7 +38,6 @@
                         <th>No.</th>
                         <th>Kode Bahan</th>
                         <th>Nama</th>
-                        <th>Merk</th>
                         <th>Kategori</th>
                         <th>Stok (Kg)</th>
                     </tr>
@@ -51,7 +50,6 @@
                         <td><?= $no; ?></td>
                         <td><?= $item->kd_bahan;?></td>
                         <td><?= $item->nama;?></td>
-                        <td align="center"><?= $item->merk; ?></td>
                         <td><?= $item->nm_kateg;?></td>
                         <td align="right"><?= $item->stok; ?></td>
                     </tr>
