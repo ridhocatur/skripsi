@@ -85,7 +85,9 @@ class Vinir_model extends CI_Model {
         ->from($this->vinir)
         ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left')
         ->join($this->ukuran, $this->vinir.'.id_ukuran =.'.$this->ukuran.'.id', 'left')
-        ->where('id_jenis', $id);
+        ->where('id_jenis', $id)
+        ->order_by($this->ukuran.'.panjang', 'ASC')
+        ->order_by($this->ukuran.'.lebar', 'ASC');
         $query = $this->db->get();
         return $query->result();
     }

@@ -62,15 +62,15 @@ class Vinirmasuk_model extends CI_Model {
         $kondisi = "";
         $sql = "SELECT ".$this->vinir_masuk.".* ,".$this->kayu.".kd_kayu, ".$this->jeniskayu.".nama, ".$this->vinir.".tebal, ".$this->ukuran.".panjang, ".$this->ukuran.".lebar
         FROM ".$this->vinir_masuk."
-        LEFT JOIN ".$this->ukuran." ON ".$this->vinir.".id_ukuran = ".$this->ukuran.".id
-        LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id
         LEFT JOIN ".$this->vinir." ON ".$this->vinir_masuk.".id_vinir = ".$this->vinir.".id
-        LEFT JOIN ".$this->kayu." ON ".$this->vinir_masuk.".id_jenis = ".$this->kayu.".id" ;
+        LEFT JOIN ".$this->kayu." ON ".$this->vinir_masuk.".id_kayu = ".$this->kayu.".id
+        LEFT JOIN ".$this->ukuran." ON ".$this->vinir.".id_ukuran = ".$this->ukuran.".id
+        LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id";
         if ($id_kayu != "") {
             $kondisi .= " WHERE ".$this->kayu.".id = '$id_kayu'";
         }
         $query = $this->db->query($sql.$kondisi);
-        return $query->result();
+        return $query->result_array();
     }
 
     public function save()

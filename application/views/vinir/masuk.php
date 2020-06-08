@@ -84,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="jeniskayu" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
                 <div class="col-md-8">
-                <select class="form-control" name="jeniskayu" id="jeniskayu" onchange="return jenis()">
+                <select class="form-control" name="jeniskayu" id="jeniskayu" onchange="jenis();">
                     <option selected disabled>-- Pilih Data --</option>
                     <?php foreach($jeniskayu as $data): ?>
                       <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="stokvinirmasuk" class="col-sm-3 col-form-label text-md-right">Stok</label>
                 <div class="col-md-8">
-                    <input id="stokvinirmasuk" type="text" class="form-control" name="stokvinirmasuk" required autocomplete="stokvinirmasuk" onchange="hitungkubik()">
+                    <input id="stokvinirmasuk" type="text" class="form-control vinirmsk" name="stokvinirmasuk" required autocomplete="stokvinirmasuk" onchange="hitungkubik();">
                 </div>
             </div>
 
@@ -156,6 +156,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#id_kayu').val(data[0].kayuid);
                 var x = "";
                 var i;
+                x = '<option value="" disabled selected>-- Pilih Data -- </option>';
                 for (i in data[1]){
                     x += '<option value="'+ data[1][i].vinirid +'">'+ data[1][i].tebal +' mm x '+ data[1][i].panjang +' x '+ data[1][i].lebar +'</option>';
                 }
@@ -190,10 +191,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         var tbl = $('#tbl').val();
         var pjg = $('#pjg').val();
         var lbr = $('#lbr').val();
+        var kubik = 0;
         var stokvinir = $('#stokvinirmasuk').val();
-        var kubik = parseFloat((tbl*pjg*lbr)/1000000) * stokvinir;
-        if (!isNaN(kubik) && kubik.length != 0){
-            $('#kubikvinirmasuk').val(kubik.toFixed(2));
-        }
+        $('.vinirmsk').each(function(){
+            if (!isNaN(kubik) && kubik.length != 0){
+                kubik = parseFloat((tbl*pjg*lbr)/1000000) * stokvinir;
+            }
+        });
+        $('#kubikvinirmasuk').val(kubik.toFixed(2));
     }
 </script>

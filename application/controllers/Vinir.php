@@ -98,9 +98,7 @@ class Vinir extends CI_Controller {
 			$this->Vinirmasuk_model->save();
 			$this->session->set_flashdata('success', 'Berhasil Di Simpan');
 		} else {
-			// $this->session->set_flashdata('danger', 'Gagal Di Simpan');
-			echo $this->db->last_query();
-			var_dump($_POST); die();
+			$this->session->set_flashdata('danger', 'Gagal Di Simpan');
 		}
 		redirect(site_url('vinirmasuk'));
 	}
@@ -152,7 +150,6 @@ class Vinir extends CI_Controller {
 	public function cariUkuran()
 	{
 		$id = $_POST['id_vinir'];
-		// $id = '5ec8bbfed6731';
 		$data = $this->Vinir_model->getByUkuran($id);
 		echo json_encode($data);
 	}

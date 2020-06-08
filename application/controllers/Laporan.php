@@ -129,10 +129,12 @@ class Laporan extends CI_Controller {
     }
     public function vinirmasuk()
     {
+        $tgl_awal = $this->input->post('satutgl');
+        $tgl_akhir = $this->input->post('duatgl');
         $id_kayu = $this->input->post('select1');
         $data['title'] = "Laporan Stok Vinir";
-		$data['stokvinir'] = $this->Vinirmasuk_model->report($id_kayu);
-        $this->load->view('laporan\vinir\cetak_stok', $data);
+		$data['vinirmasuk'] = $this->Vinirmasuk_model->report($id_kayu);
+        $this->load->view('laporan\vinir\cetak_masuk', $data);
     }
     public function laporanvinirkeluar()
     {
