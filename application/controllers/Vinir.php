@@ -82,7 +82,7 @@ class Vinir extends CI_Controller {
 	public function vinirmasuk()
 	{
 		$data['title'] = "Data Hasil Kupasan Kayu Log (Vinir)";
-		$data['isi'] = "vinir/masuk";
+		$data['isi'] = "vinir/masuknew";
 		$data['vinirmasuk'] = $this->Vinirmasuk_model->getJoinAll();
         $data['vinir'] = $this->Vinir_model->getJoinAll();
         $data['jeniskayu'] = $this->Jeniskayu_model->getAll();
