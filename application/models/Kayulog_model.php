@@ -51,7 +51,7 @@ class Kayulog_model extends CI_Model {
 
     public function getByJenis ($id)
     {
-        $this->db->select($this->kayulog.'.id as kayuid ,'.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis')
+        $this->db->select($this->kayulog.'.* ,'.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis')
         ->from($this->kayulog)
         ->join($this->jeniskayu, $this->kayulog.'.id_jenis =.'.$this->jeniskayu.'.id', 'left')
         ->where('id_jenis', $id);

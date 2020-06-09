@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
                 <th>No</th>
                 <th>Jenis Vinir</th>
-                <th>Ukuran</th>
+                <th>Tebal</th>
                 <th>Stok (pcs)</th>
                 <th>Kubikasi (M<sup>3</sup>)</th>
                 <th>Keterangan</th>
@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= $data->nama; ?></td>
-                <td><?= $data->tebal; ?> mm x <?= $data->panjang; ?> x <?= $data->lebar; ?></td>
+                <td><?= $data->tebal; ?> mm</td>
                 <td><?= $data->stok; ?></td>
                 <td><?= $data->kubikasi; ?></td>
                 <td><?= $data->keterangan; ?></td>
@@ -82,16 +82,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="tebal" class="col-sm-3 col-form-label text-md-right">Ukuran</label>
-                <div class="col-md-3">
+                <label for="tebal" class="col-sm-3 col-form-label text-md-right">Tebal</label>
+                <div class="col-md-8">
                     <input id="tebal" type="text" class="form-control" name="tebal" required placeholder="Tebal" autofocus>
-                </div>
-                <div class="col-md-5">
-                <select class="form-control" name="id_ukuran" id="id_ukuran">
-                  <?php foreach($ukuran as $data): ?>
-                    <option value="<?= $data->id; ?>"><?= $data->panjang; ?>&nbsp;x&nbsp;<?= $data->lebar; ?></option>
-                  <?php endforeach; ?>
-                </select>
                 </div>
             </div>
 

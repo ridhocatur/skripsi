@@ -86,6 +86,7 @@ class Vinir extends CI_Controller {
 		$data['vinirmasuk'] = $this->Vinirmasuk_model->getJoinAll();
         $data['vinir'] = $this->Vinir_model->getJoinAll();
         $data['jeniskayu'] = $this->Jeniskayu_model->getAll();
+        $data['nilaibaku'] = $this->Vinirmasuk_model->getNilaiBaku();
 		$this->load->view('template', $data);
 	}
 

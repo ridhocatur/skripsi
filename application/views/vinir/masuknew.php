@@ -78,25 +78,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="box-body">
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="Dbobin">Ø Bobin</label>
-                        <input type="text" name="Dbobin" id="Dbobin" class="form-control" readonly>
+                        <?php foreach($nilaibaku as $i) : ?>
+                        <label for="Dbobin">Ø Bobin (m)</label>
+                        <input type="text" name="Dbobin" id="Dbobin" class="form-control" value="<?= $i->dbobin; ?>" readonly>
                     </div>
                     <div class="col-md-3">
                         <label for="kerapatan">Kerapatan</label>
-                        <input type="text" name="kerapatan" id="kerapatan" class="form-control" readonly>
+                        <input type="text" name="kerapatan" id="kerapatan" class="form-control" value="<?= $i->kerapatan; ?>" readonly>
                     </div>
                     <div class="col-md-3">
-                        <label for="Vbobin">Vol. Bobin</label>
-                        <input type="text" name="Vbobin" id="Vbobin" class="form-control" readonly>
+                        <label for="Vbobin">Vol. Bobin (m)</label>
+                        <input type="text" name="Vbobin" id="Vbobin" class="form-control" value="<?= $i->vbobin; ?>" readonly>
                     </div>
                     <div class="col-md-3">
-                        <label for="Vlogsisa">Vol. Log Core</label>
-                        <input type="text" name="Vlogsisa" id="Vlogsisa" class="form-control" readonly>
+                        <label for="nilaiphi">Nilai Phi</label>
+                        <input type="text" name="nilaiphi" id="nilaiphi" class="form-control" value="<?= $i->phi; ?>" readonly>
                     </div>
+                        <?php endforeach; ?>
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label for="jeniskayu">Jenis Kayu</label>
                         <select class="form-control" name="jeniskayu" id="jeniskayu" onchange="jenis();">
                             <option selected disabled>-- Pilih Data --</option>
@@ -105,55 +107,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php endforeach;?>
                         </select>
                     </div>
-                    <div class="col-md-4">
-                        <label for="kubiklog">Jml. Kubik Terpakai</label>
-                        <input type="text" name="kubiklog" id="kubiklog" class="form-control">
+                    <div class="col-md-3">
+                        <label for="perlog">Kubik per Log</label>
+                        <input type="text" name="perlog" id="perlog" class="form-control" readonly>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <label for="jmlkubik">Jml. Kubik Terpakai</label>
+                        <input type="text" name="jmlkubik" id="jmlkubik" class="form-control jmlkubik" onchange="hitunglog();">
+                    </div>
+                    <div class="col-md-3">
                         <label for="kayulog">Jml. Log Terpakai</label>
-                        <input type="text" name="kayulog" id="kayulog" class="form-control">
+                        <input type="text" name="kayulog" id="kayulog" class="form-control" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <label for="ukuran">Ukuran Potongan</label>
-                        <select class="form-control" name="ukuran" id="ukuran" onchange="">
+                        <label for="ukurpot">Ukuran Potongan</label>
+                        <select class="form-control" name="ukurpot" id="ukurpot" onchange="ukurpotong();">
                             <option selected disabled>-- Pilih Data --</option>
                             <option value="pendek"> 183 cm </option>
                             <option value="panjang"> 244 cm </option>
                         </select>
                     </div>
                     <div class="col-md-3">
+                        <label for="jenisvinir">Jenis Vinir</label>
+                        <select class="form-control" name="jenisvinir" id="jenisvinir">
+                            <option selected disabled>-- Pilih Data --</option>
+                            <option value="fb"> Face / Back </option>
+                            <option value="core"> Core </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
                         <label for="tebalvinir">Tebal Vinir</label>
-                        <input type="text" name="tebalvinir" id="tebalvinir" class="form-control">
+                        <input type="text" name="tebalvinir" id="tebalvinir" class="form-control tebalvinir" onchange="vol_vinir();">
                     </div>
                     <div class="col-md-3">
                         <label for="ukuranvinir">Ukuran Vinir</label>
                         <div class="row">
                             <div class="col-md-6" name="ukuranvinir">
-                                <input type="text" name="pjg" id="pjg" class="form-control" placeholder="Pjg">
+                                <input type="text" name="pjg" id="pjg" class="form-control" placeholder="Pjg" readonly>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="lbr" id="lbr" class="form-control" placeholder="Lbr">
+                                <input type="text" name="lbr" id="lbr" class="form-control" placeholder="Lbr" readonly>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="jenisvinir">Jenis Vinir</label>
-                        <select class="form-control" name="jenisvinir" id="jenisvinir" onchange="">
-                            <option selected disabled>-- Pilih Data --</option>
-                            <option value="fb"> Face / Back </option>
-                            <option value="core"> Core </option>
-                        </select>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-2"></div>
                     <div class="col-md-4">
-                        <label for="jari">Jari-Jari Reeling</label>
-                        <input type="text" name="jari" id="jari" class="form-control">
+                        <label for="jari">Jari-Jari Reeling (Cm)</label>
+                        <input type="text" name="jari" id="jari" class="form-control jarijari" onchange="hitungreel();">
                     </div>
                     <div class="col-md-4">
                         <label for="volreeling">Vol. Reeling (M<sup>3</sup>)</label>
@@ -187,58 +193,80 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <script>
     function jenis(){
-        var id = document.getElementById('jeniskayu').value;
+        var id = $('#jeniskayu').val();
         $.ajax({
             url:"<?php echo base_url();?>vinirmasuk/cariJenis",
             data: {id : id},
             type: "post",
             dataType: "JSON",
             success:function(data){
-                $('#id_kayu').val(data[0].kayuid);
-                var x = "";
-                var i;
-                x = '<option value="" disabled selected>-- Pilih Data -- </option>';
-                for (i in data[1]){
-                    x += '<option value="'+ data[1][i].vinirid +'">'+ data[1][i].tebal +' mm x '+ data[1][i].panjang +' x '+ data[1][i].lebar +'</option>';
-                }
-                $('#id_vinir').html(x);
+                $('#id_kayu').val(data[0].id);
+                var kubiklog = data[0].kubikasi;
+                var stoklog = data[0].stok;
+                var perlog = parseFloat(kubiklog/stoklog);
+                $('#perlog').val(perlog.toFixed(2));
             },
             error : function(){
                 alert('Data Belum Ada!');
             }
         });
-    }
-    function autofill(){
-        var id = document.getElementById('id_vinir').value;
-        $.ajax({
-            url:"<?php echo base_url();?>vinirmasuk/cariUkuran",
-            data: {id_vinir : id},
-            type: "post",
-            dataType: "JSON",
-            success:function(data){
-                var t = parseFloat((data.tebal)/10);
-                var p = parseFloat((data.panjang)/10);
-                var l = parseFloat((data.lebar)/10);
-                $('#tbl').val(t);
-                $('#pjg').val(p);
-                $('#lbr').val(l);
-            },
-            error : function(){
-                alert('Data Belum Ada!');
+    };
+
+    function hitunglog() {
+        var perlog = $('#perlog').val();
+        var jmlkubik = $('#jmlkubik').val();
+        var batang = 0;
+        $('.jmlkubik').each(function(){
+            if (!isNaN(batang) && batang.length != 0){
+                batang = parseInt(jmlkubik/perlog);
             }
         });
-    }
-    function hitungkubik() {
-        var tbl = $('#tbl').val();
+        $('#kayulog').val(batang);
+    };
+
+    function ukurpotong(){
+        if($('#ukurpot').val() == 'pendek'){
+            $('#pjg').val(183);
+            $('#lbr').val(parseInt(183/2));
+        } else if($('#ukurpot').val() == 'panjang'){
+            $('#pjg').val(244);
+            $('#lbr').val(parseInt(244/2));
+        }
+    };
+
+    function vol_vinir(){
+        var a = $('#tebalvinir').val().replace(',','.');
+        var tbl = parseFloat((a)/10);
         var pjg = $('#pjg').val();
         var lbr = $('#lbr').val();
-        var kubik = 0;
-        var stokvinir = $('#stokvinirmasuk').val();
-        $('.vinirmsk').each(function(){
-            if (!isNaN(kubik) && kubik.length != 0){
-                kubik = parseFloat((tbl*pjg*lbr)/1000000) * stokvinir;
+        var vol = 0;
+        $('.tebalvinir').each(function(){
+            if (!isNaN(vol) && vol.length != 0){
+                vol = parseFloat((tbl*pjg*lbr)/1000000);
             }
         });
-        $('#kubikvinirmasuk').val(kubik.toFixed(2));
-    }
+        $('#volvinir').val(vol.toFixed(2));
+    };
+
+    function hitungreel(){
+        var jari = parseFloat(($('#jari').val())/100);
+        var dbobin = $('#Dbobin').val();
+        var kerapatan = $('#kerapatan').val();
+        var vbobin = $('#Vbobin').val();
+        var phi = $('#nilaiphi').val();
+        var pjg = parseFloat(($('#pjg').val())/100);
+        var volvinir = $('#volvinir').val();
+        var nilai1 = (Math.pow(parseFloat(jari+jari+dbobin),2))*phi*pjg;
+        var nilai2 = parseFloat(vbobin*kerapatan);
+        var nilaiakhir = 0;
+        var jmlvinir = 0;
+        $('.jarijari').each(function(){
+            if (!isNaN(nilaiakhir) && nilaiakhir.length != 0){
+                nilaiakhir = parseFloat(nilai1-nilai2);
+                jmlvinir = parseInt(nilaiakhir/volvinir);
+            }
+        });
+        $('#volreeling').val(nilaiakhir.toFixed(4));
+        $('#jml_vinir').val(jmlvinir);
+    };
 </script>

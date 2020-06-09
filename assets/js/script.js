@@ -317,8 +317,6 @@ $(function () {
     $('.tambahVinirMasuk').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
         $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/vinirmasuk/tambahMasuk')
-        // $('#formModal')[0].reset();
-        $('#id_kayu').prop("disabled", false);
     });
 
     $('.tombolUbahVinirMasuk').on('click', function(){

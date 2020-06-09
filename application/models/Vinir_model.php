@@ -21,11 +21,6 @@ class Vinir_model extends CI_Model {
                 'rules' => 'required'
             ],
             [
-				'field' => 'id_ukuran',
-                'label' => 'Ukuran',
-                'rules' => 'required'
-            ],
-            [
 				'field' => 'kubikasi',
                 'label' => 'Kubikasi',
                 'rules' => 'numeric|required'
@@ -66,10 +61,9 @@ class Vinir_model extends CI_Model {
 
     public function getJoinAll ()
     {
-        $this->db->select($this->vinir.'.* ,'.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, ')
+        $this->db->select($this->vinir.'.* ,'.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis,')
         ->from($this->vinir)
-        ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left')
-        ->join($this->ukuran, $this->vinir.'.id_ukuran =.'.$this->ukuran.'.id', 'left');
+        ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left');
         $query = $this->db->get();
         return $query->result();
     }
@@ -81,13 +75,10 @@ class Vinir_model extends CI_Model {
 
     public function getByJenis ($id)
     {
-        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal, '.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, ')
+        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal, '.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis')
         ->from($this->vinir)
         ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left')
-        ->join($this->ukuran, $this->vinir.'.id_ukuran =.'.$this->ukuran.'.id', 'left')
-        ->where('id_jenis', $id)
-        ->order_by($this->ukuran.'.panjang', 'ASC')
-        ->order_by($this->ukuran.'.lebar', 'ASC');
+        ->where('id_jenis', $id);
         $query = $this->db->get();
         return $query->result();
     }
@@ -105,9 +96,8 @@ class Vinir_model extends CI_Model {
     public function report($id_ukuran,$id_jenis)
     {
         $kondisi = "";
-        $sql = "SELECT ".$this->vinir.".* ,".$this->ukuran.".panjang, ".$this->ukuran.".lebar, ".$this->jeniskayu.".nama
+        $sql = "SELECT ".$this->vinir.".*, ".$this->jeniskayu.".nama
         FROM ".$this->vinir."
-        LEFT JOIN ".$this->ukuran." ON ".$this->vinir.".id_ukuran = ".$this->ukuran.".id
         LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id" ;
         if ($id_ukuran != "" && $id_jenis != "") {
             $kondisi .= " WHERE ".$this->ukuran.".id = '$id_ukuran' AND ".$this->jeniskayu.".id = '$id_jenis'";
@@ -127,7 +117,6 @@ class Vinir_model extends CI_Model {
             'id' => uniqid(),
             'id_jenis' => $post["id_jenis"],
             'tebal' => str_replace(",",".",$post["tebal"]),
-            'id_ukuran' => $post["id_ukuran"],
             'stok' => $post["stok"],
             'kubikasi' => $post["kubikasi"],
             'keterangan' => $post["keterangan"]
