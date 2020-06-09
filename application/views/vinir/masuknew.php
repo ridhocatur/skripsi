@@ -17,6 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php endif; ?>
 <div class="card-header py-3">
     <button type="button" class="btn btn-outline-primary tambahVinirMasuk" data-toggle="modal" data-target="#tampilModal"><i class="fa fa-plus"></i> Tambah Data</button>
+    <button type="button" class="btn btn-outline-success editNilaiTetap" data-toggle="modal" data-target="#tampilModal"><i class="fa fa-edit"></i> Edit Nilai Baku</button>
 </div>
 <div class="card-body">
     <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
@@ -25,7 +26,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>No</th>
                 <th>Tanggal</th>
                 <th>Kode Log</th>
-                <th>Ukuran</th>
+                <th>Jenis Kayu</th>
+                <th>Tebal (mm)</th>
+                <th>Ukuran (mm)</th>
                 <th>Pemakaian Log</th>
                 <th>Stok (pcs)</th>
                 <th>Kubikasi (M<sup>3</sup>)</th>
@@ -34,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </tr>
         </thead>
         <tbody>
-            <?php $no=1; foreach ($vinirmasuk as $data) : ?>
+            <!-- <?php $no=1; foreach ($vinirmasuk as $data) : ?>
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
@@ -45,14 +48,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?= $data->kubik_masuk; ?></td>
                 <td><?= $data->keterangan; ?></td>
                 <td>
-                    <!-- <a href="<?= base_url(); ?>vinirmasuk/ubahMasuk/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm tombolUbahVinirMasuk" data-toggle="modal" data-target="#tampilModal" data-id="<?= $data->id; ?>" ><i class="fa fa-edit"></i></a> -->
+                    <a href="<?= base_url(); ?>vinirmasuk/ubahMasuk/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm tombolUbahVinirMasuk" data-toggle="modal" data-target="#tampilModal" data-id="<?= $data->id; ?>" ><i class="fa fa-edit"></i></a>
                     <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Tanggal <?= $data->tgl?>" href="<?= base_url(); ?>vinirmasuk/hapusMasuk/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
                 </td>
                 <form action="" method="POST" id="deleteForm">
                     <input type="submit" value="" style="display:none">
                 </form>
             </tr>
-            <?php endforeach; ?>
+            <?php endforeach; ?> -->
         </tbody>
     </table>
 </div>
@@ -69,71 +72,109 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </button>
       </div>
       <div class="modal-body">
-      <form action="" method="POST" id="formModal">
-      <input type="hidden" name="id" id="id">
-      <input type="hidden" name="id_kayu" id="id_kayu" value="">
-        <div class="box-body">
-            <p></p>
-            <div class="form-group row">
-                <label for="tgl" class="col-sm-3 col-form-label text-md-right">Tanggal Masuk</label>
-                <div class="col-md-8">
-                    <input id="tgl" type="date" class="form-control" name="tgl" required>
+        <form action="" method="POST" id="formModal">
+        <input type="hidden" name="id" id="id">
+        <input type="hidden" name="id_kayu" id="id_kayu" value="">
+            <div class="box-body">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="Dbobin">Ø Bobin</label>
+                        <input type="text" name="Dbobin" id="Dbobin" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="kerapatan">Kerapatan</label>
+                        <input type="text" name="kerapatan" id="kerapatan" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Vbobin">Vol. Bobin</label>
+                        <input type="text" name="Vbobin" id="Vbobin" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Vlogsisa">Vol. Log Core</label>
+                        <input type="text" name="Vlogsisa" id="Vlogsisa" class="form-control" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label for="jeniskayu">Jenis Kayu</label>
+                        <select class="form-control" name="jeniskayu" id="jeniskayu" onchange="jenis();">
+                            <option selected disabled>-- Pilih Data --</option>
+                            <?php foreach($jeniskayu as $data): ?>
+                            <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="kubiklog">Jml. Kubik Terpakai</label>
+                        <input type="text" name="kubiklog" id="kubiklog" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="kayulog">Jml. Log Terpakai</label>
+                        <input type="text" name="kayulog" id="kayulog" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="ukuran">Ukuran Potongan</label>
+                        <select class="form-control" name="ukuran" id="ukuran" onchange="">
+                            <option selected disabled>-- Pilih Data --</option>
+                            <option value="pendek"> 183 cm </option>
+                            <option value="panjang"> 244 cm </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="tebalvinir">Tebal Vinir</label>
+                        <input type="text" name="tebalvinir" id="tebalvinir" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ukuranvinir">Ukuran Vinir</label>
+                        <div class="row">
+                            <div class="col-md-6" name="ukuranvinir">
+                                <input type="text" name="pjg" id="pjg" class="form-control" placeholder="Pjg">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="lbr" id="lbr" class="form-control" placeholder="Lbr">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="jenisvinir">Jenis Vinir</label>
+                        <select class="form-control" name="jenisvinir" id="jenisvinir" onchange="">
+                            <option selected disabled>-- Pilih Data --</option>
+                            <option value="fb"> Face / Back </option>
+                            <option value="core"> Core </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <label for="jari">Jari-Jari Reeling</label>
+                        <input type="text" name="jari" id="jari" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="volreeling">Vol. Reeling (M<sup>3</sup>)</label>
+                        <input type="text" name="volreeling" id="volreeling" class="form-control">
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <label for="volvinir">Vol. Vinir per Lembar(M<sup>3</sup>)</label>
+                        <input type="text" name="volvinir" id="volvinir" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="jml_vinir">Jumlah Vinir (pcs)</label>
+                        <input type="text" name="jml_vinir" id="jml_vinir" class="form-control">
+                    </div>
+                    <div class="col-md-2"></div>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="jeniskayu" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
-                <div class="col-md-8">
-                <select class="form-control" name="jeniskayu" id="jeniskayu" onchange="jenis();">
-                    <option selected disabled>-- Pilih Data --</option>
-                    <?php foreach($jeniskayu as $data): ?>
-                      <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
-                    <?php endforeach;?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="id_vinir" class="col-sm-3 col-form-label text-md-right">Tebal & Ukuran</label>
-                <div class="col-md-8">
-                    <select class="form-control" name="id_vinir" id="id_vinir" onchange="autofill();">
-                      <option selected disabled>-- Pilih Data --</option>
-                    </select>
-                </div>
-            </div>
-            <input type="hidden" id="tbl" name="tbl" value="">
-            <input type="hidden" id="pjg" name="pjg" value="">
-            <input type="hidden" id="lbr" name="lbr" value="">
-
-            <div class="form-group row">
-                <label for="stokvinirmasuk" class="col-sm-3 col-form-label text-md-right">Stok</label>
-                <div class="col-md-8">
-                    <input id="stokvinirmasuk" type="text" class="form-control vinirmsk" name="stokvinirmasuk" required autocomplete="stokvinirmasuk" onchange="hitungkubik();">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="kubikvinirmasuk" class="col-sm-3 col-form-label text-md-right">Kubikasi</label>
-                <div class="col-md-8">
-                    <input id="kubikvinirmasuk" type="text" class="form-control" name="kubikvinirmasuk" autocomplete="kubikvinirmasuk" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="kayu_log" class="col-sm-3 col-form-label text-md-right">Pemakaian Log</label>
-                <div class="col-md-8">
-                    <input id="kayu_log" type="text" class="form-control" name="kayu_log" autocomplete="kayu_log">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="keterangan" class="col-sm-3 col-form-label text-md-right">Keterangan</label>
-                <div class="col-md-8">
-                    <input id="keterangan" type="text" class="form-control" name="keterangan" autocomplete="keterangan">
-                </div>
-            </div>
-        </div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
