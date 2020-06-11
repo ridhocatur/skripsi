@@ -19,20 +19,56 @@ class Vinirmasuk_model extends CI_Model {
                 'rules' => 'required'
             ],
             [
-				'field' => 'kubikvinirmasuk',
-                'label' => 'Kubikasi',
+				'field' => 'ttl_kubik',
+                'label' => 'Total Kubikasi',
                 'rules' => 'numeric|required'
             ],
             [
-				'field' => 'stokvinirmasuk',
-                'label' => 'Stok',
+				'field' => 'ttl_vinir',
+                'label' => 'Total Vinir (pcs)',
                 'rules' => 'numeric|required'
             ],
             [
-				'field' => 'kayu_log',
-                'label' => 'Pemakaian Log',
+				'field' => 'jmlkubik',
+                'label' => 'Jml. Kubik Terpakai',
                 'rules' => 'numeric|required'
             ],
+            [
+				'field' => 'ukurpot',
+                'label' => 'Ukuran Potongan',
+                'rules' => 'required'
+            ]
+		];
+    }
+
+    public function rulesBaku()
+	{
+		return [
+            [
+				'field' => 'dia_bobin',
+                'label' => 'Ø Bobin (m)',
+                'rules' => 'numeric|required'
+            ],
+            [
+				'field' => 'density',
+                'label' => 'Kerapatan',
+                'rules' => 'numeric|required'
+            ],
+            [
+				'field' => 'vol_bobin',
+                'label' => 'Volume Bobin',
+                'rules' => 'numeric|required'
+            ],
+            [
+				'field' => 'n_phi',
+                'label' => 'Nilai Phi',
+                'rules' => 'numeric|required'
+            ],
+            [
+				'field' => 'rendemen',
+                'label' => 'Rendemen',
+                'rules' => 'numeric|required'
+            ]
 		];
     }
 
@@ -48,13 +84,25 @@ class Vinirmasuk_model extends CI_Model {
 
     public function getJoinAll ()
     {
-        $this->db->select($this->vinir_masuk.'.* ,'.$this->kayu.'.kd_kayu,'.$this->vinir.'.tebal, '.$this->jeniskayu.'.nama ')
+        $this->db->select($this->vinir_masuk.'.* ,'.$this->kayu.'.kd_kayu,'.$this->vinir.'.tebal, '.$this->vinir.'.panjang, '.$this->vinir.'.lebar, '.$this->jeniskayu.'.nama ')
         ->from($this->vinir_masuk)
         ->join($this->vinir, $this->vinir_masuk.'.id_vinir = '.$this->vinir.'.id', 'left')
         ->join($this->jeniskayu, $this->vinir.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
         ->join($this->kayu, $this->kayu.'.id_jenis = '.$this->jeniskayu.'.id', 'left');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function forDetail ($id)
+    {
+        $this->db->select($this->vinir_masuk.'.* ,'.$this->kayu.'.kd_kayu,'.$this->vinir.'.tebal, '.$this->vinir.'.panjang, '.$this->vinir.'.lebar, '.$this->jeniskayu.'.nama ')
+        ->from($this->vinir_masuk)
+        ->join($this->vinir, $this->vinir_masuk.'.id_vinir = '.$this->vinir.'.id', 'left')
+        ->join($this->jeniskayu, $this->vinir.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
+        ->join($this->kayu, $this->kayu.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
+        ->where($this->vinir_masuk.'.id', $id);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     public function getById ($id)
@@ -85,9 +133,12 @@ class Vinirmasuk_model extends CI_Model {
             'id_kayu' => $post["id_kayu"],
             'id_vinir' => $post["id_vinir"],
             'tgl' => $post["tgl"],
-            'stok_masuk' => $post["stokvinirmasuk"],
-            'kubik_masuk' => $post["kubikvinirmasuk"],
-            'jml_log' => $post["kayu_log"],
+            'jml_log' => $post["kayulog"],
+            'kubik_log' => $post["jmlkubik"],
+            'r_reel' => $post["jari"],
+            'v_reel' => $post["volreeling"],
+            'stok_masuk' => $post["ttl_vinir"],
+            'kubik_masuk' => $post["ttl_kubik"],
             'keterangan' => $post["keterangan"]
         );
 
@@ -113,6 +164,24 @@ class Vinirmasuk_model extends CI_Model {
     public function delete($id)
     {
         return $this->db->delete($this->vinir_masuk, array("id" => $id));
+    }
+
+    public function getBaku ($id)
+    {
+        return $this->db->get_where($this->nilai_baku, ["id" => $id])->row();
+    }
+    public function updateBaku()
+    {
+        $post = $this->input->post();
+        $data = array(
+            'id' => $post["id_baku"],
+            'dbobin' => $post["dia_bobin"],
+            'vbobin' => $post["vol_bobin"],
+            'kerapatan' => $post["density"],
+            'phi' => $post["n_phi"],
+            'rendem' => $post["rendemen"]
+        );
+        return $this->db->update($this->nilai_baku, $data, array('id' => $post["id_baku"]));
     }
 
 }

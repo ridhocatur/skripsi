@@ -78,6 +78,9 @@ $route['vinirmasuk/geteditMasuk'] = "Vinir/geteditMasuk";
 $route['vinirmasuk/hapusMasuk/(:any)'] = "Vinir/hapusMasuk/$1";
 $route['vinirmasuk/cariUkuran'] = "Vinir/cariUkuran";
 $route['vinirmasuk/cariJenis'] = "Vinir/cariJenis";
+$route['vinirmasuk/geteditBaku'] = "Vinir/geteditBaku";
+$route['vinirmasuk/ubahBaku'] = "Vinir/ubahBaku";
+$route['vinirmasuk/detailMasuk/(:any)'] = "Vinir/detailMasuk/$1";
 
 $route['gluemix'] = "Bahanbantu/gluemix";
 $route['gluemix/tambahGlue'] = "Bahanbantu/tambahGlue";

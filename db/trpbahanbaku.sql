@@ -224,12 +224,14 @@ CREATE TABLE IF NOT EXISTS `kayu` (
   KEY `id_jenis` (`id_jenis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.kayu: ~3 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.kayu: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `kayu` DISABLE KEYS */;
 REPLACE INTO `kayu` (`id`, `kd_kayu`, `id_jenis`, `stok`, `kubikasi`, `kubikperlog`, `keterangan`) VALUES
-	('5ecb4d3e12f33', 'LOGMLP', '1', 5200, 2887.92, 0.56, 'Stok awal'),
-	('5ecb4d4b5b93d', 'LOGDH1', '2', 3310, 3111.48, 0.94, 'Stok awal'),
-	('5ecb4d587b02f', 'LOGMSW', '4', 379, 151.22, 0.40, 'Stok awal');
+	('5ecb4d3e12f33', 'LOGMLP', '1', 5147, 2863.95, 0.56, 'Stok awal'),
+	('5ecb4d4b5b93d', 'LOGDH1', '2', 3257, 3072.25, 0.94, 'Stok awal'),
+	('5ecb4d587b02f', 'LOGMSW', '4', 379, 151.22, 0.40, 'Stok awal'),
+	('5ee22744a86b4', 'LOGMRT', '3', 780, 920.77, 0.00, ''),
+	('5ee2275051caf', 'LOGKR', '5', 50, 50.00, 0.00, '');
 /*!40000 ALTER TABLE `kayu` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.kayu_masuk
@@ -245,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `kayu_masuk` (
   KEY `id_supplier` (`id_supplier`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.kayu_masuk: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.kayu_masuk: ~2 rows (lebih kurang)
 /*!40000 ALTER TABLE `kayu_masuk` DISABLE KEYS */;
 REPLACE INTO `kayu_masuk` (`id`, `id_supplier`, `invoice`, `tgl`, `jml_stok`, `jml_kubik`, `keterangan`) VALUES
 	(2, '4', 'AVC343', '2020-05-08', 689, 404.54, 'masuk'),
@@ -259,13 +261,14 @@ CREATE TABLE IF NOT EXISTS `nilai_baku` (
   `vbobin` float(8,4) NOT NULL DEFAULT 0.0000,
   `kerapatan` float(8,2) NOT NULL DEFAULT 0.00,
   `phi` float(8,4) NOT NULL DEFAULT 0.0000,
+  `rendem` float(8,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel trpbahanbaku.nilai_baku: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `nilai_baku` DISABLE KEYS */;
-REPLACE INTO `nilai_baku` (`id`, `dbobin`, `vbobin`, `kerapatan`, `phi`) VALUES
-	(1, 0.16, 0.0543, 0.85, 0.7854);
+REPLACE INTO `nilai_baku` (`id`, `dbobin`, `vbobin`, `kerapatan`, `phi`, `rendem`) VALUES
+	(1, 0.16, 0.0543, 0.85, 0.7854, 0.80);
 /*!40000 ALTER TABLE `nilai_baku` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.pegawai
@@ -283,10 +286,10 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.pegawai: ~6 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.pegawai: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-09 19:09:10', '2020-05-18 20:30:53'),
+	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-11 19:46:01', '2020-05-18 20:30:53'),
 	('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', '5aad4f2aede54_jpg_d6e6d07e022235c48a75238b6608d83d.jpg', 'manager', '2020-05-27 20:20:08', '2020-05-18 20:30:53'),
 	('5ebc04fa7112c', '34', 'admin', 'admin', 'Admin', '119976', '_34.jpg', 'admin', '2020-05-18 20:30:53', '2020-05-18 20:30:53'),
 	('5ebc0d91b1761', '2352345', 'cahbekasi', '860dec1a7a44b923c725901e11bc6363', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-05-27 20:20:40', '2020-05-18 20:30:53'),
@@ -363,6 +366,8 @@ CREATE TABLE IF NOT EXISTS `vinir` (
   `id` varchar(64) NOT NULL,
   `id_jenis` int(64) NOT NULL,
   `tebal` float(8,1) NOT NULL,
+  `panjang` int(11) NOT NULL DEFAULT 0,
+  `lebar` int(11) NOT NULL DEFAULT 0,
   `stok` int(20) NOT NULL DEFAULT 0,
   `kubikasi` float(8,2) NOT NULL DEFAULT 0.00,
   `keterangan` varchar(100) DEFAULT NULL,
@@ -370,34 +375,45 @@ CREATE TABLE IF NOT EXISTS `vinir` (
   KEY `id_jenis` (`id_jenis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.vinir: ~7 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.vinir: ~9 rows (lebih kurang)
 /*!40000 ALTER TABLE `vinir` DISABLE KEYS */;
-REPLACE INTO `vinir` (`id`, `id_jenis`, `tebal`, `stok`, `kubikasi`, `keterangan`) VALUES
-	('5ec8aba88832c', 1, 2.0, 0, 100.00, ''),
-	('5ec8abaff0479', 2, 2.0, 0, 100.00, ''),
-	('5ec8abb7177ef', 2, 2.0, 0, 100.00, ''),
-	('5ec8ba9ed9e69', 1, 2.0, 0, 0.00, 'Stok awal'),
-	('5ec8baac6d0db', 1, 2.0, 0, 0.00, 'Stok awal'),
-	('5ec8bbfed6731', 2, 2.0, 0, 0.00, 'Stok awal'),
-	('5ec8bc1ae32c0', 1, 2.0, 0, 0.00, 'Stok awal');
+REPLACE INTO `vinir` (`id`, `id_jenis`, `tebal`, `panjang`, `lebar`, `stok`, `kubikasi`, `keterangan`) VALUES
+	('5ee1d46a5fb7d', 1, 0.7, 1900, 950, 10, 10.00, ''),
+	('5ee1d4c85b4dc', 1, 1.5, 1900, 950, 8888, 33.97, ''),
+	('5ee1d4e032237', 1, 2.5, 1900, 950, 11146, 60.11, ''),
+	('5ee1d582c5bcd', 2, 0.9, 1900, 950, 10, 10.00, ''),
+	('5ee1d59153c0b', 2, 0.7, 1900, 950, 30190, 49.23, ''),
+	('5ee1d5a138a2c', 3, 0.6, 2600, 1300, 10, 10.00, ''),
+	('5ee1d5b22ccac', 3, 1.7, 2600, 1300, 10, 10.00, ''),
+	('5ee1d5cd33b1a', 3, 2.0, 1900, 950, 10, 10.00, ''),
+	('5ee1d601eaf07', 3, 2.0, 2600, 1300, 7167, 58.67, '');
 /*!40000 ALTER TABLE `vinir` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.vinir_masuk
 CREATE TABLE IF NOT EXISTS `vinir_masuk` (
   `id` varchar(64) NOT NULL,
-  `id_kayu` varchar(64) NOT NULL,
   `id_vinir` varchar(64) NOT NULL,
+  `id_kayu` varchar(64) NOT NULL,
   `tgl` date NOT NULL,
-  `jml_log` int(20) NOT NULL DEFAULT 0,
+  `shift` enum('1','2') NOT NULL,
+  `jml_log` int(11) NOT NULL DEFAULT 0,
+  `kubik_log` float(8,2) NOT NULL DEFAULT 0.00,
+  `r_reel` int(11) NOT NULL DEFAULT 0,
+  `v_reel` float(8,4) NOT NULL DEFAULT 0.0000,
   `stok_masuk` int(20) NOT NULL DEFAULT 0,
   `kubik_masuk` float(8,2) NOT NULL DEFAULT 0.00,
   `keterangan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_kayu` (`id_kayu`,`id_vinir`)
+  KEY `Index 3` (`id_kayu`),
+  KEY `index2` (`id_vinir`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel trpbahanbaku.vinir_masuk: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `vinir_masuk` DISABLE KEYS */;
+REPLACE INTO `vinir_masuk` (`id`, `id_vinir`, `id_kayu`, `tgl`, `shift`, `jml_log`, `kubik_log`, `r_reel`, `v_reel`, `stok_masuk`, `kubik_masuk`, `keterangan`) VALUES
+	('5ee24f8196182', '5ee1d59153c0b', '5ecb4d4b5b93d', '2020-06-10', '1', 53, 50.00, 50, 1.9618, 30180, 39.23, NULL),
+	('5ee260f06acb4', '5ee1d4c85b4dc', '5ecb4d3e12f33', '2020-06-02', '1', 53, 30.00, 36, 1.1095, 8878, 23.97, NULL),
+	('5ee26160e2f29', '5ee1d601eaf07', '5ee22744a86b4', '2020-05-28', '1', 150, 60.00, 52, 2.8944, 7157, 48.67, NULL);
 /*!40000 ALTER TABLE `vinir_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk trigger trpbahanbaku.bahanmasuk_delete

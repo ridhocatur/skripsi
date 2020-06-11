@@ -104,31 +104,13 @@ class Vinir extends CI_Controller {
 		redirect(site_url('vinirmasuk'));
 	}
 
-	public function geteditMasuk()
+	public function detailMasuk($id)
     {
-		echo json_encode($this->Vinirmasuk_model->getById($_POST['id']));
+		$data['title'] = "Data Detail";
+		$data['isi'] = "vinir/detail";
+        $data['detail'] = $this->Vinirmasuk_model->forDetail($id);
+		$this->load->view('template',$data);
     }
-
-	public function ubahMasuk()
-	{
-		$id = $this->input->post('id');
-		if(!isset($id)) redirect('vinirmasuk');
-
-		$valid = $this->form_validation;
-		$valid->set_rules($this->Vinirmasuk_model->rules());
-
-		if ($valid->run() == TRUE) {
-			$this->Vinirmasuk_model->update($id);
-			$this->session->set_flashdata('info', 'Berhasil Di Ubah');
-		} else {
-			$this->session->set_flashdata('danger', 'Gagal Di Ubah');
-		}
-
-		$data["vinirmasuk"] = $this->Vinirmasuk_model->getById($id);
-		if(!$data["vinirmasuk"]) show_404();
-
-		redirect(site_url('vinirmasuk'));
-	}
 
 	public function hapusMasuk($id = null)
 	{
@@ -153,6 +135,32 @@ class Vinir extends CI_Controller {
 		$id = $_POST['id_vinir'];
 		$data = $this->Vinir_model->getByUkuran($id);
 		echo json_encode($data);
+	}
+
+	public function geteditBaku()
+    {
+		echo json_encode($this->Vinirmasuk_model->getBaku($_POST['id']));
+    }
+
+	public function ubahBaku()
+	{
+		$id = $this->input->post('id_baku');
+		if(!isset($id)) redirect('vinirmasuk');
+
+		$valid = $this->form_validation;
+		$valid->set_rules($this->Vinirmasuk_model->rulesBaku());
+
+		if ($valid->run() == TRUE) {
+			$this->Vinirmasuk_model->updateBaku($id);
+			$this->session->set_flashdata('info', 'Berhasil Di Ubah');
+		} else {
+			$this->session->set_flashdata('danger', 'Gagal Di Ubah');
+		}
+
+		$data["nilaibaku"] = $this->Vinirmasuk_model->getBaku($id);
+		if(!$data["nilaibaku"]) show_404();
+
+		redirect(site_url('vinirmasuk'));
 	}
 
 }

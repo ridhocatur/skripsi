@@ -333,7 +333,6 @@ $(function () {
             dataType: "JSON",
             cache: false,
             success: function(data) {
-                // console.log(data);
                 $('#id').val(data.id);
                 $('#id_kayu').val(data.id_kayu);
                 $('#tgl').val(data.tgl);
@@ -342,6 +341,27 @@ $(function () {
                 $('#kubikasi').val(data.kubik_masuk);
                 $('#kayu_log').val(data.kayu_log);
                 $('#keterangan').val(data.keterangan);
+            },
+            error : function() {
+                alert("Tidak ada Data!");
+            }
+        });
+    });
+    $('.editNilaiTetap').on('click', function(){
+        const id = $(this).data('id');
+        $.ajax({
+            url: 'http://localhost/trpbahanbaku/vinirmasuk/geteditBaku',
+            data: {id : id},
+            type: "post",
+            dataType: "JSON",
+            cache: false,
+            success: function(data) {
+                $('#id_baku').val(data.id);
+                $('#dia_bobin').val(data.dbobin);
+                $('#vol_bobin').val(data.vbobin);
+                $('#density').val(data.kerapatan);
+                $('#n_phi').val(data.phi);
+                $('#rendemen').val(data.rendem);
             },
             error : function() {
                 alert("Tidak ada Data!");

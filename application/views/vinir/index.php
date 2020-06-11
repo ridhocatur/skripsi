@@ -23,8 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <thead>
             <tr>
                 <th>No</th>
-                <th>Jenis Vinir</th>
+                <th>Jenis Kayu</th>
                 <th>Tebal</th>
+                <th>Ukuran</th>
                 <th>Stok (pcs)</th>
                 <th>Kubikasi (M<sup>3</sup>)</th>
                 <th>Keterangan</th>
@@ -37,11 +38,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?= $no++; ?></td>
                 <td><?= $data->nama; ?></td>
                 <td><?= $data->tebal; ?> mm</td>
+                <td><?= $data->panjang; ?> x <?= $data->lebar; ?></td>
                 <td><?= $data->stok; ?></td>
                 <td><?= $data->kubikasi; ?></td>
                 <td><?= $data->keterangan; ?></td>
                 <td>
-                    <a href="<?= base_url(); ?>vinir/edit/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm ubahVinir" data-toggle="modal" data-target="#modalVinir" data-id="<?= $data->id; ?>" ><i class="fa fa-edit"></i></a>
+                    <button href="<?= base_url(); ?>vinir/edit/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm ubahVinir" data-toggle="modal" data-target="#modalVinir" data-id="<?= $data->id; ?>" ><i class="fa fa-edit"></i></button>
                     <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Jenis <?= $data->nama?>" href="<?= base_url(); ?>vinir/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
                 </td>
                 <form action="" method="POST" id="deleteForm">
@@ -70,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="box-body">
             <p></p>
             <div class="form-group row">
-                <label for="id_jenis" class="col-sm-3 col-form-label text-md-right">Jenis Vinir</label>
+                <label for="id_jenis" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
                 <div class="col-md-8">
                 <select class="form-control" name="id_jenis" id="id_jenis">
                   <option value="" disabled selected>-- Pilih Data --</option>
@@ -82,9 +84,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="tebal" class="col-sm-3 col-form-label text-md-right">Tebal</label>
+                <label for="jenisvinir" class="col-sm-3 col-form-label text-md-right">Jenis Vinir</label>
                 <div class="col-md-8">
-                    <input id="tebal" type="text" class="form-control" name="tebal" required placeholder="Tebal" autofocus>
+                    <select class="form-control" name="jenisvinir" id="jenisvinir">
+                        <option selected disabled>-- Pilih Data --</option>
+                        <option value="face back"> Face / Back </option>
+                        <option value="core"> Core </option>
+                        <option value="long grain"> Long Grain </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="tebal" class="col-sm-3 col-form-label text-md-right">Tebal (mm)</label>
+                <div class="col-md-8">
+                    <input id="tebal" type="text" class="form-control" name="tebal" required placeholder="Tebal">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="ukurpot" class="col-sm-3 col-form-label text-md-right">Ukuran (mm)</label>
+                <div class="col-md-4">
+                    <select class="form-control" name="ukurpot" id="ukurpot" onchange="ukurpotong();">
+                        <option selected disabled>-- Pilih Data --</option>
+                        <option value="pendek"> 1900 </option>
+                        <option value="panjang"> 2600 </option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="pjg" id="pjg" class="form-control" placeholder="P" readonly>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="lbr" id="lbr" class="form-control" placeholder="L" readonly>
                 </div>
             </div>
 
@@ -120,3 +151,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
 </div>
+<script type="text/javascript">
+    function ukurpotong(){
+        if($('#ukurpot').val() == 'pendek'){
+            $('#pjg').val(1900);
+            $('#lbr').val(parseInt(1900/2));
+        } else if($('#ukurpot').val() == 'panjang'){
+            $('#pjg').val(2600);
+            $('#lbr').val(parseInt(2600/2));
+        }
+    };
+</script>

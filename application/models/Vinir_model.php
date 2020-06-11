@@ -75,7 +75,7 @@ class Vinir_model extends CI_Model {
 
     public function getByJenis ($id)
     {
-        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal, '.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis')
+        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal, '.$this->vinir.'.panjang, '.$this->vinir.'.lebar, '.$this->jeniskayu.'.nama,'.$this->jeniskayu.'.kd_jenis')
         ->from($this->vinir)
         ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left')
         ->where('id_jenis', $id);
@@ -117,17 +117,21 @@ class Vinir_model extends CI_Model {
             'id' => uniqid(),
             'id_jenis' => $post["id_jenis"],
             'tebal' => str_replace(",",".",$post["tebal"]),
+            'panjang' => $post["pjg"],
+            'lebar' => $post["lbr"],
             'stok' => $post["stok"],
             'kubikasi' => $post["kubikasi"],
             'keterangan' => $post["keterangan"]
         );
-        $a = $this->db->select('id_jenis, id_ukuran')
+        $a = $this->db->select('id_jenis, panjang, lebar')
             ->where('id_jenis', $post["id_jenis"])
-            ->where('id_ukuran', $post["id_ukuran"]);
+            ->where('tebal', $post["tebal"])
+            ->where('panjang', $post["pjg"])
+            ->where('lebar', $post["lbr"]);
         $cek = $a->get($this->vinir)->row_array();
 
         if ($cek["id_jenis"] == $post["id_jenis"]) {
-            if ($cek["id_ukuran"] == $post["id_ukuran"]) {
+            if ($cek["tebal"] == $post["tebal"] || $cek["panjang"] == $post["pjg"] || $cek["lebar"] == $post["lbr"]) {
                 $this->session->set_flashdata('danger', 'Data Sudah Ada');
                 redirect(site_url('vinir'));
             } else {
