@@ -84,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <label for="tipe_glue" class="col-sm-3 col-form-label text-md-right">Jenis Lem</label>
                 <div class="col-md-8">
                   <select class="form-control" name="tipe_glue" id="tipe_glue">
-                    <option value="">-- Pilih Data --</option>
+                    <option selected disabled>-- Pilih Data --</option>
                     <option value="Type-1 Melamine">Type-1 Melamine</option>
                     <option value="Type-2 LFE">Type-2 LFE</option>
                   </select>
@@ -94,12 +94,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="id_ukuran" class="col-sm-3 col-form-label text-md-right">Ukuran</label>
                 <div class="col-md-8">
-                    <select class="form-control idukuran" name="id_ukuran[]" id="id_ukuran" onchange="ukuran()">
+                    <select class="form-control idukuran" name="id_ukuran[]" id="id_ukuran" onchange="panjang();">
                         <option selected disabled>-- Pilih Data --</option>
                         <?php foreach($ukuran as $data): ?>
-                            <option value="<?= $data->id; ?>"><?= $data->panjang; ?> x <?= $data->lebar; ?></option>
+                            <option id="<?= $data->id; ?>" data-panjang="<?= $data->panjang; ?>" data-lebar="<?= $data->lebar; ?>"><?= $data->panjang; ?> x <?= $data->lebar; ?></option>
                         <?php endforeach;?>
                     </select>
+                    <input type="hidden" name="pjgs" id="pjgs" value="" >
+                    <input type="hidden" id="lbrply" name="lbrply" value="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="lapisanply" class="col-sm-3 col-form-label text-md-right">Lapisan Plywood</label>
+                <div class="col-md-8">
+                  <select class="form-control" name="lapisanply" id="lapisanply" onchange="lapisan();">
+                    <option selected disabled>-- Pilih Data --</option>
+                    <option value="3">3 Ply</option>
+                    <option value="5">5 Ply</option>
+                    <option value="7">7 Ply</option>
+                    <option value="9">9 Ply</option>
+                    <option value="11">11 Ply</option>
+                  </select>
+                  <input type="hidden" name="lapply" id="lapply" value="">
                 </div>
             </div>
 
@@ -130,25 +147,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </td>
                         <td>
                             <div class="input-group-btn">
-                            <button class="btn btn-success" onclick="add_form()" type="button">+</button>
+                            <button class="btn btn-success" onclick="add_form();" type="button">+</button>
                         </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <input type="hidden" id="total_tbl" name="total_tbl" value="">
-            <input type="hidden" id="pjgply" name="pjgply" value="">
-            <input type="hidden" id="lbrply" name="lbrply" value="">
             <div class="form-group row">
-                <label for="level" class="col-sm-3 col-form-label text-md-right">Jumlah Vinir Terpakai</label>
-                <div class="col-md-8">
+                <div class="col-md-4">
+                    <label for="total_tbl">Tebal Plywood</label>
+                    <input type="text" id="total_tbl" name="total_tbl" value="" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="total_tbl">Jumlah Vinir Terpakai</label>
                     <input id="total_stok" type="text" class="form-control" name="total_stok" autocomplete="total_stok" value="">
                 </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="level" class="col-sm-3 col-form-label text-md-right">Jumlah Kubikasi</label>
-                <div class="col-md-8">
+                <div class="col-md-4">
+                    <label for="total_tbl">Jumlah Kubikasi</label>
                     <input id="total_kubik" type="text" class="form-control" name="total_kubik" autocomplete="total_kubik" value="">
                 </div>
             </div>
@@ -171,18 +186,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
 </div>
 <script type="text/javascript">
-    var max_field = 21;
     var x = 1;
+    function panjang() {
+        var pjg = $('#id_ukuran').children(':selected').data('panjang');
+        var lbrs = $('#id_ukuran').children(':selected').data('lebar');
+        $('#pjgs').val(pjg);
+        $('#lbrply').val(lbrs);
+        $.ajax({
+            url:"<?php echo base_url();?>vinirmasuk/cariUkuran",
+            data: {pjg : pjg},
+            type: "post",
+            dataType: "JSON",
+            success:function(data){
+                var x = "";
+                var i;
+                x += '<option selected disabled>-- Pilih Data --</option>';
+                for (i in data){
+                    x += '<option value="'+ data[i].vinirid +'" data-tebal="'+ data[i].tebal +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
+                }
+                $('#id_vinir').html(x);
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                alert('Data Belum Ada atau ada Kesalahan '+XMLHttpRequest.responseText);
+            }
+        });
+    }
+
+    function lapisan() {
+        var max_field = $('#lapisanply').val();
+        $('#lapply').val(max_field);
+    }
 
     function add_form()
     {
-        if (x == max_field) {
-            alert('Form Telah Melebihi Batas Hingga '+x+' !')
+        var max = parseInt($('#lapply').val());
+        if (x == max) {
+            alert('Form Telah Melebihi Batas Hingga '+x+' Baris!')
         } else {
-            var id = $("#id_ukuran").val();
+            var pjg = $('#pjgs').val();
             $.ajax({
-                url:"<?php echo base_url();?>plywood/cariUkuran",
-                data: {id_ukuran : id},
+                url:"<?= base_url();?>vinirmasuk/cariUkuran",
+                data: {pjg : pjg},
                 type: "post",
                 dataType: "JSON",
                 success:function(data){
@@ -192,16 +236,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     html += '<td><select class="form-control idvinir" name="id_vinir[]" id="id_vinir" onchange="autofill(this)">';
                     html += '<option selected disabled>-- Pilih Data --</option>';
                     for (i in data){
-                        html += '<option value="'+ data[i].vinirid +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
+                        html += '<option value="'+ data[i].vinirid +'" data-tebal="'+ data[i].tebal +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
                     }
                     html += '<input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value=""></td>';
                     html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">-</button></td>';
                     html += '</select>';
                     html += '</tr>';
+
                     $('#form-body').append(html);
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown){
-                    alert('Data Belum Ada atau ada Kesalahan '+XMLHttpRequest.responseText);
+                    alert('Data Belum Ada atau ada Kesalahan');
                 }
             });
             tebal();
@@ -219,45 +264,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     function autofill(id_value){
         var id = id_value.value;
         $.ajax({
-            url:"<?php echo base_url();?>vinirmasuk/cariUkuran",
-            data: {id_vinir : id},
+            url:"<?php echo base_url();?>vinirmasuk/cariTebal",
+            data: {id : id},
             type: "post",
             dataType: "JSON",
             success:function(data){
-                // console.log(data);
-                // var t = ;
-                var p = parseFloat((data.panjang)/10);
-                var l = parseFloat((data.lebar)/10);
-                $('#id_vinir').change(function(){
-                    $('td').find('input[name^=tblply]').val(parseFloat((data.tebal)/10));
-                });
-                $('#pjgply').val(p);
-                $('#lbrply').val(l);
+                $('.tbl_ply').val(data[0].tebal);
             },
             error : function(){
                 alert('Data Belum Ada!');
-            }
-        });
-    }
-
-    function ukuran(){
-        var id = $("#id_ukuran").val();
-        $.ajax({
-            url:"<?php echo base_url();?>plywood/cariUkuran",
-            data: {id_ukuran : id},
-            type: "post",
-            dataType: "JSON",
-            success:function(data){
-                var x = "";
-                var i;
-                x += '<option selected disabled>-- Pilih Data --</option>';
-                for (i in data){
-                    x += '<option value="'+ data[i].vinirid +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
-                }
-                $('#id_vinir').html(x);
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown){
-                alert('Data Belum Ada atau ada Kesalahan '+XMLHttpRequest.responseText);
             }
         });
     }

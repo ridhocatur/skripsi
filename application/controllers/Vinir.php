@@ -132,8 +132,15 @@ class Vinir extends CI_Controller {
 
 	public function cariUkuran()
 	{
-		$id = $_POST['id_vinir'];
-		$data = $this->Vinir_model->getByUkuran($id);
+		$pjg = $_POST['pjg'];
+		$data = $this->Vinir_model->getByUkuran($pjg);
+		echo json_encode($data);
+	}
+
+	public function cariTebal()
+	{
+		$id = $_POST['id'];
+		$data = $this->Vinir_model->getTebal($id);
 		echo json_encode($data);
 	}
 

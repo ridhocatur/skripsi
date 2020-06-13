@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Plywood_model extends CI_Model {
 
     private $vinir = 'vinir';
-    private $vinir_masuk = 'vinir_masuk';
+    private $plywood = 'plywood';
     private $jeniskayu = 'jeniskayu';
     private $ukuran = 'ukuran';
     private $kayu = 'kayu';
@@ -37,14 +37,14 @@ class Plywood_model extends CI_Model {
 
     public function getAll ()
     {
-        return $this->db->get($this->vinir_masuk)->result();
+        return $this->db->get($this->plywood)->result();
     }
 
     public function getJoinAll ()
     {
-        $this->db->select($this->vinir_masuk.'.* ,'.$this->kayu.'.kd_kayu,'.$this->vinir.'.tebal, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, '.$this->jeniskayu.'.nama ')
-        ->from($this->vinir_masuk)
-        ->join($this->vinir, $this->vinir_masuk.'.id_vinir = '.$this->vinir.'.id', 'left')
+        $this->db->select($this->plywood.'.* ,'.$this->kayu.'.kd_kayu,'.$this->vinir.'.tebal, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, '.$this->jeniskayu.'.nama ')
+        ->from($this->plywood)
+        ->join($this->vinir, $this->plywood.'.id_vinir = '.$this->vinir.'.id', 'left')
         ->join($this->jeniskayu, $this->vinir.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
         ->join($this->kayu, $this->kayu.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
         ->join($this->ukuran, $this->vinir.'.id_ukuran = '.$this->ukuran.'.id', 'left');
@@ -52,21 +52,24 @@ class Plywood_model extends CI_Model {
         return $query->result();
     }
 
-    public function getByUkuran($id)
+    public function getByUkuran($pjg)
     {
-        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, '.$this->jeniskayu.'.nama ')
+        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal, '.$this->vinir.'.panjang, '.$this->vinir.'.lebar, '.$this->jeniskayu.'.nama ')
         ->from($this->vinir)
-        ->join($this->ukuran, $this->vinir.'.id_ukuran =.'.$this->ukuran.'.id', 'left')
-        ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left')
-        ->where($this->ukuran.'.id', $id)
-        ->order_by($this->jeniskayu.'.nama', 'ASC');
+        ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left');
+        if ($pjg <= '1900') {
+            $this->db->like($this->vinir.'.panjang', '1900');
+        } else if ($pjg >= '1900') {
+            $this->db->like($this->vinir.'.panjang', '2600');
+        }
+        $this->db->order_by($this->vinir.'.tebal', 'ASC');
         $query = $this->db->get();
         return $query->result();
     }
 
     public function getById ($id)
     {
-        return $this->db->get_where($this->vinir_masuk, ["id" => $id])->row();
+        return $this->db->get_where($this->plywood, ["id" => $id])->row();
     }
 
     public function save()
@@ -83,7 +86,7 @@ class Plywood_model extends CI_Model {
             'keterangan' => $post["keterangan"]
         );
 
-        return $this->db->insert($this->vinir_masuk, $data);
+        return $this->db->insert($this->plywood, $data);
     }
 
     public function update()
@@ -99,12 +102,12 @@ class Plywood_model extends CI_Model {
             'jml_log' => $post["kayu_log"],
             'keterangan' => $post["keterangan"]
         );
-        return $this->db->update($this->vinir_masuk, $data, array('id' => $post['id']));
+        return $this->db->update($this->plywood, $data, array('id' => $post['id']));
     }
 
     public function delete($id)
     {
-        return $this->db->delete($this->vinir_masuk, array("id" => $id));
+        return $this->db->delete($this->plywood, array("id" => $id));
     }
 
 }

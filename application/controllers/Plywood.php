@@ -69,20 +69,4 @@ class Plywood extends CI_Controller {
 		}
 		redirect(site_url('vinirmasuk'));
 	}
-
-	public function cariJenis()
-	{
-		$id = $_POST['id'];
-		$kayulog = $this->Kayulog_model->getByJenis($id);
-		$vinir = $this->Vinir_model->getByJenis($id);
-		echo json_encode(array($kayulog, $vinir));
-	}
-
-	public function cariUkuran()
-	{
-		$id = $_POST['id_ukuran'];
-		$data = $this->Plywood_model->getByUkuran($id);
-		echo json_encode($data);
-	}
-
 }

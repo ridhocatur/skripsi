@@ -83,14 +83,29 @@ class Vinir_model extends CI_Model {
         return $query->result();
     }
 
-    public function getByUkuran($id)
+    public function getTebal ($id)
     {
-        $this->db->select($this->vinir.'.tebal, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, ')
+        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal')
         ->from($this->vinir)
-        ->join($this->ukuran, $this->vinir.'.id_ukuran =.'.$this->ukuran.'.id', 'left')
+        ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left')
         ->where($this->vinir.'.id', $id);
         $query = $this->db->get();
-        return $query->row_array();
+        return $query->result();
+    }
+
+    public function getByUkuran($pjg)
+    {
+        $this->db->select($this->vinir.'.id as vinirid ,'.$this->vinir.'.tebal, '.$this->vinir.'.panjang, '.$this->vinir.'.lebar, '.$this->jeniskayu.'.nama ')
+        ->from($this->vinir)
+        ->join($this->jeniskayu, $this->vinir.'.id_jenis =.'.$this->jeniskayu.'.id', 'left');
+        if ($pjg <= '1900') {
+            $this->db->like($this->vinir.'.panjang', '1900');
+        } else if ($pjg >= '1900') {
+            $this->db->like($this->vinir.'.panjang', '2600');
+        }
+        $this->db->order_by($this->vinir.'.tebal', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
     }
 
     public function report($id_ukuran,$id_jenis)

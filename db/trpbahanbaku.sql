@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versi server:                 10.4.6-MariaDB - mariadb.org binary distribution
--- OS Server:                    Win64
+-- Versi server:                 10.1.38-MariaDB - mariadb.org binary distribution
+-- OS Server:                    Win32
 -- HeidiSQL Versi:               11.0.0.5919
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `dtl_gluemix` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_bahan` varchar(64) NOT NULL,
   `id_gluemix` int(64) NOT NULL,
-  `stok_keluar` int(20) NOT NULL DEFAULT 0,
+  `stok_keluar` int(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_bahan` (`id_bahan`),
   KEY `id_gluemix` (`id_gluemix`)
@@ -139,8 +139,8 @@ CREATE TABLE IF NOT EXISTS `dtl_plywood` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_vinir` varchar(64) NOT NULL,
   `id_plywood` int(64) NOT NULL,
-  `stok_keluar` int(20) NOT NULL DEFAULT 0,
-  `kubik_keluar` int(20) NOT NULL DEFAULT 0,
+  `stok_keluar` int(20) NOT NULL DEFAULT '0',
+  `kubik_keluar` int(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_vinir_keluar` (`id_vinir`),
   KEY `id_keluar` (`id_plywood`)
@@ -216,9 +216,9 @@ CREATE TABLE IF NOT EXISTS `kayu` (
   `id` varchar(64) NOT NULL,
   `kd_kayu` varchar(20) NOT NULL,
   `id_jenis` varchar(64) NOT NULL,
-  `stok` int(20) NOT NULL DEFAULT 0,
-  `kubikasi` float(8,2) NOT NULL DEFAULT 0.00,
-  `kubikperlog` float(8,2) NOT NULL DEFAULT 0.00,
+  `stok` int(20) NOT NULL DEFAULT '0',
+  `kubikasi` float(8,2) NOT NULL DEFAULT '0.00',
+  `kubikperlog` float(8,2) NOT NULL DEFAULT '0.00',
   `keterangan` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_jenis` (`id_jenis`)
@@ -257,11 +257,11 @@ REPLACE INTO `kayu_masuk` (`id`, `id_supplier`, `invoice`, `tgl`, `jml_stok`, `j
 -- membuang struktur untuk table trpbahanbaku.nilai_baku
 CREATE TABLE IF NOT EXISTS `nilai_baku` (
   `id` int(10) NOT NULL,
-  `dbobin` float(8,2) NOT NULL DEFAULT 0.00,
-  `vbobin` float(8,4) NOT NULL DEFAULT 0.0000,
-  `kerapatan` float(8,2) NOT NULL DEFAULT 0.00,
-  `phi` float(8,4) NOT NULL DEFAULT 0.0000,
-  `rendem` float(8,2) NOT NULL DEFAULT 0.00,
+  `dbobin` float(8,2) NOT NULL DEFAULT '0.00',
+  `vbobin` float(8,4) NOT NULL DEFAULT '0.0000',
+  `kerapatan` float(8,2) NOT NULL DEFAULT '0.00',
+  `phi` float(8,4) NOT NULL DEFAULT '0.0000',
+  `rendem` float(8,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -281,15 +281,15 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   `telp` varchar(18) DEFAULT NULL,
   `gambar` varchar(255) NOT NULL DEFAULT 'default.jpg',
   `level` enum('admin','user','manager') NOT NULL DEFAULT 'user',
-  `last_login` timestamp NOT NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel trpbahanbaku.pegawai: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-11 19:46:01', '2020-05-18 20:30:53'),
+	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-12 13:50:56', '2020-05-18 20:30:53'),
 	('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', '5aad4f2aede54_jpg_d6e6d07e022235c48a75238b6608d83d.jpg', 'manager', '2020-05-27 20:20:08', '2020-05-18 20:30:53'),
 	('5ebc04fa7112c', '34', 'admin', 'admin', 'Admin', '119976', '_34.jpg', 'admin', '2020-05-18 20:30:53', '2020-05-18 20:30:53'),
 	('5ebc0d91b1761', '2352345', 'cahbekasi', '860dec1a7a44b923c725901e11bc6363', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-05-27 20:20:40', '2020-05-18 20:30:53'),
@@ -305,8 +305,8 @@ CREATE TABLE IF NOT EXISTS `plywood` (
   `tebal` varchar(20) NOT NULL,
   `panjang` varchar(20) NOT NULL,
   `lebar` varchar(20) NOT NULL,
-  `total_prod` int(20) NOT NULL DEFAULT 0,
-  `total_kubik` float(8,2) NOT NULL DEFAULT 0.00,
+  `total_prod` int(20) NOT NULL DEFAULT '0',
+  `total_kubik` float(8,2) NOT NULL DEFAULT '0.00',
   `keterangan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -343,14 +343,14 @@ REPLACE INTO `supplier` (`id`, `nm_sup`, `sup`, `alamat`, `email`, `telp`, `kete
 -- membuang struktur untuk table trpbahanbaku.ukuran
 CREATE TABLE IF NOT EXISTS `ukuran` (
   `id` int(64) NOT NULL AUTO_INCREMENT,
-  `panjang` int(11) NOT NULL,
   `lebar` int(11) NOT NULL,
+  `panjang` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel trpbahanbaku.ukuran: ~8 rows (lebih kurang)
 /*!40000 ALTER TABLE `ukuran` DISABLE KEYS */;
-REPLACE INTO `ukuran` (`id`, `panjang`, `lebar`) VALUES
+REPLACE INTO `ukuran` (`id`, `lebar`, `panjang`) VALUES
 	(1, 910, 1820),
 	(2, 920, 1830),
 	(3, 920, 2150),
@@ -366,10 +366,10 @@ CREATE TABLE IF NOT EXISTS `vinir` (
   `id` varchar(64) NOT NULL,
   `id_jenis` int(64) NOT NULL,
   `tebal` float(8,1) NOT NULL,
-  `panjang` int(11) NOT NULL DEFAULT 0,
-  `lebar` int(11) NOT NULL DEFAULT 0,
-  `stok` int(20) NOT NULL DEFAULT 0,
-  `kubikasi` float(8,2) NOT NULL DEFAULT 0.00,
+  `panjang` int(11) NOT NULL DEFAULT '0',
+  `lebar` int(11) NOT NULL DEFAULT '0',
+  `stok` int(20) NOT NULL DEFAULT '0',
+  `kubikasi` float(8,2) NOT NULL DEFAULT '0.00',
   `keterangan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_jenis` (`id_jenis`)
@@ -396,19 +396,19 @@ CREATE TABLE IF NOT EXISTS `vinir_masuk` (
   `id_kayu` varchar(64) NOT NULL,
   `tgl` date NOT NULL,
   `shift` enum('1','2') NOT NULL,
-  `jml_log` int(11) NOT NULL DEFAULT 0,
-  `kubik_log` float(8,2) NOT NULL DEFAULT 0.00,
-  `r_reel` int(11) NOT NULL DEFAULT 0,
-  `v_reel` float(8,4) NOT NULL DEFAULT 0.0000,
-  `stok_masuk` int(20) NOT NULL DEFAULT 0,
-  `kubik_masuk` float(8,2) NOT NULL DEFAULT 0.00,
+  `jml_log` int(11) NOT NULL DEFAULT '0',
+  `kubik_log` float(8,2) NOT NULL DEFAULT '0.00',
+  `r_reel` int(11) NOT NULL DEFAULT '0',
+  `v_reel` float(8,4) NOT NULL DEFAULT '0.0000',
+  `stok_masuk` int(20) NOT NULL DEFAULT '0',
+  `kubik_masuk` float(8,2) NOT NULL DEFAULT '0.00',
   `keterangan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Index 3` (`id_kayu`),
   KEY `index2` (`id_vinir`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.vinir_masuk: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.vinir_masuk: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `vinir_masuk` DISABLE KEYS */;
 REPLACE INTO `vinir_masuk` (`id`, `id_vinir`, `id_kayu`, `tgl`, `shift`, `jml_log`, `kubik_log`, `r_reel`, `v_reel`, `stok_masuk`, `kubik_masuk`, `keterangan`) VALUES
 	('5ee24f8196182', '5ee1d59153c0b', '5ecb4d4b5b93d', '2020-06-10', '1', 53, 50.00, 50, 1.9618, 30180, 39.23, NULL),

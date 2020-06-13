@@ -387,6 +387,7 @@ $(function () {
         $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/plywood/tambah')
         // $('#formModal')[0].reset();
     });
+
     //---- sambungan form.php untuk kalkulasi total Plywood
     $("body").on('keyup', '.vinir_stok_keluar', function(e) {
         e.preventDefault();
