@@ -48,21 +48,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php $no = 1; ?>
-                <?php foreach($gluemix as $data) : ?>
-                <tr>
-                    <td align="center"><?= $no; ?></td>
-                    <td align="center"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
-                    <td align="center"><?= $data['shift']; ?></td>
-                    <?php if (sizeof($data['item']) > 0) : ?>
-                    <?php foreach($data['item'] as $i) : ?>
-                    <td align="right"><?= $i['stok_keluar']; ?>&nbsp;kg</td>
+                    <?php $no = 1; ?>
+                    <?php foreach($gluemix as $data) : ?>
+                    <tr>
+                        <td align="center"><?= $no; ?></td>
+                        <td align="center"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
+                        <td align="center"><?= $data['shift']; ?></td>
+                        <?php if (sizeof($data['item']) > 0) : ?>
+                        <?php foreach($data['item'] as $i) : ?>
+                        <td align="right"><?= $i['stok_keluar']; ?>&nbsp;kg</td>
+                        <?php endforeach; ?>
+                        <td align="right"><b><?= $data['total']; ?>&nbsp;kg</b></td>
+                    <?php endif; ?>
+                    <?php $no++; ?>
                     <?php endforeach; ?>
-                    <td align="right"><b><?= $data['total']; ?>&nbsp;kg</b></td>
-                <?php endif; ?>
-                <?php $no++; ?>
-                <?php endforeach; ?>
-                </tr>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
+                    </tr>
                 </tbody>
             </table>
             <br>

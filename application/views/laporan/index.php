@@ -17,7 +17,8 @@
             <div class="col-md-6">
                 <select class="form-control" name="menu_bahan" id="menu_bahan" style="display: none;" onchange="menuBahan()">
                     <option selected disabled>-- Pilih Data Bahan Bantu--</option>
-                    <option value="stokbahan">Stok Bahan Bantu</option>
+                    <option value="stokbahansemua">Stok Bahan Bantu (Semua)</option>
+                    <option value="stokbahanbulan">Stok Bahan Bantu (Per Bulan)</option>
                     <option value="bahanmasuk">Pemasukan Bahan Bantu</option>
                     <option value="gluemix">Pengadukan Bahan / Gluemix</option>
                 </select>
@@ -42,8 +43,8 @@
                         <i class="fa fa-calendar"></i>&nbsp;
                         <span></span> <i class="fa fa-caret-down"></i>
                     </div>
-                    <input type="hidden" name="satutgl" id="satutgl" value="">
-                    <input type="hidden" name="duatgl" id="duatgl" value="">
+                    <input type="hidden" name="satutgl" id="satutgl" value="" disabled>
+                    <input type="hidden" name="duatgl" id="duatgl" value="" disabled>
 
                 </td>
             </tr>
@@ -113,30 +114,37 @@
     }
 
     function menuBahan(){
-        if ($('#menu_bahan').val() == 'stokbahan') {
+        if ($('#menu_bahan').val() == 'stokbahansemua') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokbahan');
-            $('#tglawal').attr('disabled', true);
-            $('#tglakhir').attr('disabled', true);
-            $('#select1').html(selkategori);
+            $('#satutgl').attr('disabled', true);
+            $('#duatgl').attr('disabled', true);
+            $('#select1').empty();
+            $('#select2').empty();
+            $('#shift').attr('disabled', true);
+        } else if($('#menu_bahan').val() == 'stokbahanbulan') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokbahanbulan');
+            $('#satutgl').attr('disabled', false);
+            $('#duatgl').attr('disabled', true);
+            $('#select1').empty();
             $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_bahan').val() == 'bahanmasuk') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/bahanmasuk');
-            $('#tglawal').attr('disabled', false);
-            $('#tglakhir').attr('disabled', false);
+            $('#satutgl').attr('disabled', false);
+            $('#duatgl').attr('disabled', false);
             $('#select1').html(selsupbahan);
             $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_bahan').val() == 'gluemix') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/gluemix');
-            $('#tglawal').attr('disabled', false);
-            $('#tglakhir').attr('disabled', false);
+            $('#satutgl').attr('disabled', false);
+            $('#duatgl').attr('disabled', false);
             $('#select1').html(seltipeglue);
             $('#select2').empty();
             $('#shift').attr('disabled', false);
         } else {
-            $('#tglawal').attr('disabled', true);
-            $('#tglakhir').attr('disabled', true);
+            $('#satutgl').attr('disabled', true);
+            $('#duatgl').attr('disabled', true);
             $('#select1').empty();
             $('#select2').empty();
             $('#shift').attr('disabled', true);
@@ -146,21 +154,21 @@
     function menuKayu(){
         if ($('#menu_kayu').val() == 'stokkayu') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokkayu');
-            $('#tglawal').attr('disabled', true);
-            $('#tglakhir').attr('disabled', true);
+            $('#satutgl').attr('disabled', true);
+            $('#duatgl').attr('disabled', true);
             $('#select1').html(seljeniskayu);
             $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_kayu').val() == 'kayumasuk') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/kayumasuk');
-            $('#tglawal').attr('disabled', false);
-            $('#tglakhir').attr('disabled', false);
+            $('#satutgl').attr('disabled', false);
+            $('#duatgl').attr('disabled', false);
             $('#select1').html(seljeniskayu);
             $('#select2').html(selsupkayu);
             $('#shift').attr('disabled', true);
         } else {
-            $('#tglawal').attr('disabled', true);
-            $('#tglakhir').attr('disabled', true);
+            $('#satutgl').attr('disabled', true);
+            $('#duatgl').attr('disabled', true);
             $('#select1').empty();
             $('#select2').empty();
             $('#shift').attr('disabled', true);
@@ -170,25 +178,25 @@
     function menuVinir(){
         if ($('#menu_vinir').val() == 'stokvinir') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokvinir');
-            $('#tglawal').attr('disabled', true);
-            $('#tglakhir').attr('disabled', true);
+            $('#satutgl').attr('disabled', true);
+            $('#duatgl').attr('disabled', true);
             $('#select1').html(selukuran);
             $('#select2').html(seljeniskayu);
             $('#shift').attr('disabled', true);
         } else if($('#menu_vinir').val() == 'vinirmasuk') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/vinirmasuk');
-            $('#tglawal').attr('disabled', false);
-            $('#tglakhir').attr('disabled', false);
+            $('#satutgl').attr('disabled', false);
+            $('#duatgl').attr('disabled', false);
             $('#select1').html(selkayulog);
             $('#select2').empty();
             $('#shift').attr('disabled', true);
         } else if($('#menu_vinir').val() == 'plywood') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/plywood');
-            $('#tglawal').attr('disabled', false);
-            $('#tglakhir').attr('disabled', false);
+            $('#satutgl').attr('disabled', false);
+            $('#duatgl').attr('disabled', false);
         } else {
-            $('#tglawal').attr('disabled', true);
-            $('#tglakhir').attr('disabled', true);
+            $('#satutgl').attr('disabled', true);
+            $('#duatgl').attr('disabled', true);
             $('#jeniskayu').attr('disabled', true);
             $('#id_supplier').attr('disabled', true);
             $('#shift').attr('disabled', true);
@@ -201,8 +209,8 @@
         $('#menu_bahan').attr('style', 'display: none');
         $('#menu_kayu').attr('style', 'display: none');
         $('#menu_vinir').attr('style', 'display: none');
-        $('#tglawal').val('').attr('disabled', true);
-        $('#tglakhir').val('').attr('disabled', true);
+        $('#satutgl').val('').attr('disabled', true);
+        $('#duatgl').val('').attr('disabled', true);
         $('#select1').empty();
         $('#select2').empty();
         $('#shift').val('d').attr('disabled', true);

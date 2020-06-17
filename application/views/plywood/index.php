@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Shift</th>
                 <th>Tipe Glue</th>
                 <th>Ukuran</th>
-                <th>Total Produksi (Pcs)</th>
+                <th>Total Produksi (lembar)</th>
                 <th>Total Kubikasi (M<sup>3</sup>)</th>
                 <th>Keterangan</th>
                 <th>Aksi</th>
@@ -38,14 +38,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
                 <td><?= $no++; ?></td>
                 <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
-                <td><?= $data->shift; ?></td>
+                <td align="center"><?= $data->shift; ?></td>
                 <td><?= $data->tipe_glue; ?></td>
-                <td><?= $data->ukuran; ?></td>
-                <td><?= $data->total_prod; ?></td>
-                <td><?= $data->total_kubik; ?></td>
+                <td><?= $data->tebal; ?> mm x <?= $data->panjang; ?> x <?= $data->lebar; ?></td>
+                <td align="center"><?= $data->total_prod; ?></td>
+                <td align="center"><?= $data->total_kubik; ?></td>
                 <td><?= $data->keterangan; ?></td>
                 <td>
-                    <a class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" href="<?= base_url(); ?>/plywood/detail/<?= $data->id; ?>"><i class="fa fa-eye"></i></a>
+                    <a class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" href="<?= base_url(); ?>plywood/detail/<?= $data->id; ?>"><i class="fa fa-eye"></i></a>
                     <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Tanggal <?= $data->tgl?>" href="<?= base_url(); ?>/plywood/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
                 </td>
                 <form action="" method="POST" id="deleteForm">
@@ -92,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="id_ukuran" class="col-sm-3 col-form-label text-md-right">Ukuran</label>
+                <label for="id_ukuran" class="col-sm-3 col-form-label text-md-right">Ukuran (mm)</label>
                 <div class="col-md-8">
                     <select class="form-control idukuran" name="id_ukuran[]" id="id_ukuran" onchange="panjang();">
                         <option selected disabled>-- Pilih Data --</option>
@@ -121,29 +121,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="level" class="col-sm-3 text-md-right">Shift</label>
+                <label for="shift" class="col-sm-3 text-md-right">Shift</label>
                 <div class="col-md-4">
                   <label class="radio-inline"><input type="radio" name="shift" id="shift" value="1"> 1 (Satu) </label>
                   <label class="radio-inline"><input type="radio" name="shift" id="shift" value="2"> 2 (Dua) </label>
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label for="vinir_keluar" class="col-sm-3 text-md-right">Jumlah Vinir Terpakai</label>
+                <div class="col-md-4">
+                    <input id="vinir_keluar" type="text" class="form-control" name="vinir_keluar" value="" onchange="hitungttl();">
+                </div>
+            </div>
+
             <table class="table table-borderless">
                 <thead>
                     <tr style="text-align:center">
-                        <th style="width: 10%"></th>
-                        <th style="width: 50%">Vinir</th>
-                        <th style="width: 10%"></th>
+                        <th style="width: 5%"></th>
+                        <th style="width: 40%">Vinir</th>
+                        <th style="width: 20%">Jenis</th>
+                        <th style="width: 20%">Kubikasi (M<sup>3</sup>)</th>
+                        <th style="width: 5%"></th>
                     </tr>
                 </thead>
                 <tbody id="form-body">
                     <tr style="text-align:center">
                         <td></td>
                         <td>
-                            <select class="form-control idvinir" name="id_vinir[]" id="id_vinir" onchange="autofill(this)">
-                              <option selected disabled>-- Pilih Data --</option>
+                            <select class="form-control idvinir" name="ukurvinir[]" id="ukurvinir">
+                                <option selected disabled>-- Pilih Data --</option>
                             </select>
                             <input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value="">
+                        </td>
+                        <td>
+                            <select class="form-control" name="jenis[]" id="jenis">
+                                <option selected disabled>-- Pilih Data --</option>
+                                <option value="face back">Face Back</option>
+                                <option value="core">Core</option>
+                                <option value="long grain">Long Grain</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="jml_kubikvinir" type="text" class="form-control jml_kubikvinir" name="jml_kubikvinir[]" required readonly>
                         </td>
                         <td>
                             <div class="input-group-btn">
@@ -153,23 +173,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tr>
                 </tbody>
             </table>
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label for="total_tbl">Tebal Plywood</label>
-                    <input type="text" id="total_tbl" name="total_tbl" value="" class="form-control">
+            <div class="form-group row justify-content-center">
+                <div class="col-md-3">
+                    <label for="ttl_tebal">Tebal Plywood</label>
+                    <input type="text" id="ttl_tebal" name="ttl_tebal" value="" class="form-control" readonly>
                 </div>
-                <div class="col-md-4">
-                    <label for="total_tbl">Jumlah Vinir Terpakai</label>
-                    <input id="total_stok" type="text" class="form-control" name="total_stok" autocomplete="total_stok" value="">
+                <div class="col-md-3">
+                    <label for="volply">Volume Plywood/lembar</label>
+                    <input type="text" id="volply" name="volply" value="" class="form-control" readonly>
                 </div>
-                <div class="col-md-4">
-                    <label for="total_tbl">Jumlah Kubikasi</label>
-                    <input id="total_kubik" type="text" class="form-control" name="total_kubik" autocomplete="total_kubik" value="">
+                <div class="col-md-3">
+                    <label for="jml_pcs">Jumlah Plywood (pcs)</label>
+                    <input id="jml_pcs" type="text" class="form-control" name="jml_pcs" value="" placeholder="Pcs" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label for="jml_kubik">Jumlah Plywood (M<sup>3</sup>)</label>
+                    <input id="jml_kubik" type="text" class="form-control" name="jml_kubik" placeholder="M<sup>3</sup>" value="" readonly>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="level" class="col-sm-3 col-form-label text-md-right">Keterangan</label>
+                <label for="keterangan" class="col-sm-3 col-form-label text-md-right">Keterangan</label>
                 <div class="col-md-8">
                     <input id="keterangan" type="text" class="form-control" name="keterangan" autocomplete="keterangan">
                 </div>
@@ -179,6 +203,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary keluar" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-warning tombolReset">Reset</button>
         <button type="submit" class="btn btn-success">Simpan</button>
     </form>
       </div>
@@ -202,9 +227,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 var i;
                 x += '<option selected disabled>-- Pilih Data --</option>';
                 for (i in data){
-                    x += '<option value="'+ data[i].vinirid +'" data-tebal="'+ data[i].tebal +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
+                    x += '<option value="'+ data[i].vinirid +'" data-tebal="'+ data[i].tebal +'" data-panjang="'+ data[i].panjang +'" data-lebar="'+ data[i].lebar +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
                 }
-                $('#id_vinir').html(x);
+                $('#ukurvinir').html(x);
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
                 alert('Data Belum Ada atau ada Kesalahan '+XMLHttpRequest.responseText);
@@ -222,6 +247,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         var max = parseInt($('#lapply').val());
         if (x == max) {
             alert('Form Telah Melebihi Batas Hingga '+x+' Baris!')
+        } else if ( !max ) {
+            alert('Lapisan Plywood belum ditentukan')
         } else {
             var pjg = $('#pjgs').val();
             $.ajax({
@@ -233,12 +260,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var html = '';
                     html += '<tr style="text-align:center">';
                     html += '<td></td>';
-                    html += '<td><select class="form-control idvinir" name="id_vinir[]" id="id_vinir" onchange="autofill(this)">';
+                    html += '<td><select class="form-control idvinir" name="ukurvinir[]" id="ukurvinir">';
                     html += '<option selected disabled>-- Pilih Data --</option>';
                     for (i in data){
-                        html += '<option value="'+ data[i].vinirid +'" data-tebal="'+ data[i].tebal +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
+                        html += '<option value="'+ data[i].vinirid +'" data-tebal="'+ data[i].tebal +'" data-panjang="'+ data[i].panjang +'" data-lebar="'+ data[i].lebar +'">'+ data[i].nama +', '+ data[i].tebal +' mm x '+ data[i].panjang +' x '+ data[i].lebar +'</option>';
                     }
                     html += '<input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value=""></td>';
+                    html += '<td><select class="form-control" name="jenis[]" id="jenis"><option selected disabled>-- Pilih Data --</option><option value="face back">Face Back</option><option value="core">Core</option><option value="long grain">Long Grain</option></select></td>';
+                    html += '<td><input id="jml_kubikvinir" type="text" class="form-control jml_kubikvinir" name="jml_kubikvinir[]" required readonly></td>';
                     html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">-</button></td>';
                     html += '</select>';
                     html += '</tr>';
@@ -249,7 +278,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     alert('Data Belum Ada atau ada Kesalahan');
                 }
             });
-            tebal();
             x++;
         }
     }
@@ -261,39 +289,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         x--;
     }
 
-    function autofill(id_value){
-        var id = id_value.value;
-        $.ajax({
-            url:"<?php echo base_url();?>vinirmasuk/cariTebal",
-            data: {id : id},
-            type: "post",
-            dataType: "JSON",
-            success:function(data){
-                $('.tbl_ply').val(data[0].tebal);
-            },
-            error : function(){
-                alert('Data Belum Ada!');
-            }
-        });
-    }
-
     function tebal() {
         var total = 0;
         $(".tbl_ply").each(function() {
             if (!isNaN(this.value) && this.value.length != 0) {
-            total += parseFloat(this.value);
+                total += parseFloat(this.value);
             }
         });
-        $('#total_tbl').val(total.toFixed(1));
+        $('#ttl_tebal').val(total.toFixed(1));
     }
 
-    function stok() {
-        var total = 0;
-        $("#tblply").each(function() {
-            if (!isNaN(this.value) && this.value.length != 0) {
-            total += parseFloat(this.value);
-            }
-        });
-        $('#total_tbl').val(total.toFixed(1));
+    function hitungttl(){
+        var stok = parseInt($("#vinir_keluar").val());
+        var tb = parseFloat($("#ttl_tebal").val());
+        var pj = parseInt($("#pjgs").val());
+        var lb = parseInt($("#lbrply").val());
+        var volply = parseFloat((tb*pj*lb)/1000000000);
+        $('#volply').val(volply.toFixed(4));
+        var rdm = stok - (stok * 0.28);
+        var kbk = parseFloat(volply.toFixed(4) * rdm);
+        var pcs = kbk.toFixed(2) / volply.toFixed(4);
+        $('#jml_pcs').val(Math.round(pcs));
+        $('#jml_kubik').val(kbk.toFixed(2));
     }
 </script>

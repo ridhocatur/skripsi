@@ -113,7 +113,7 @@ class Vinirmasuk_model extends CI_Model {
     public function report($id_kayu)
     {
         $kondisi = "";
-        $sql = "SELECT ".$this->vinir_masuk.".* ,".$this->kayu.".kd_kayu, ".$this->jeniskayu.".nama, ".$this->vinir.".tebal
+        $sql = "SELECT ".$this->vinir_masuk.".* ,".$this->kayu.".kd_kayu, ".$this->jeniskayu.".nama, ".$this->vinir.".tebal, ".$this->vinir.".panjang, ".$this->vinir.".lebar
         FROM ".$this->vinir_masuk."
         LEFT JOIN ".$this->vinir." ON ".$this->vinir_masuk.".id_vinir = ".$this->vinir.".id
         LEFT JOIN ".$this->kayu." ON ".$this->vinir_masuk.".id_kayu = ".$this->kayu.".id

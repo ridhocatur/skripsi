@@ -73,14 +73,6 @@ class Kayumasuk_model extends CI_Model {
 
     public function getDetailReport ($id, $id_jenis)
     {
-        // $this->db->select($this->dtl_kayu_masuk.'.* ,'.$this->kayulog.'.kd_kayu, '.$this->jeniskayu.'.nama ')
-        // ->from($this->dtl_kayu_masuk)
-        // ->join($this->kayulog, $this->kayulog.'.id = '. $this->dtl_kayu_masuk.'.id_kayu', 'left')
-        // ->join($this->kayu_masuk, $this->kayu_masuk.'.id = '. $this->dtl_kayu_masuk.'.id_masuk', 'left')
-        // ->join($this->jeniskayu, $this->kayulog.'.id_jenis = '. $this->jeniskayu.'.id', 'left')
-        // ->where($this->jeniskayu.'.id', $id_jenis);
-        // $query = $this->db->get();
-        // return $query->result();
         $kondisi = "";
         $sql = "SELECT ".$this->dtl_kayu_masuk.".*, ".$this->kayulog.".kd_kayu, ".$this->jeniskayu.".nama
         FROM ".$this->dtl_kayu_masuk."

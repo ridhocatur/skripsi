@@ -47,33 +47,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php $no = 1; $totalstok = 0; $totalkubik = 0; ?>
-                <?php foreach($kayumasuk as $data) : ?>
-                <tr>
-                    <?php if (sizeof($data['item']) > 0) : ?>
-                    <?php $x = count($data['item']); $row = $x + 1; ?>
-                    <td align="center" rowspan="<?php echo $row; ?>"><?= $no; ?></td>
-                    <td align="center" rowspan="<?php echo $row; ?>"><?= $data['invoice']; ?></td>
-                    <td align="center" rowspan="<?php echo $row; ?>"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
-                    <td align="center" rowspan="<?php echo $row; ?>"><?= $data['nm_sup']; ?></td>
-                    <?php foreach($data['item'] as $i) : ?>
-                        <tr>
-                            <td align="right"><?= $i['kd_kayu']; ?></td>
-                            <td align="right"><?= $i['nama']; ?></td>
-                            <td align="right"><?= $i['panjang']; ?> x <?= $i['diameter1']; ?> x <?= $i['diameter2']; ?></td>
-                            <td align="right"><?= $i['stok_masuk']; ?></td>
-                            <td align="right"><?= $i['kubik_masuk']; ?></td>
-                        </tr>
-                        <?php $totalstok += intval($i['stok_masuk']);
-                              $totalkubik += floatval($i['kubik_masuk']);?>
+                    <?php $no = 1; $totalstok = 0; $totalkubik = 0; ?>
+                    <?php foreach($kayumasuk as $data) : ?>
+                    <tr>
+                        <?php if (sizeof($data['item']) > 0) : ?>
+                        <?php $x = count($data['item']); $row = $x + 1; ?>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $no; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['invoice']; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['nm_sup']; ?></td>
+                        <?php foreach($data['item'] as $i) : ?>
+                            <tr>
+                                <td align="right"><?= $i['kd_kayu']; ?></td>
+                                <td align="right"><?= $i['nama']; ?></td>
+                                <td align="right"><?= $i['panjang']; ?> x <?= $i['diameter1']; ?> x <?= $i['diameter2']; ?></td>
+                                <td align="right"><?= $i['stok_masuk']; ?></td>
+                                <td align="right"><?= $i['kubik_masuk']; ?></td>
+                            </tr>
+                            <?php $totalstok += intval($i['stok_masuk']);
+                                $totalkubik += floatval($i['kubik_masuk']);?>
+                        <?php endforeach; ?>
+                        <td align="center" colspan="7"><b>T O T A L</b></td>
+                        <td align="right"><b><?= $totalstok; ?></b></td>
+                        <td align="right"><b><?= $totalkubik; ?></b></td>
+                    <?php endif; ?>
+                    <?php $no++; ?>
                     <?php endforeach; ?>
-                    <td align="center" colspan="7"><b>T O T A L</b></td>
-                    <td align="right"><b><?= $totalstok; ?></b></td>
-                    <td align="right"><b><?= $totalkubik; ?></b></td>
-                <?php endif; ?>
-                <?php $no++; ?>
-                <?php endforeach; ?>
-                </tr>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
+                    </tr>
                 </tbody>
             </table>
             <br>
@@ -82,7 +94,7 @@
 
 </table>
 <script>
-    // window.print();
+    window.print();
 </script>
 <script src="<?= base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>

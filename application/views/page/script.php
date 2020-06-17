@@ -133,7 +133,7 @@ $(document).ready(function() {
 }  );
 </script>
 
- <script> //Script Sweet Alert Delete
+<script> //Script Sweet Alert Delete
     $('button#delete').on('click', function(){
         var href = $(this).attr('href');
         var title = $(this).data('title');
@@ -187,6 +187,30 @@ $(function() {
         }
     }, cb);
     cb(start, end);
+});
+</script>
+<!-- Script Tag HTML in Input Type (Placeholder) -->
+<script type="text/javascript">
+$(function() {
+    $.fn.superScript = function() {
+        var chars = '+−=()0123456789AaÆᴂɐɑɒBbcɕDdðEeƎəɛɜɜfGgɡɣhHɦIiɪɨᵻɩjJʝɟKklLʟᶅɭMmɱNnɴɲɳŋOoɔᴖᴗɵȢPpɸrRɹɻʁsʂʃTtƫUuᴜᴝʉɥɯɰʊvVʋʌwWxyzʐʑʒꝯᴥβγδθφχнნʕⵡ',
+            sup   = '⁺⁻⁼⁽⁾⁰¹²³⁴⁵⁶⁷⁸⁹ᴬᵃᴭᵆᵄᵅᶛᴮᵇᶜᶝᴰᵈᶞᴱᵉᴲᵊᵋᶟᵌᶠᴳᵍᶢˠʰᴴʱᴵⁱᶦᶤᶧᶥʲᴶᶨᶡᴷᵏˡᴸᶫᶪᶩᴹᵐᶬᴺⁿᶰᶮᶯᵑᴼᵒᵓᵔᵕᶱᴽᴾᵖᶲʳᴿʴʵʶˢᶳᶴᵀᵗᶵᵁᵘᶸᵙᶶᶣᵚᶭᶷᵛⱽᶹᶺʷᵂˣʸᶻᶼᶽᶾꝰᵜᵝᵞᵟᶿᵠᵡᵸჼˤⵯ';
+
+        return this.each(function() {
+            this.placeholder = this.placeholder.replace(/<sup[^>]*>(.*?)<\/sup>/g, function(x) {
+                var str = '',
+                    txt = $.trim($(x).unwrap().text());
+
+                for (var i=0; i<txt.length; i++) {
+                    var n = chars.indexOf(txt[i]);
+                    str += (n!=-1 ? sup[n] : txt[i]);
+                }
+                return str;
+            });
+        });
+    }
+
+    $('input').superScript();
 });
 </script>
 

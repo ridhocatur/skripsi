@@ -13,7 +13,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <thead>
             <tr>
                 <th>Kode Bahan</th>
-                <th>Merk</th>
                 <th>Stok Keluar</th>
             </tr>
         </thead>
@@ -21,14 +20,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php foreach($detail as $data) : ?>
             <tr>
                 <td value="<?= $data->id_bahan; ?>"><?= $data->kd_bahan; ?></td>
-                <td value="<?= $data->id_bahan; ?>"><?= $data->merk; ?></td>
                 <td><?= $data->stok_keluar; ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
         <tr>
             <th style="display: none;"></th>
-            <th colspan="2"><center> <b>TOTAL : </b> </center></th>
+            <th><center> <b>TOTAL : </b> </center></th>
             <th><?= $byId->total; ?></th>
         </tr>
     </table>

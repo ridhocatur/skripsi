@@ -5,6 +5,7 @@ class Plywood_model extends CI_Model {
 
     private $vinir = 'vinir';
     private $plywood = 'plywood';
+    private $dtl_plywood = 'dtl_plywood';
     private $jeniskayu = 'jeniskayu';
     private $ukuran = 'ukuran';
     private $kayu = 'kayu';
@@ -18,18 +19,21 @@ class Plywood_model extends CI_Model {
                 'rules' => 'required'
             ],
             [
-				'field' => 'kubikvinirmasuk',
-                'label' => 'Kubikasi',
+				'field' => 'tipe_glue',
+                'label' => 'Jenis Lem',
+                'rules' => 'required'
+            ],
+            [
+				'field' => 'vinir_keluar',
+                'label' => 'Jumlah Vinir Terpakai',
                 'rules' => 'numeric|required'
             ],
             [
-				'field' => 'stokvinirmasuk',
-                'label' => 'Stok',
+				'field' => 'jml_pcs',
                 'rules' => 'numeric|required'
             ],
             [
-				'field' => 'kayu_log',
-                'label' => 'Pemakaian Log',
+				'field' => 'jml_kubik',
                 'rules' => 'numeric|required'
             ],
 		];
@@ -72,37 +76,48 @@ class Plywood_model extends CI_Model {
         return $this->db->get_where($this->plywood, ["id" => $id])->row();
     }
 
+    public function getDetail($id)
+    {
+        $this->db->select($this->dtl_plywood.'.*, '.$this->vinir.'.lebar as lbrvin, '.$this->vinir.'.panjang as pjgvin, '.$this->vinir.'.tebal as tblvin, '.$this->jeniskayu.'.nama')
+        ->from($this->dtl_plywood)
+        ->join($this->plywood, $this->dtl_plywood.'.id_plywood = '.$this->plywood.'.id' , 'left')
+        ->join($this->vinir, $this->dtl_plywood.'.id_vinir = '.$this->vinir.'.id' , 'left')
+        ->join($this->jeniskayu, $this->vinir.'.id_jenis = '.$this->jeniskayu.'.id' , 'left')
+        ->where($this->plywood.'.id', $id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function save()
     {
         $post = $this->input->post();
         $data = array(
-            'id' => uniqid(),
-            'id_kayu' => $post["id_kayu"],
-            'id_vinir' => $post["id_vinir"],
             'tgl' => $post["tgl"],
-            'stok_masuk' => $post["stokvinirmasuk"],
-            'kubik_masuk' => $post["kubikvinirmasuk"],
-            'jml_log' => $post["kayu_log"],
+            'shift' => $post["shift"],
+            'tipe_glue' => $post["tipe_glue"],
+            'tipe_ply' => $post["lapisanply"],
+            'tebal' => $post["ttl_tebal"],
+            'panjang' => $post["pjgs"],
+            'lebar' => $post["lbrply"],
+            'total_prod' => $post["jml_pcs"],
+            'total_kubik' => $post["jml_kubik"],
             'keterangan' => $post["keterangan"]
         );
+        $this->db->insert($this->plywood, $data);
 
-        return $this->db->insert($this->plywood, $data);
-    }
-
-    public function update()
-    {
-        $post = $this->input->post();
-        $data = array(
-            'id' => $post["id"],
-            'id_kayu' => $post["id_kayu"],
-            'id_vinir' => $post["id_vinir"],
-            'tgl' => $post["tgl"],
-            'stok_masuk' => $post["stokvinirmasuk"],
-            'kubik_masuk' => $post["kubikvinirmasuk"],
-            'jml_log' => $post["kayu_log"],
-            'keterangan' => $post["keterangan"]
-        );
-        return $this->db->update($this->plywood, $data, array('id' => $post['id']));
+        $getId = $this->db->insert_id();
+        $count = $post["lapisanply"];
+        $data2 = array();
+        for ($i=0; $i < $count; $i++) {
+            $data2[] = array (
+                'id_vinir' => $post["ukurvinir"][$i],
+                'id_plywood' => $getId,
+                'jenis' => $post["jenis"][$i],
+                'stok_keluar' => $post["vinir_keluar"],
+                'kubik_keluar' => $post["jml_kubikvinir"][$i]
+            );
+        }
+        $this->db->insert_batch($this->dtl_plywood, $data2);
     }
 
     public function delete($id)

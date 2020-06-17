@@ -43,25 +43,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php $no = 1; ?>
-                <?php $total1 = 0; $total2 =  0; ?>
-                <?php foreach($stokkayu as $item) : ?>
+                    <?php $no = 1; ?>
+                    <?php $total1 = 0; $total2 =  0; ?>
+                    <?php foreach($stokkayu as $item) : ?>
+                        <tr>
+                            <td><?= $no; ?></td>
+                            <td><?= $item->kd_kayu;?></td>
+                            <td><?= $item->nama;?></td>
+                            <td align="right"><?= $item->stok; ?></td>
+                            <td align="right"><?= $item->kubikasi; ?></td>
+                            <?php $total1 += intval($item->stok) ?>
+                            <?php $total2 += floatval($item->kubikasi) ?>
+                        </tr>
+                        <?php $no++; ?>
+                    <?php endforeach; ?>
                     <tr>
-                        <td><?= $no; ?></td>
-                        <td><?= $item->kd_kayu;?></td>
-                        <td><?= $item->nama;?></td>
-                        <td align="right"><?= $item->stok; ?></td>
-                        <td align="right"><?= $item->kubikasi; ?></td>
-                        <?php $total1 += intval($item->stok) ?>
-                        <?php $total2 += floatval($item->kubikasi) ?>
+                        <td colspan="3" align="center"><b>T O T A L</b></td>
+                        <td align="right"><b><?= $total1; ?></b></td>
+                        <td align="right"><b><?= $total2; ?></b></td>
                     </tr>
-                    <?php $no++; ?>
-                <?php endforeach; ?>
-                <tr>
-                    <td colspan="3" align="center"><b>T O T A L</b></td>
-                    <td align="right"><b><?= $total1; ?></b></td>
-                    <td align="right"><b><?= $total2; ?></b></td>
-                </tr>
+                    <tr>
+                        <td colspan="3" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
+                    </tr>
                 </tbody>
             </table>
         </td>

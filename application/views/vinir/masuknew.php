@@ -225,7 +225,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="button" class="btn btn-warning tombolReset">Reset</button>
         <button type="submit" class="btn btn-success">Simpan</button>
     </form>
       </div>

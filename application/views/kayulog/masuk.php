@@ -175,53 +175,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
 </div>
 <script type ="text/javascript">
-function stok_kayu() {
-    var total = 0;
-    $(".jml_stok_kayu").each(function() {
-      if (!isNaN(this.value) && this.value.length != 0) {
-        total += parseFloat(this.value);
-      }
+    function stok_kayu() {
+        var total = 0;
+        $(".jml_stok_kayu").each(function() {
+        if (!isNaN(this.value) && this.value.length != 0) {
+            total += parseFloat(this.value);
+        }
+        });
+        $('#total_stok').val(total.toFixed(0));
+    }
+    function kubik_kayu() {
+    var total1 = 0;
+    $(".jml_kubik_kayu").each(function() {
+        if (!isNaN(this.value) && this.value.length != 0) {
+        total1 += parseFloat(this.value);
+        }
     });
-    $('#total_stok').val(total.toFixed(0));
-  }
-function kubik_kayu() {
-  var total1 = 0;
-  $(".jml_kubik_kayu").each(function() {
-    if (!isNaN(this.value) && this.value.length != 0) {
-      total1 += parseFloat(this.value);
+    $('#total_kubik').val(total1.toFixed(2));
     }
-  });
-  $('#total_kubik').val(total1.toFixed(2));
-}
 
-function add_form() {
-    var html = '';
-    var max_field = 20;
-    var x = 0;
+    function add_form() {
+        var html = '';
+        var max_field = 20;
+        var x = 0;
 
-    html += '<tr style="text-align:center">';
-    html += '<td></td>';
-    html += '<td><select class="form-control" name="id_kayu[]" id="id_kayu"><option disabled selected>Pilih Data</option><?php foreach($kayulog as $data): ?><option value="<?= $data->id; ?>"><?= $data->kd_kayu; ?></option><?php endforeach;?></select></td>';
-    html += '<td><input id="panjang" type="text" class="form-control panjang_kayu" placeholder="P" name="panjang[]" required></td>';
-    html += '<td><input id="diameter1" type="text" class="form-control diameter_kayu1" placeholder="D1" name="diameter1[]" required></td>';
-    html += '<td><input id="diameter2" type="text" class="form-control diameter_kayu2" placeholder="D2" name="diameter2[]" required></td>';
-    html += '<td><input id="jmlstokkayu" type="text" class="form-control jml_stok_kayu" name="jmlstokkayu[]" required></td>';
-    html += '<td><input id="jmlkubikkayu" type="text" class="form-control jml_kubik_kayu" name="jmlkubikkayu[]" required readonly></td>';
-    html += '<td><button type="button" class="btn btn-outline-danger hapus" onclick="del_form(this)">-</button></td>';
-    html += '</tr>';
+        html += '<tr style="text-align:center">';
+        html += '<td></td>';
+        html += '<td><select class="form-control" name="id_kayu[]" id="id_kayu"><option disabled selected>Pilih Data</option><?php foreach($kayulog as $data): ?><option value="<?= $data->id; ?>"><?= $data->kd_kayu; ?></option><?php endforeach;?></select></td>';
+        html += '<td><input id="panjang" type="text" class="form-control panjang_kayu" placeholder="P" name="panjang[]" required></td>';
+        html += '<td><input id="diameter1" type="text" class="form-control diameter_kayu1" placeholder="D1" name="diameter1[]" required></td>';
+        html += '<td><input id="diameter2" type="text" class="form-control diameter_kayu2" placeholder="D2" name="diameter2[]" required></td>';
+        html += '<td><input id="jmlstokkayu" type="text" class="form-control jml_stok_kayu" name="jmlstokkayu[]" required></td>';
+        html += '<td><input id="jmlkubikkayu" type="text" class="form-control jml_kubik_kayu" name="jmlkubikkayu[]" required readonly></td>';
+        html += '<td><button type="button" class="btn btn-outline-danger hapus" onclick="del_form(this)">-</button></td>';
+        html += '</tr>';
 
-    if (x < max_field) {
-        x++;
-        $('#form-body').append(html);
-    } else {
-        alert('Form Telah Melebihi Batas!')
+        if (x < max_field) {
+            x++;
+            $('#form-body').append(html);
+        } else {
+            alert('Form Telah Melebihi Batas!')
+        }
     }
-}
 
-function del_form(id){
-    id.closest('tr').remove();
-    stok_kayu();
-    kubik_kayu();
-    x--;
-}
+    function del_form(id){
+        id.closest('tr').remove();
+        stok_kayu();
+        kubik_kayu();
+        x--;
+    }
 </script>

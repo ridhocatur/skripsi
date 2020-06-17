@@ -5,6 +5,8 @@ class Bahanbantu_model extends CI_Model {
 
     private $bahanbantu = 'bahan_bantu';
     private $kategori = 'kategori';
+    private $viewstok = 'v_bahanbantu_stok';
+    private $viewstok_bulan = 'v_bahanbantu_tgl';
 
     public $id;
     public $kd_bahan;
@@ -83,16 +85,27 @@ class Bahanbantu_model extends CI_Model {
         return $this->db->get_where($this->bahanbantu, ["id" => $id])->row();
     }
 
-    public function report($id_kategori)
+    public function report()
     {
-        $this->db->select($this->bahanbantu.'.* ,'.$this->kategori.'.nm_kateg')
-        ->from($this->bahanbantu)
-        ->join($this->kategori, $this->bahanbantu.'.id_kategori = '.$this->kategori.'.id', 'left');
-        if ($id_kategori != "") {
-            $this->db->where($this->kategori.'.id', $id_kategori);
+        return $this->db->get($this->viewstok)->result();
+    }
+
+    public function report_month($tgl)
+    {
+        $kondisi = "";
+        $sql = "SELECT * FROM ".$this->viewstok_bulan;
+        if ($tgl != "") {
+            $kondisi .= " WHERE MONTH(tglmasuk) = MONTH('$tgl') OR MONTH(tglkeluar) = MONTH('$tgl')";
         }
-        $query = $this->db->get_where();
+        $query = $this->db->query($sql.$kondisi);
         return $query->result();
+    }
+
+    public function getMonth($tgl)
+    {
+        $sql = "SELECT DATE_FORMAT('$tgl', '%M %Y') AS bulan";
+        $query = $this->db->query($sql);
+        return $query->row_array();
     }
 
     public function save()

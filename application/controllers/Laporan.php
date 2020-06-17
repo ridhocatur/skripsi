@@ -28,10 +28,17 @@ class Laporan extends CI_Controller {
 
 	public function stokbahan()
     {
-        $id_kategori = $this->input->post('select1');
         $data['title'] = "Laporan Stok Bahan Bantu";
-		$data['stokbahan'] = $this->Bahanbantu_model->report($id_kategori);
+		$data['stokbahan'] = $this->Bahanbantu_model->report();
 		$this->load->view("laporan/bahanbantu/cetak_stok", $data);
+    }
+	public function stokbahanbulan()
+    {
+        $tgl = $this->input->post('satutgl');
+        $data['title'] = "Laporan Stok Bahan Bantu";
+		$data['stokbahan'] = $this->Bahanbantu_model->report_month($tgl);
+		$data['bulan'] = $this->Bahanbantu_model->getMonth($tgl);
+		$this->load->view("laporan/bahanbantu/cetak_stok_m", $data);
     }
     public function bahanmasuk()
     {
@@ -132,7 +139,7 @@ class Laporan extends CI_Controller {
         $tgl_awal = $this->input->post('satutgl');
         $tgl_akhir = $this->input->post('duatgl');
         $id_kayu = $this->input->post('select1');
-        $data['title'] = "Laporan Stok Vinir";
+        $data['title'] = "Laporan Pengolahan Vinir";
 		$data['vinirmasuk'] = $this->Vinirmasuk_model->report($id_kayu);
         $this->load->view('laporan\vinir\cetak_masuk', $data);
     }

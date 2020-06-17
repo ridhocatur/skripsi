@@ -22,6 +22,7 @@
                     <h3>DATA <?= strtoupper($title); ?></h3>
                     <h4>PT. TANJUNG RAYA PLYWOOD</h4>
                     <h6>Desa Tinggiran II Luar, Barito Kuala</h6>
+                    <h6>Per Bulan : <b><?= $bulan['bulan']; ?></b></h6>
                 </center>
             </td>
         </tr>
@@ -34,39 +35,32 @@
         <td colspan="3" align="center">
             <table width="max">
                 <thead>
-                    <tr>
+                    <tr align="center">
                         <th>No.</th>
-                        <th>Tanggal</th>
-                        <th>Kode Log</th>
-                        <th>Jenis</th>
-                        <th>Ukuran</th>
-                        <th>Stok (pcs)</th>
-                        <th>Kubikasi (M<sup>3</sup>)</th>
+                        <th>Kode Bahan</th>
+                        <th>Nama</th>
+                        <th>Kategori</th>
+                        <th>Stok Masuk</th>
+                        <th>Stok Keluar</th>
+                        <th>Total Stok Akhir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; ?>
-                    <?php $totalstok = 0; ?>
-                    <?php $totalkubik = 0; ?>
-                    <?php foreach($vinirmasuk as $item) : ?>
-                        <tr>
-                            <td><?= $no; ?></td>
-                            <td><?= date('d-m-Y' ,strtotime($item['tgl'])); ?></td>
-                            <td><?= $item['kd_kayu']; ?></td>
-                            <td><?= $item['nama']; ?></td>
-                            <td><?= $item['tebal']; ?> mm x <?= $item['panjang']; ?> x <?= $item['lebar']; ?></td>
-                            <td align="right"><?= $item['stok_masuk']; ?></td>
-                            <td align="right"><?= $item['kubik_masuk']; ?></td>
-                            <?php $totalstok += intval($item['stok_masuk']) ?>
-                            <?php $totalkubik += floatval($item['kubik_masuk']) ?>
-                        </tr>
-                        <?php $no++; ?>
-                    <?php endforeach; ?>
+                <?php $no = 1; ?>
+                <?php $total = 0; ?>
+                <?php foreach($stokbahan as $item) : ?>
                     <tr>
-                        <td colspan="5" align="center"><b>T O T A L</b></td>
-                        <td align="right"><b><?= $totalstok; ?></b></td>
-                        <td align="right"><b><?= $totalkubik; ?></b></td>
+                        <td><?= $no; ?></td>
+                        <td><?= $item->kd_bahan;?></td>
+                        <td><?= $item->nama;?></td>
+                        <td><?= $item->nm_kateg;?></td>
+                        <td align="right"><?= $item->masuk; ?> Kg</td>
+                        <td align="right"><?= $item->keluar; ?> Kg</td>
+                        <?php $total = $item->masuk - $item->keluar; ?>
+                        <td align="right"><b><?= $total; ?> Kg</b></td>
                     </tr>
+                    <?php $no++; ?>
+                <?php endforeach; ?>
                     <tr>
                         <td colspan="5" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>

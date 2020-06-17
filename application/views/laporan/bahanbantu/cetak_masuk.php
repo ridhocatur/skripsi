@@ -39,31 +39,41 @@
                         <th>Tanggal</th>
                         <th>Nama</th>
                         <th>Kode Bahan</th>
-                        <th>Merk</th>
                         <th>Supplier</th>
                         <th>Stok Masuk (Kg)</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php $no = 1; ?>
-                <?php $total = 0; ?>
-                <?php foreach($bahanmasuk as $item) : ?>
+                    <?php $no = 1; ?>
+                    <?php $total = 0; ?>
+                    <?php foreach($bahanmasuk as $item) : ?>
+                        <tr>
+                            <td><?= $no; ?></td>
+                            <td><?= date('d-m-Y' ,strtotime($item->tgl));?></td>
+                            <td><?= $item->nama;?></td>
+                            <td align="center"><?= $item->kd_bahan; ?></td>
+                            <td><?= $item->nm_sup;?></td>
+                            <td align="right"><?= $item->stok_masuk; ?></td>
+                            <?php $total += intval($item->stok_masuk) ?>
+                        </tr>
+                        <?php $no++; ?>
+                    <?php endforeach; ?>
                     <tr>
-                        <td><?= $no; ?></td>
-                        <td><?= date('d-m-Y' ,strtotime($item->tgl));?></td>
-                        <td><?= $item->nama;?></td>
-                        <td align="center"><?= $item->kd_bahan; ?></td>
-                        <td align="center"><?= $item->merk; ?></td>
-                        <td><?= $item->nm_sup;?></td>
-                        <td align="right"><?= $item->stok_masuk; ?></td>
-                        <?php $total += intval($item->stok_masuk) ?>
+                        <td colspan="5" align="center"><b>T O T A L</b></td>
+                        <td align="right"><b><?= $total; ?></b></td>
                     </tr>
-                    <?php $no++; ?>
-                <?php endforeach; ?>
-                <tr>
-                    <td colspan="6" align="center"><b>T O T A L</b></td>
-                    <td align="right"><b><?= $total; ?></b></td>
-                </tr>
+                    <tr>
+                        <td colspan="4" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
+                    </tr>
                 </tbody>
             </table>
         </td>

@@ -388,6 +388,24 @@ $(function () {
         // $('#formModal')[0].reset();
     });
 
+    $(document).ready(function () {
+        $(document).on("change", "#ukurvinir", function () {
+            var getTebal = $(this).children(':selected').data('tebal');
+            var getPanjang = $(this).children(':selected').data('panjang');
+            var getLebar = $(this).children(':selected').data('lebar');
+            $(this).closest('td').find('#tblply').val(getTebal);
+            var stok = parseInt($("#vinir_keluar").val());
+            var vol = 0;
+            if (!isNaN(vol) && vol.length != 0){
+                vol = parseFloat((getTebal*getPanjang*getLebar)/1000000000);
+                var kubic = stok * vol;
+            }
+            $(this).closest('td').siblings().find('input[name^=jml_kubikvinir]').val(kubic.toFixed(2));
+            tebal();
+            hitungttl();
+        });
+    });
+
     //---- sambungan form.php untuk kalkulasi total Plywood
     $("body").on('keyup', '.vinir_stok_keluar', function(e) {
         e.preventDefault();
@@ -434,23 +452,4 @@ $(function () {
             }
         });
     });
-
-    // Menghitung Kubikasi dalam Pkywood
-    // $(document).ready(function () {
-    //     $(document).on("change", "input[name^=panjang],input[name^=diameter1],input[name^=diameter2]", function () {
-    //         $("input[name^=jmlstokkayu]").trigger("change");
-    //     });
-    //     $(document).on("change", "input[name^=jmlstokkayu]", function () {
-    //         var stok = $(this).val() == "" ? 0 : $(this).val();
-    //         var p = $(this).closest("td").siblings().find("input[name^=panjang]").val();
-    //         var d1 = $(this).closest("td").siblings().find("input[name^=diameter1]").val();
-    //         var d2 = $(this).closest("td").siblings().find("input[name^=diameter2]").val();
-    //         var kubik = parseFloat((p*d1*d2*0.7854)/1000000) * stok;
-    //         if (!isNaN(kubik) && kubik.length != 0){
-    //             $(this).closest("td").siblings().find("input[name^=jmlkubikkayu]").val(kubik.toFixed(2));
-    //             kubik_kayu();
-    //             stok_kayu();
-    //         }
-    //     });
-    // });
 });

@@ -40,7 +40,11 @@ class Gluemix_model extends CI_Model {
 
     public function getDetail ($id)
     {
-        $this->db->select($this->dtl_gluemix.'.* ,'.$this->bahanbantu.'.kd_bahan,'.$this->gluemix.'.total,'.$this->gluemix.'.tipe_glue')->from($this->dtl_gluemix)->join($this->bahanbantu, $this->bahanbantu.'.id = '. $this->dtl_gluemix.'.id_bahan', 'left')->join($this->gluemix, $this->gluemix.'.id = '. $this->dtl_gluemix.'.id_gluemix', 'left')->where($this->gluemix.'.id', $id);
+        $this->db->select($this->dtl_gluemix.'.* ,'.$this->bahanbantu.'.kd_bahan,'.$this->gluemix.'.total,'.$this->gluemix.'.tipe_glue')
+        ->from($this->dtl_gluemix)
+        ->join($this->bahanbantu, $this->bahanbantu.'.id = '. $this->dtl_gluemix.'.id_bahan', 'left')
+        ->join($this->gluemix, $this->gluemix.'.id = '. $this->dtl_gluemix.'.id_gluemix', 'left')
+        ->where($this->gluemix.'.id', $id);
         $query = $this->db->get();
         return $query->result();
     }

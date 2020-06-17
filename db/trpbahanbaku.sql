@@ -139,8 +139,9 @@ CREATE TABLE IF NOT EXISTS `dtl_plywood` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_vinir` varchar(64) NOT NULL,
   `id_plywood` int(64) NOT NULL,
+  `jenis` enum('face back','core','long grain') NOT NULL,
   `stok_keluar` int(20) NOT NULL DEFAULT '0',
-  `kubik_keluar` int(20) NOT NULL DEFAULT '0',
+  `kubik_keluar` float(8,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`),
   KEY `id_vinir_keluar` (`id_vinir`),
   KEY `id_keluar` (`id_plywood`)
@@ -286,14 +287,15 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.pegawai: ~5 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.pegawai: ~6 rows (lebih kurang)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-12 13:50:56', '2020-05-18 20:30:53'),
+	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-15 13:20:42', '2020-05-18 20:30:53'),
 	('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', '5aad4f2aede54_jpg_d6e6d07e022235c48a75238b6608d83d.jpg', 'manager', '2020-05-27 20:20:08', '2020-05-18 20:30:53'),
 	('5ebc04fa7112c', '34', 'admin', 'admin', 'Admin', '119976', '_34.jpg', 'admin', '2020-05-18 20:30:53', '2020-05-18 20:30:53'),
 	('5ebc0d91b1761', '2352345', 'cahbekasi', '860dec1a7a44b923c725901e11bc6363', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-05-27 20:20:40', '2020-05-18 20:30:53'),
-	('5ebc131684828', '3', 'cc', '97e5622531f92f5710497dfdc35be728', 'cc', '333', 'cc_3.jpg', '', '2020-05-18 20:30:53', '2020-05-18 20:30:53');
+	('5ebc131684828', '3', 'cc', '97e5622531f92f5710497dfdc35be728', 'cc', '333', 'cc_3.jpg', '', '2020-05-18 20:30:53', '2020-05-18 20:30:53'),
+	('5ee4655ec2fc8', '90018', 'razzy', '0d4c01cb7c1fcfd6ed48e31425c637cc', 'Facrurazzy', '083657232', 'Facrurazzy_90018.jpg', 'admin', '2020-06-13 13:34:22', '2020-06-13 13:34:22');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.plywood
@@ -302,6 +304,7 @@ CREATE TABLE IF NOT EXISTS `plywood` (
   `tgl` date NOT NULL,
   `shift` varchar(10) NOT NULL,
   `tipe_glue` varchar(20) NOT NULL,
+  `tipe_ply` enum('3','5','7','9','11') NOT NULL,
   `tebal` varchar(20) NOT NULL,
   `panjang` varchar(20) NOT NULL,
   `lebar` varchar(20) NOT NULL,
@@ -348,17 +351,12 @@ CREATE TABLE IF NOT EXISTS `ukuran` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.ukuran: ~8 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.ukuran: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `ukuran` DISABLE KEYS */;
 REPLACE INTO `ukuran` (`id`, `lebar`, `panjang`) VALUES
 	(1, 910, 1820),
 	(2, 920, 1830),
-	(3, 920, 2150),
-	(4, 920, 2440),
-	(5, 1230, 1830),
-	(6, 1230, 2150),
-	(7, 1230, 2440),
-	(8, 1000, 2000);
+	(7, 1230, 2440);
 /*!40000 ALTER TABLE `ukuran` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.vinir
@@ -485,6 +483,26 @@ END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
+-- membuang struktur untuk trigger trpbahanbaku.dtl_plywood_delete
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `dtl_plywood_delete` AFTER DELETE ON `dtl_plywood` FOR EACH ROW BEGIN
+	UPDATE vinir SET stok=stok+OLD.stok_keluar, kubikasi=kubikasi+OLD.kubik_keluar
+	WHERE id=OLD.id_vinir;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- membuang struktur untuk trigger trpbahanbaku.dtl_plywood_insert
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `dtl_plywood_insert` AFTER INSERT ON `dtl_plywood` FOR EACH ROW BEGIN
+	UPDATE vinir SET stok=stok-NEW.stok_keluar, kubikasi=kubikasi-NEW.kubik_keluar
+	WHERE id=NEW.id_vinir;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
 -- membuang struktur untuk trigger trpbahanbaku.gluemix_delete
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
@@ -519,6 +537,15 @@ SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGIN
 DELIMITER //
 CREATE TRIGGER `kayumasuk_delete` BEFORE DELETE ON `kayu_masuk` FOR EACH ROW BEGIN
 	DELETE FROM dtl_kayu_masuk WHERE id_masuk=OLD.id;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- membuang struktur untuk trigger trpbahanbaku.plywood_delete
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `plywood_delete` AFTER DELETE ON `plywood` FOR EACH ROW BEGIN
+	DELETE FROM dtl_plywood WHERE dtl_plywood.id_plywood = OLD.id;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;

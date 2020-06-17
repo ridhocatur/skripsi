@@ -43,18 +43,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php $no = 1; ?>
-                <?php $total1 = 0; $total2 =  0; ?>
-                <?php foreach($stokvinir as $item) : ?>
+                    <?php $no = 1; ?>
+                    <?php $total1 = 0; $total2 =  0; ?>
+                    <?php foreach($stokvinir as $item) : ?>
+                        <tr>
+                            <td><?= $no; ?></td>
+                            <td><?= $item->nama;?></td>
+                            <td><?= $item->tebal;?> mm <?= $item->panjang;?> x <?= $item->lebar;?></td>
+                            <td align="right"><?= $item->stok; ?></td>
+                            <td align="right"><?= $item->kubikasi; ?></td>
+                        </tr>
+                        <?php $no++; ?>
+                    <?php endforeach; ?>
                     <tr>
-                        <td><?= $no; ?></td>
-                        <td><?= $item->nama;?></td>
-                        <td><?= $item->tebal;?> mm <?= $item->panjang;?> x <?= $item->lebar;?></td>
-                        <td align="right"><?= $item->stok; ?></td>
-                        <td align="right"><?= $item->kubikasi; ?></td>
+                        <td colspan="3" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
                     </tr>
-                    <?php $no++; ?>
-                <?php endforeach; ?>
+                    <tr>
+                        <td colspan="3" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
+                    </tr>
                 </tbody>
             </table>
         </td>

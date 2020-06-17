@@ -39,22 +39,37 @@
                         <th>Kode Bahan</th>
                         <th>Nama</th>
                         <th>Kategori</th>
-                        <th>Stok (Kg)</th>
+                        <th>Total Stok Masuk</th>
+                        <th>Total Stok Keluar</th>
+                        <th>Total Stok Sekarang</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php $no = 1; ?>
-                <?php $total = 0; ?>
                 <?php foreach($stokbahan as $item) : ?>
                     <tr>
                         <td><?= $no; ?></td>
                         <td><?= $item->kd_bahan;?></td>
                         <td><?= $item->nama;?></td>
                         <td><?= $item->nm_kateg;?></td>
-                        <td align="right"><?= $item->stok; ?></td>
+                        <td align="right"><?= $item->masuk; ?> Kg</td>
+                        <td align="right"><?= $item->keluar; ?> Kg</td>
+                        <td align="right"><?= $item->stok; ?> Kg</td>
                     </tr>
                     <?php $no++; ?>
                 <?php endforeach; ?>
+                    <tr>
+                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
+                    </tr>
                 </tbody>
             </table>
         </td>
