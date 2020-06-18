@@ -12,6 +12,7 @@
                     <option value="bahanbantu">Bahan Bantu</option>
                     <option value="kayulog">Kayu Log</option>
                     <option value="vinir">Vinir</option>
+                    <option value="plywood">Plywood</option>
                 </select>
             </div>
             <div class="col-md-6">
@@ -31,7 +32,10 @@
                     <option selected disabled>-- Pilih Data Vinir--</option>
                     <option value="stokvinir">Stok Vinir</option>
                     <option value="vinirmasuk">Pengolahan Vinir</option>
-                    <option value="plywood">Barang Jadi / Plywood</option>
+                </select>
+                <select class="form-control" name="menu_plywood" id="menu_plywood" style="display: none;" onchange="menuPlywood()">
+                    <option selected disabled>-- Pilih Data Plywood--</option>
+                    <option value="plywood">Hasil Produksi Plywood</option>
                 </select>
             </div>
         </div>
@@ -98,18 +102,27 @@
             $('#menu_bahan').attr('style', 'display: show');
             $('#menu_kayu').attr('style', 'display: none');
             $('#menu_vinir').attr('style', 'display: none');
+            $('#menu_plywood').attr('style', 'display: none');
         } else if($('#menu_utama').val() == 'kayulog') {
             $('#menu_bahan').attr('style', 'display: none');
             $('#menu_kayu').attr('style', 'display: show');
             $('#menu_vinir').attr('style', 'display: none');
+            $('#menu_plywood').attr('style', 'display: none');
         } else if($('#menu_utama').val() == 'vinir') {
             $('#menu_bahan').attr('style', 'display: none');
             $('#menu_kayu').attr('style', 'display: none');
             $('#menu_vinir').attr('style', 'display: show');
+            $('#menu_plywood').attr('style', 'display: none');
+        } else if($('#menu_utama').val() == 'plywood') {
+            $('#menu_bahan').attr('style', 'display: none');
+            $('#menu_kayu').attr('style', 'display: none');
+            $('#menu_vinir').attr('style', 'display: none');
+            $('#menu_plywood').attr('style', 'display: show');
         } else {
             $('#menu_bahan').attr('style', 'display: none');
             $('#menu_kayu').attr('style', 'display: none');
             $('#menu_vinir').attr('style', 'display: none');
+            $('#menu_plywood').attr('style', 'display: none');
         }
     }
 
@@ -190,15 +203,27 @@
             $('#select1').html(selkayulog);
             $('#select2').empty();
             $('#shift').attr('disabled', true);
-        } else if($('#menu_vinir').val() == 'plywood') {
-            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/plywood');
-            $('#satutgl').attr('disabled', false);
-            $('#duatgl').attr('disabled', false);
         } else {
             $('#satutgl').attr('disabled', true);
             $('#duatgl').attr('disabled', true);
-            $('#jeniskayu').attr('disabled', true);
-            $('#id_supplier').attr('disabled', true);
+            $('#select1').empty();
+            $('#select2').empty();
+            $('#shift').attr('disabled', true);
+        }
+    }
+
+    function menuPlywood(){
+        if ($('#menu_plywood').val() == 'plywood') {
+            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/plywood');
+            $('#satutgl').attr('disabled', false);
+            $('#duatgl').attr('disabled', false);
+            $('#select1').html(selukuran);
+            $('#select2').html(seltipeglue);
+        } else {
+            $('#satutgl').attr('disabled', true);
+            $('#duatgl').attr('disabled', true);
+            $('#select1').empty();
+            $('#select2').empty();
             $('#shift').attr('disabled', true);
         }
     }

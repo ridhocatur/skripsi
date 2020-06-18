@@ -35,55 +35,61 @@
             <table width="max">
                 <thead>
                     <tr align="center">
-                        <th>No.</th>
-                        <th>Invoice</th>
-                        <th>Tanggal</th>
-                        <th>Supplier</th>
-                        <th>Kode Kayu</th>
-                        <th>Nama</th>
-                        <th>Ukuran (Cm)<br><small>P x D1 x D2</small></th>
-                        <th>Stok Masuk (Pcs)</th>
-                        <th>Kubikasi (M<sup>3</sup>)</th>
+                        <th rowspan="2" style="vertical-align: middle;">No.</th>
+                        <th rowspan="2" style="vertical-align: middle;">Tanggal</th>
+                        <th rowspan="2" style="vertical-align: middle;">Shift</th>
+                        <th rowspan="2" style="vertical-align: middle;">Tipe Lem</th>
+                        <th rowspan="2" style="vertical-align: middle;">Jenis Ketebalan</th>
+                        <th rowspan="2" style="vertical-align: middle;">Ukuran</th>
+                        <th rowspan="2" style="vertical-align: middle;">Total Plywood (Lembar)</th>
+                        <th rowspan="2" style="vertical-align: middle;">Kubikasi (M<sup>3</sup>)</th>
+                        <th colspan="5">Detail Pemakaian Vinir</th>
+                    </tr>
+                    <tr align="center">
+                        <th style="vertical-align: middle;">Jenis Kayu</th>
+                        <th style="vertical-align: middle;">Jenis Vinir</th>
+                        <th style="vertical-align: middle;">Ukuran</th>
+                        <th style="vertical-align: middle;">Vinir Terpakai (Lembar)</th>
+                        <th style="vertical-align: middle;">Kubikasi (M<sup>3</sup>)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; $totalstok = 0; $totalkubik = 0; ?>
-                    <?php foreach($kayumasuk as $data) : ?>
+                    <?php $no = 1; ?>
+                    <?php foreach($plywood as $data) : ?>
                     <tr>
                         <?php if (sizeof($data['item']) > 0) : ?>
                         <?php $x = count($data['item']); $row = $x + 1; ?>
                         <td align="center" rowspan="<?php echo $row; ?>"><?= $no; ?></td>
-                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['invoice']; ?></td>
                         <td align="center" rowspan="<?php echo $row; ?>"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
-                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['nm_sup']; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['shift']; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['tipe_glue']; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['tipe_ply']; ?> Ply</td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['tebal']; ?> mm x <?= $data['panjang']; ?> x <?= $data['lebar']; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['total_prod']; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['total_kubik']; ?></td>
                         <?php foreach($data['item'] as $i) : ?>
                             <tr>
-                                <td><?= $i['kd_kayu']; ?></td>
                                 <td><?= $i['nama']; ?></td>
-                                <td align="right"><?= $i['panjang']; ?> x <?= $i['diameter1']; ?> x <?= $i['diameter2']; ?></td>
-                                <td align="right"><?= $i['stok_masuk']; ?></td>
-                                <td align="right"><?= $i['kubik_masuk']; ?></td>
+                                <td><?= ucfirst($i['jenis']); ?></td>
+                                <td><?= $i['tblvin']; ?> x <?= $i['pjgvin']; ?> x <?= $i['lbrvin']; ?></td>
+                                <td align="center"><?= $i['stok_keluar']; ?></td>
+                                <td align="right"><?= $i['kubik_keluar']; ?></td>
                             </tr>
-                            <?php $totalstok += intval($i['stok_masuk']);
-                                $totalkubik += floatval($i['kubik_masuk']);?>
                         <?php endforeach; ?>
-                        <td align="center" colspan="7"><b>T O T A L</b></td>
-                        <td align="right"><b><?= $totalstok; ?></b></td>
-                        <td align="right"><b><?= $totalkubik; ?></b></td>
-                    <?php endif; ?>
-                    <?php $no++; ?>
-                    <?php endforeach; ?>
+                        <?php endif; ?>
+                        <?php $no++; ?>
+                        <?php endforeach; ?>
                     </tr>
                     <tr>
-                        <td colspan="7" style="border: none;"></td>
+                        <td colspan="11" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
                     </tr>
                     <tr>
-                        <td colspan="7" style="border: none;"></td>
+                        <td colspan="11" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"></td>
                     </tr>
                     <tr>
-                        <td colspan="7" style="border: none;"></td>
+                        <td colspan="11" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
                     </tr>
                 </tbody>

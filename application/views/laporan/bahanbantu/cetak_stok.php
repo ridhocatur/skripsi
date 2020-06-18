@@ -54,7 +54,7 @@
                         <td><?= $item->nm_kateg;?></td>
                         <td align="right"><?= $item->masuk; ?> Kg</td>
                         <td align="right"><?= $item->keluar; ?> Kg</td>
-                        <td align="right"><?= $item->stok; ?> Kg</td>
+                        <td align="right"><b><?= $item->stok; ?> Kg </b></td>
                     </tr>
                     <?php $no++; ?>
                 <?php endforeach; ?>

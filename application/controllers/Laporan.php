@@ -6,7 +6,7 @@ class Laporan extends CI_Controller {
 	public function __construct()
     {
     	parent::__construct();
-    	$this->load->model(array('Bahanbantu_model','Bahanmasuk_model','Gluemix_model','Kayulog_model','Kayumasuk_model','Pegawai_model','Vinir_model','Vinirmasuk_model','Jeniskayu_model','Ukuran_model','Kategori_model','Supplier_model'));
+    	$this->load->model(array('Bahanbantu_model','Bahanmasuk_model','Gluemix_model','Kayulog_model','Kayumasuk_model','Pegawai_model','Vinir_model','Vinirmasuk_model','Jeniskayu_model','Ukuran_model','Kategori_model','Supplier_model','Plywood_model'));
         check_not_login();
     }
 
@@ -140,36 +140,45 @@ class Laporan extends CI_Controller {
         $tgl_akhir = $this->input->post('duatgl');
         $id_kayu = $this->input->post('select1');
         $data['title'] = "Laporan Pengolahan Vinir";
-		$data['vinirmasuk'] = $this->Vinirmasuk_model->report($id_kayu);
+		$data['vinirmasuk'] = $this->Vinirmasuk_model->report($id_kayu,$tgl_awal,$tgl_akhir);
         $this->load->view('laporan\vinir\cetak_masuk', $data);
     }
-    public function laporanvinirkeluar()
+    public function plywood()
     {
-        $data['vinirkeluar'] = [];
-        $tgl_awal = $_POST['tgl_awal'];
-        $tgl_akhir = $_POST['tgl_akhir'];
-        $shift = $_POST['shift'];
-        $data['judul'] = 'Laporan Penggunaan Vinir';
-        $vinirkeluar = $this->model('VinirKeluar_model')->getDataforReport($tgl_awal, $tgl_akhir, $shift);
+        $data['plywood'] = [];
+        $tgl_awal = $this->input->post('satutgl');
+        $tgl_akhir = $this->input->post('duatgl');
+        $ukuran = $this->input->post('select1');
+        $tipeglue = $this->input->post('select2');
+        $data['title'] = 'Laporan Hasil Produksi Plywood';
+        $plywood = $this->Plywood_model->report($tgl_awal, $tgl_akhir, $ukuran, $tipeglue);
         $i = 0;
-        foreach($vinirkeluar as $keluar){
-            $data['vinirkeluar'][$i]['tipe_glue'] = $keluar['tipe_glue'];
-            $data['vinirkeluar'][$i]['id'] = $keluar['id'];
-            $data['vinirkeluar'][$i]['shift'] = $keluar['shift'];
-            $data['vinirkeluar'][$i]['tgl'] = $keluar['tgl'];
-            $datavinirkeluar = $this->model('VinirKeluar_model')->getDetail($keluar['id']);
-            $data['vinirkeluar'][$i]['item'] = [];
-
-            foreach($datavinirkeluar as $detail){
-                $data['vinirkeluar'][$i]['item'][] = [
-                    'kd_jenis' => $detail['kd_jenis'],
-                    'ukuran' => $detail['ukuran'],
-                    'kubik_keluar' => $detail['kubik_keluar'],
-                    'stok_keluar' => $detail['stok_keluar']
+        foreach($plywood as $item){
+            $data['plywood'][$i]['id'] = $item['id'];
+            $data['plywood'][$i]['tgl'] = $item['tgl'];
+            $data['plywood'][$i]['shift'] = $item['shift'];
+            $data['plywood'][$i]['tebal'] = $item['tebal'];
+            $data['plywood'][$i]['panjang'] = $item['panjang'];
+            $data['plywood'][$i]['lebar'] = $item['lebar'];
+            $data['plywood'][$i]['tipe_glue'] = $item['tipe_glue'];
+            $data['plywood'][$i]['tipe_ply'] = $item['tipe_ply'];
+            $data['plywood'][$i]['total_prod'] = $item['total_prod'];
+            $data['plywood'][$i]['total_kubik'] = $item['total_kubik'];
+            $dataplywood = $this->Plywood_model->getDetail($item['id']);
+            $data['plywood'][$i]['item'] = [];
+            foreach($dataplywood as $detail){
+                $data['plywood'][$i]['item'][] = [
+                    'nama' => $detail->nama,
+                    'jenis' => $detail->jenis,
+                    'tblvin' => $detail->tblvin,
+                    'pjgvin' => $detail->pjgvin,
+                    'lbrvin' => $detail->lbrvin,
+                    'stok_keluar' => $detail->stok_keluar,
+                    'kubik_keluar' => $detail->kubik_keluar
                 ];
             }
             $i++;
         }
-        $this->view('laporan/vinirkeluar_detail', $data);
+        $this->load->view('laporan\plywood\cetak_stok', $data);
     }
 }

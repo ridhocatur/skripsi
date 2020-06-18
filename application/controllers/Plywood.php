@@ -16,7 +16,7 @@ class Plywood extends CI_Controller {
 		$data['isi'] = "plywood/index";
 		$data['vinir'] = $this->Vinir_model->getJoinAll();
 		$data['ukuran'] = $this->Ukuran_model->getAll();
-		$data['plywood'] = $this->Plywood_model->getAll();
+		$data['plywood'] = $this->Plywood_model->getJoinAll();
 		$this->load->view('template',$data);
 	}
 

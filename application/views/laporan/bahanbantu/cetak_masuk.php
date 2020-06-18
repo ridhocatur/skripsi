@@ -40,7 +40,7 @@
                         <th>Nama</th>
                         <th>Kode Bahan</th>
                         <th>Supplier</th>
-                        <th>Stok Masuk (Kg)</th>
+                        <th>Stok Masuk</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,15 +53,10 @@
                             <td><?= $item->nama;?></td>
                             <td align="center"><?= $item->kd_bahan; ?></td>
                             <td><?= $item->nm_sup;?></td>
-                            <td align="right"><?= $item->stok_masuk; ?></td>
-                            <?php $total += intval($item->stok_masuk) ?>
+                            <td align="right"><b><?= $item->stok_masuk; ?> Kg</b></td>
                         </tr>
                         <?php $no++; ?>
                     <?php endforeach; ?>
-                    <tr>
-                        <td colspan="5" align="center"><b>T O T A L</b></td>
-                        <td align="right"><b><?= $total; ?></b></td>
-                    </tr>
                     <tr>
                         <td colspan="4" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>

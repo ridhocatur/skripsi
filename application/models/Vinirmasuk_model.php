@@ -110,7 +110,7 @@ class Vinirmasuk_model extends CI_Model {
         return $this->db->get_where($this->vinir_masuk, ["id" => $id])->row();
     }
 
-    public function report($id_kayu)
+    public function report($id_kayu,$tgl_awal,$tgl_akhir)
     {
         $kondisi = "";
         $sql = "SELECT ".$this->vinir_masuk.".* ,".$this->kayu.".kd_kayu, ".$this->jeniskayu.".nama, ".$this->vinir.".tebal, ".$this->vinir.".panjang, ".$this->vinir.".lebar
@@ -118,8 +118,15 @@ class Vinirmasuk_model extends CI_Model {
         LEFT JOIN ".$this->vinir." ON ".$this->vinir_masuk.".id_vinir = ".$this->vinir.".id
         LEFT JOIN ".$this->kayu." ON ".$this->vinir_masuk.".id_kayu = ".$this->kayu.".id
         LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id";
+        if ($tgl_awal == $tgl_akhir) {
+            $kondisi .= " WHERE ".$this->vinir_masuk.".tgl = '$tgl_awal'";
+        } else if ($tgl_awal != $tgl_akhir) {
+            $kondisi .= " WHERE ".$this->vinir_masuk.".tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
+        }
         if ($id_kayu != "") {
-            $kondisi .= " WHERE ".$this->kayu.".id = '$id_kayu'";
+            if ($kondisi != "") {
+                $kondisi .= " WHERE ".$this->kayu.".id = '$id_kayu' ORDER BY tgl ASC";
+            }
         }
         $query = $this->db->query($sql.$kondisi);
         return $query->result_array();

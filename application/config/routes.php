@@ -90,10 +90,10 @@ $route['gluemix/geteditGlue'] = "Bahanbantu/geteditGlue";
 $route['gluemix/hapusGlue/(:any)'] = "Bahanbantu/hapusGlue/$1";
 $route['gluemix/detailGlue/(:any)'] = "Bahanbantu/detailGlue/$1";
 
-$route['laporan/bahanbantu/cetak_stok'] = "Laporan/stokbahan";
-$route['laporan/bahanbantu/cetak_stok_m'] = "Laporan/stokbahanbulan";
-$route['laporan/laporanbahanbantu'] = "Laporan/laporanbahanbantu";
-$route['laporan/bahanmasuk'] = "Laporan/bahanmasuk";
-$route['laporan/laporanbahanmasuk'] = "Laporan/laporanbahanmasuk";
-$route['laporan/bahanbantu'] = "Laporan/bahanbantu";
-$route['laporan/bahanbantu'] = "Laporan/bahanbantu";
+// $route['laporan/bahanbantu/cetak_stok'] = "Laporan/stokbahan";
+// $route['laporan/bahanbantu/cetak_stok_m'] = "Laporan/stokbahanbulan";
+// $route['laporan/laporanbahanbantu'] = "Laporan/laporanbahanbantu";
+// $route['laporan/bahanmasuk'] = "Laporan/bahanmasuk";
+// $route['laporan/laporanbahanmasuk'] = "Laporan/laporanbahanmasuk";
+// $route['laporan/bahanbantu'] = "Laporan/bahanbantu";
+// $route['laporan/bahanbantu'] = "Laporan/bahanbantu";

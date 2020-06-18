@@ -46,12 +46,9 @@ class Plywood_model extends CI_Model {
 
     public function getJoinAll ()
     {
-        $this->db->select($this->plywood.'.* ,'.$this->kayu.'.kd_kayu,'.$this->vinir.'.tebal, '.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar, '.$this->jeniskayu.'.nama ')
+        $this->db->select($this->plywood.'.* ,'.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar,')
         ->from($this->plywood)
-        ->join($this->vinir, $this->plywood.'.id_vinir = '.$this->vinir.'.id', 'left')
-        ->join($this->jeniskayu, $this->vinir.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
-        ->join($this->kayu, $this->kayu.'.id_jenis = '.$this->jeniskayu.'.id', 'left')
-        ->join($this->ukuran, $this->vinir.'.id_ukuran = '.$this->ukuran.'.id', 'left');
+        ->join($this->ukuran, $this->plywood.'.id_ukuran = '.$this->ukuran.'.id', 'left');
         $query = $this->db->get();
         return $query->result();
     }
@@ -73,7 +70,12 @@ class Plywood_model extends CI_Model {
 
     public function getById ($id)
     {
-        return $this->db->get_where($this->plywood, ["id" => $id])->row();
+        $this->db->select($this->plywood.'.* ,'.$this->ukuran.'.panjang, '.$this->ukuran.'.lebar,')
+        ->from($this->plywood)
+        ->join($this->ukuran, $this->plywood.'.id_ukuran = '.$this->ukuran.'.id', 'left')
+        ->where($this->plywood.'.id', $id);
+        $query = $this->db->get_where();
+        return $query->row();
     }
 
     public function getDetail($id)
@@ -86,6 +88,33 @@ class Plywood_model extends CI_Model {
         ->where($this->plywood.'.id', $id);
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function report($tgl_awal, $tgl_akhir, $ukuran, $tipeglue)
+    {
+        $kondisi = "";
+        $sql = "SELECT ".$this->plywood.".*, ".$this->ukuran.".panjang, ".$this->ukuran.".lebar
+        FROM ".$this->plywood." LEFT JOIN ".$this->ukuran." ON ".$this->plywood.".id_ukuran = ".$this->ukuran.".id";
+        if ($tgl_awal == $tgl_akhir) {
+            $kondisi .= " WHERE ".$this->plywood.".tgl = '$tgl_awal'";
+        } else if ($tgl_awal != $tgl_akhir) {
+            $kondisi .= " WHERE ".$this->plywood.".tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
+        }
+        if ($ukuran != "" && $tipeglue != "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".tipe_glue = '$tipeglue' ORDER BY tgl ASC";
+            }
+        } else if ($ukuran != "" && $tipeglue == "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->plywood.".id_ukuran = '$ukuran' ORDER BY tgl ASC";
+            }
+        } else if ($ukuran == "" && $tipeglue != "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->plywood.".tipe_glue = '$tipeglue' ORDER BY tgl ASC";
+            }
+        }
+        $query = $this->db->query($sql.$kondisi);
+        return $query->result_array();
     }
 
     public function save()

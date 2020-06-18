@@ -100,6 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <option id="<?= $data->id; ?>" data-panjang="<?= $data->panjang; ?>" data-lebar="<?= $data->lebar; ?>"><?= $data->panjang; ?> x <?= $data->lebar; ?></option>
                         <?php endforeach;?>
                     </select>
+                    <input type="hidden" name="idukuran" id="idukuran" value="" >
                     <input type="hidden" name="pjgs" id="pjgs" value="" >
                     <input type="hidden" id="lbrply" name="lbrply" value="">
                 </div>
@@ -213,8 +214,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
     var x = 1;
     function panjang() {
+        var id = $('#id_ukuran').children(':selected').attr('id');
         var pjg = $('#id_ukuran').children(':selected').data('panjang');
         var lbrs = $('#id_ukuran').children(':selected').data('lebar');
+        $('#idukuran').val(id);
         $('#pjgs').val(pjg);
         $('#lbrply').val(lbrs);
         $.ajax({
