@@ -6,5 +6,5 @@ APLIKASI PENGELOLAAN BAHAN BAKU DAN BARANG JADI PLYWOOD
 Maaf bila masih ada bug. hehe..
 
 Credit
-Catur Ridho Arianto P.
-KalSel
+- Catur Ridho Arianto P.
+- KalSel
