@@ -51,20 +51,21 @@ class Welcome extends CI_Controller {
 	public function grafikStokVinir()
 	{
 		$jenis = $this->Jeniskayu_model->getAll();
-		$namajenis = [];
-		$pendek = [];
-		$panjang = [];
         foreach ($jenis as $result) {
 			$namajenis[] = $result->nama;
-			$pdk[] = $this->Vinir_model->forChart($result->id, "1900");
-			$pjg[] = $this->Vinir_model->forChart($result->id, "2600");
+			$pdk = $this->Vinir_model->forChart($result->id, "1900");
+			foreach ($pdk as $pen) {
+				$data1[] = floatval($pen->kubikasi);
+			}
+			$pjg = $this->Vinir_model->forChart($result->id, "2600");
+			foreach ($pjg as $pan) {
+				$data2[] = floatval($pan->kubikasi);
+			}
 		}
 
-		$kategori =["categories" => $namajenis];
-		$panjang =["name"=>"Panjang", "data" => $pjg];
-		$pendek =["name"=>"Pendek", "data" => $pdk];
-		// $panjang = array("name"=>"Panjang","colorByPoint" => "true","data" => $pdk);
-		// $pendek = array("name"=>"Pendek","colorByPoint" => "true","data" => $pjg);
-        echo json_encode(array($kategori, $panjang, $pendek));
+		$kategori = ["categories" => $namajenis];
+		$pendek = ["name"=>"Pendek (1900 x 950)", "data" => $data1];
+		$panjang = ["name"=>"Panjang (2600 x 1300)", "data" => $data2];
+        echo json_encode(array($kategori, $pendek, $panjang));
 	}
 }

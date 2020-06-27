@@ -128,6 +128,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <h4>Desa Tinggiran II Luar, Kec. Tamban, Kel. Barito Kuala, Banjarmasin</h4>
 </div>
 
+<script type="text/javascript"> //untuk menggabungkan JSON Array dengan $.concat
+	;(function($) {
+		if (!$.concat)
+		$.extend({ concat: function() {
+			return arguments.length ? Array.prototype.concat.apply([], arguments) : [];
+			}
+		});
+	})(jQuery);
+</script>
+
 <script type="text/javascript">
     $(document).ready(function(){
 		function visualize_barang(id,title, data){
@@ -189,7 +199,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
     $(document).ready(function(){
 		function visualize_barang2(id,title, data){
-			console.log(data);
 	      Highcharts.chart(id, {
 	        chart: {
 	          type: 'column'
@@ -248,7 +257,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
     $(document).ready(function(){
 		function visualize_barang(id,title, data){
-			console.log(data[1].name);
+			var kat = data[0].categories;
+			var pend = data[1];
+			var panj = data[2];
+			var fushion = $.concat(pend, panj);
+			console.log(fushion);
 			Highcharts.chart(id, {
 	        chart: {
 	          type: 'column'
@@ -257,7 +270,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	          text: ''
 	        },
 	        xAxis: {
-				categories: data[0].categories
+				categories: kat
 	        },
 	        yAxis: {
 	          title: {
@@ -280,34 +293,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 	          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
 	        },
-
-	        "series": [
-	          {
-	            "name": data[1].name,
-	            "colorByPoint": true,
-	            "data": data[1].data
-	          }
-	        ],
-	        "series": [
-	          {
-	            "name": data[2].name,
-	            "colorByPoint": true,
-	            "data": data[2].data
-	          }
-	        ]
-	      });
-		}
+	        series: fushion
+		});
+	    }
 	    $.ajax({
 	    	url: "http://localhost/trpbahanbaku/welcome/grafikStokVinir",
 	    	dataType: "json",
 	    	success: function(response){
 				visualize_barang("chart-vinir","Vinir",response);
-				// console.log(response);
+				console.log(response);
 	    	},
 	    	errror: function(){
 	    		alert('error');
 	    	}
-	    });
+		});
 	});
 </script>
 
