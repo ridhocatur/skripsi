@@ -20,6 +20,11 @@ class Kategori_model extends CI_Model {
 		];
     }
 
+    public function count()
+    {
+        return $this->db->count_all($this->kategori);
+    }
+
     public function getAll ()
     {
         return $this->db->get($this->kategori)->result();

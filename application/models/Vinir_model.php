@@ -68,6 +68,17 @@ class Vinir_model extends CI_Model {
         return $query->result();
     }
 
+    public function forChart($id, $pjg)
+    {
+        $this->db->select("IFNULL(SUM(kubikasi),0) as y")
+        ->from($this->vinir)
+        ->where("id_jenis = '$id' ")
+        ->where("panjang = '$pjg' ")
+        ->order_by($this->vinir.".id_jenis");
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function getById ($id)
     {
         return $this->db->get_where($this->vinir, ["id" => $id])->row();

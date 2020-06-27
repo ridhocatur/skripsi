@@ -34,6 +34,11 @@ class Supplier_model extends CI_Model {
 		];
     }
 
+    public function count()
+    {
+        return $this->db->count_all($this->supplier);
+    }
+
     public function getAll ()
     {
         return $this->db->get($this->supplier)->result();

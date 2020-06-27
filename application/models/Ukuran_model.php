@@ -25,6 +25,11 @@ class Ukuran_model extends CI_Model {
 		];
     }
 
+    public function count()
+    {
+        return $this->db->count_all($this->ukuran);
+    }
+
     public function getAll ()
     {
         return $this->db->get($this->ukuran)->result();

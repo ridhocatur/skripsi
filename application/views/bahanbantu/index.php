@@ -84,13 +84,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="merk" class="col-sm-3 col-form-label text-md-right">Merk</label>
-                <div class="col-md-8">
-                    <input id="merk" type="text" class="form-control" name="merk" autocomplete="merk">
-                </div>
-            </div>
-
-            <div class="form-group row">
                 <label for="stok" class="col-sm-3 col-form-label text-md-right">Stok</label>
                 <div class="col-md-8">
                     <input id="stok" type="text" class="form-control" name="stok" autocomplete="stok">

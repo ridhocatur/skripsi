@@ -1,9 +1,13 @@
 <!-- Bootstrap core JavaScript-->
-<script src="<?= base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url(); ?>assets/datatables/DataTables-1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url(); ?>assets/js/daterangepicker/moment.min.js"></script>
 <script src="<?= base_url(); ?>assets/js/daterangepicker/daterangepicker.min.js"></script>
+
+<!-- Core Highchart-->
+<script src="<?= base_url(); ?>assets/highcharts/highcharts.js"></script>
+<script src="<?= base_url(); ?>assets/highcharts/modules/exporting.js"></script>
+<script src="<?= base_url(); ?>assets/highcharts/modules/export-data.js"></script>
 
 <!-- Core plugin JavaScript-->
 <script src="<?= base_url(); ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>

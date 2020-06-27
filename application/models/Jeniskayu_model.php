@@ -26,6 +26,11 @@ class Jeniskayu_model extends CI_Model {
 		];
     }
 
+    public function count()
+    {
+        return $this->db->count_all($this->jeniskayu);
+    }
+
     public function getAll ()
     {
         return $this->db->get($this->jeniskayu)->result();
@@ -40,7 +45,7 @@ class Jeniskayu_model extends CI_Model {
     {
         $post = $this->input->post();
         $data = array(
-            'id' => uniqid(),   
+            'id' => uniqid(),
             'kd_jenis' => $post["kd_jenis"],
             'nama' => $post["nama"],
             'keterangan' => $post["keterangan"]
