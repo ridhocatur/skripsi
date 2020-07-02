@@ -53,10 +53,6 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin/dashboard'] = "Dashboard/admin";
-$route['manager/dashboard'] = "Dashboard/manager";
-$route['user/dashboard'] = "Dashboard/user";
-
 $route['bahanmasuk'] = "Bahanbantu/bahanmasuk";
 $route['bahanmasuk/tambahMasuk'] = "Bahanbantu/tambahMasuk";
 $route['bahanmasuk/ubahMasuk'] = "Bahanbantu/ubahMasuk";

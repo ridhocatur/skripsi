@@ -21,39 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pegawai; ?> Orang</div>
 		</div>
 		<div class="col-auto">
-			<i class="fas fa-calendar fa-2x text-gray-300"></i>
-		</div>
-		</div>
-	</div>
-	</div>
-</div>
-
-<div class="col-xl-3 col-md-6 mb-4">
-	<div class="card border-left-success shadow h-100 py-2">
-	<div class="card-body">
-		<div class="row no-gutters align-items-center">
-		<div class="col mr-2">
-			<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Jumlah Supplier</div>
-			<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $supplier; ?> Supplier</div>
-		</div>
-		<div class="col-auto">
-			<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-		</div>
-		</div>
-	</div>
-	</div>
-</div>
-
-<div class="col-xl-3 col-md-6 mb-4">
-	<div class="card border-left-success shadow h-100 py-2">
-	<div class="card-body">
-		<div class="row no-gutters align-items-center">
-		<div class="col mr-2">
-			<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Jumlah Ukuran</div>
-			<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $ukuran; ?> Ukuran</div>
-		</div>
-		<div class="col-auto">
-			<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+			<i class="fas fa-group fa-2x text-gray-300"></i>
 		</div>
 		</div>
 	</div>
@@ -65,11 +33,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="card-body">
 		<div class="row no-gutters align-items-center">
 		<div class="col mr-2">
-			<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Jumlah Jenis Kayu</div>
+			<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Jumlah Supplier</div>
+			<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $supplier; ?> Supplier</div>
+		</div>
+		<div class="col-auto">
+			<i class="fas fa-truck fa-2x text-gray-300"></i>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+	<div class="card border-left-info shadow h-100 py-2">
+	<div class="card-body">
+		<div class="row no-gutters align-items-center">
+		<div class="col mr-2">
+			<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah Ukuran</div>
+			<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $ukuran; ?> Ukuran</div>
+		</div>
+		<div class="col-auto">
+			<i class="fas fa-arrows-alt fa-2x text-gray-300"></i>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+	<div class="card border-left-secondary shadow h-100 py-2">
+	<div class="card-body">
+		<div class="row no-gutters align-items-center">
+		<div class="col mr-2">
+			<div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Jumlah Jenis Kayu</div>
 			<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jeniskayu; ?> Macam</div>
 		</div>
 		<div class="col-auto">
-			<i class="fas fa-comments fa-2x text-gray-300"></i>
+			<i class="fas fa-gear fa-2x text-gray-300"></i>
 		</div>
 		</div>
 	</div>

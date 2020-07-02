@@ -94,11 +94,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="id_ukuran" class="col-sm-3 col-form-label text-md-right">Ukuran (mm)</label>
                 <div class="col-md-8">
-                    <select class="form-control idukuran" name="id_ukuran[]" id="id_ukuran" onchange="panjang();">
+                    <select class="form-control idukuran" name="id_ukuran" id="id_ukuran" onchange="panjang();">
                         <option selected disabled>-- Pilih Data --</option>
                         <?php foreach($ukuran as $data): ?>
                             <option id="<?= $data->id; ?>" data-panjang="<?= $data->panjang; ?>" data-lebar="<?= $data->lebar; ?>"><?= $data->panjang; ?> x <?= $data->lebar; ?></option>
-                        <?php endforeach;?>
+                        <?php endforeach; ?>
                     </select>
                     <input type="hidden" name="idukuran" id="idukuran" value="" >
                     <input type="hidden" name="pjgs" id="pjgs" value="" >

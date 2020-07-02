@@ -84,18 +84,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="jenisvinir" class="col-sm-3 col-form-label text-md-right">Jenis Vinir</label>
-                <div class="col-md-8">
-                    <select class="form-control" name="jenisvinir" id="jenisvinir">
-                        <option selected disabled>-- Pilih Data --</option>
-                        <option value="face back"> Face / Back </option>
-                        <option value="core"> Core </option>
-                        <option value="long grain"> Long Grain </option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
                 <label for="tebal" class="col-sm-3 col-form-label text-md-right">Tebal (mm)</label>
                 <div class="col-md-8">
                     <input id="tebal" type="text" class="form-control" name="tebal" required placeholder="Tebal">

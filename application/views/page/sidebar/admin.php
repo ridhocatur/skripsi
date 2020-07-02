@@ -3,13 +3,12 @@
     <i class="fa fa-fw fa-archive"></i>
     <span>Data</span>
   </a>
-  <div id="collapseTwo" class="collapse <?= $this->uri->segment(1) == 'bahanbantu' || $this->uri->segment(1) == 'kayulog' || $this->uri->segment(1) == 'vinir' || $this->uri->segment(1) == 'supplier' || $this->uri->segment(1) == 'bahanmasuk' || $this->uri->segment(1) == 'kayumasuk' || $this->uri->segment(1) == 'vinirmasuk' || $this->uri->segment(1) == 'gluemix' || $this->uri->segment(1) == 'plywood' ? 'show' : '' ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+  <div id="collapseTwo" class="collapse <?= $this->uri->segment(1) == 'bahanbantu' || $this->uri->segment(1) == 'kayulog' || $this->uri->segment(1) == 'vinir' || $this->uri->segment(1) == 'bahanmasuk' || $this->uri->segment(1) == 'kayumasuk' || $this->uri->segment(1) == 'vinirmasuk' || $this->uri->segment(1) == 'gluemix' || $this->uri->segment(1) == 'plywood' ? 'show' : '' ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
     <h6 class="collapse-header">Data Master:</h6>
       <a class="collapse-item <?= $this->uri->segment(1) == 'bahanbantu' ? 'active' : '' ?>" href="bahanbantu">Bahan Bantu</a>
       <a class="collapse-item <?= $this->uri->segment(1) == 'kayulog' ? 'active' : '' ?>" href="kayulog">Kayu Log</a>
       <a class="collapse-item <?= $this->uri->segment(1) == 'vinir' ? 'active' : '' ?>" href="vinir">Vinir</a>
-      <a class="collapse-item <?= $this->uri->segment(1) == 'supplier' ? 'active' : '' ?>" href="supplier">Supplier</a>
     <h6 class="collapse-header">Barang Masuk:</h6>
       <a class="collapse-item <?= $this->uri->segment(1) == 'bahanmasuk' ? 'active' : '' ?>" href="bahanmasuk">Bahan Bantu</a>
       <a class="collapse-item <?= $this->uri->segment(1) == 'kayumasuk' ? 'active' : '' ?>" href="kayumasuk">Kayu Log</a>
@@ -38,6 +37,9 @@
 <li class="nav-item <?= $this->uri->segment(1) == 'pegawai' ? 'active' : '' ?>">
   <a class="nav-link" href="pegawai"><i class="fa fa-users"></i><span> Pegawai</span></a>
 </li>
+<li class="nav-item <?= $this->uri->segment(1) == 'supplier' ? 'active' : '' ?>">
+  <a class="nav-link" href="supplier"><i class="fa fa-truck"></i><span> Supplier</span></a>
+</li>
 <li class="nav-item <?= $this->uri->segment(1) == 'kategori' ? 'active' : '' ?>">
   <a class="nav-link" href="kategori"><i class="fa fa-tags"></i><span> Kategori</span></a>
 </li>
@@ -46,4 +48,7 @@
 </li>
 <li class="nav-item <?= $this->uri->segment(1) == 'jeniskayu' ? 'active' : '' ?>">
   <a class="nav-link" href="jeniskayu"><i class="fa fa-cogs"></i><span> Jenis Kayu</span></a>
+</li>
+<li class="nav-item <?= $this->uri->segment(1) == 'rumus' ? 'active' : '' ?>">
+  <a class="nav-link" href="rumus"><i class="fa fa-book"></i><span> Rumus</span></a>
 </li>

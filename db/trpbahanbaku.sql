@@ -27,12 +27,12 @@ CREATE TABLE IF NOT EXISTS `bahan_bantu` (
 -- Membuang data untuk tabel trpbahanbaku.bahan_bantu: ~6 rows (lebih kurang)
 /*!40000 ALTER TABLE `bahan_bantu` DISABLE KEYS */;
 REPLACE INTO `bahan_bantu` (`id`, `kd_bahan`, `nama`, `stok`, `id_kategori`, `keterangan`) VALUES
-	('5ebd4988ecb89', 'GLUEMF', 'Melamine Glue', 11270, '1', 'stok awal'),
-	('5ebd4d186bc91', 'GLUELFE', 'Low Formaldehyde Emission', 18670, '1', 'Stok awal'),
-	('5ec8c2aed17c2', 'HU103', 'Hardener', 465, '5', 'Stok awal'),
-	('5edbb028f0ef0', 'HU100', 'HU-100', 465, '5', 'Stok awal'),
-	('5edbb03d3d40c', 'HU360', 'HU-360', 400, '5', 'Stok awal'),
-	('5edbb0b61f621', 'TPNG', 'Tepung', 4550, '2', 'Stok awal');
+	('5ebd4988ecb89', 'GLUEMF', 'Melamine Glue', 28000, '1', 'stok awal'),
+	('5ebd4d186bc91', 'GLUELFE', 'Low Formaldehyde Emission', 55000, '1', 'Stok awal'),
+	('5ec8c2aed17c2', 'HU103', 'Hardener', 3500, '5', 'Stok awal'),
+	('5edbb028f0ef0', 'HU100', 'HU-100', 3500, '5', 'Stok awal'),
+	('5edbb03d3d40c', 'HU360', 'HU-360', 3500, '5', 'Stok awal'),
+	('5edbb0b61f621', 'TPNG', 'Tepung', 38000, '2', 'Stok awal');
 /*!40000 ALTER TABLE `bahan_bantu` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.bahan_masuk
@@ -51,17 +51,34 @@ CREATE TABLE IF NOT EXISTS `bahan_masuk` (
   KEY `id_supplier` (`id_supplier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.bahan_masuk: ~8 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.bahan_masuk: ~25 rows (lebih kurang)
 /*!40000 ALTER TABLE `bahan_masuk` DISABLE KEYS */;
 REPLACE INTO `bahan_masuk` (`id`, `invoice`, `tgl`, `id_bahan`, `nama`, `stok_masuk`, `keterangan`, `id_supplier`) VALUES
-	('5ee8d015d8d52', 'GCKALFE1105', '2020-05-11', '5ebd4d186bc91', 'Low Formaldehyde Emission', 20000, '20 Ton', '1'),
-	('5ee8d04077d61', 'GCKAMF1505', '2020-05-15', '5ebd4988ecb89', 'Melamine Glue', 7000, '7 ton', '1'),
-	('5ee8d06aa8a62', 'GCKAMF2005', '2020-05-20', '5ebd4988ecb89', 'Melamine Glue', 5000, 'aman', '1'),
-	('5ee8d0996f1c0', 'TPG1305', '2020-05-13', '5edbb0b61f621', 'Tepung', 2000, '', '3'),
-	('5ee8d0ba5f80d', 'TPG2605', '2020-05-26', '5edbb0b61f621', 'Tepung', 3000, '', '3'),
-	('5ee8d0dd7ee3f', 'HU100-1405', '2020-05-14', '5edbb028f0ef0', 'HU-100', 500, '', '1'),
-	('5ee8d0f909b7f', 'HU103-1505', '2020-05-15', '5ec8c2aed17c2', 'Hardener', 500, '', '1'),
-	('5ee8d121dde4f', 'HU360-1505', '2020-05-15', '5edbb03d3d40c', 'HU-360', 500, '', '1');
+	('5ef8393d0e43c', 'LFE18723', '2020-04-02', '5ebd4d186bc91', 'Low Formaldehyde Emission', 20000, '', '1'),
+	('5ef83956c9a63', 'MF454', '2020-04-02', '5ebd4988ecb89', 'Melamine Glue', 8000, '', '1'),
+	('5ef8398570235', 'TPGH122', '2020-04-03', '5edbb0b61f621', 'Tepung', 10000, '', '3'),
+	('5ef839a9cf6d8', 'HARD2870', '2020-04-05', '5edbb028f0ef0', 'HU-100', 1000, '', '7'),
+	('5ef839ceaebfb', 'LFE9921', '2020-04-10', '5ebd4d186bc91', 'Low Formaldehyde Emission', 10000, '', '1'),
+	('5ef839ebccd94', 'HARD7821', '2020-04-13', '5ec8c2aed17c2', 'Hardener', 1000, '', '7'),
+	('5ef83a051dc97', 'HARD7291', '2020-04-15', '5edbb03d3d40c', 'HU-360', 1000, '', '7'),
+	('5ef83a1e8f972', 'MF2104772', '2020-04-21', '5ebd4988ecb89', 'Melamine Glue', 5000, '', '1'),
+	('5ef83a4f1c561', 'TPNG22048', '2020-04-22', '5edbb0b61f621', 'Tepung', 8000, '', '3'),
+	('5ef83a6d73583', 'HU0105360', '2020-05-01', '5edbb03d3d40c', 'HU-360', 500, '', '7'),
+	('5ef83a7dcde25', 'HU0105100', '2020-05-01', '5edbb028f0ef0', 'HU-100', 500, '', '7'),
+	('5ef83a98ca803', 'HU0105103', '2020-05-01', '5ec8c2aed17c2', 'Hardener', 500, '', '7'),
+	('5ef83ab8e1644', 'LFE050520', '2020-05-05', '5ebd4d186bc91', 'Low Formaldehyde Emission', 15000, '', '1'),
+	('5ef83acb63d58', 'MF050520', '2020-05-05', '5ebd4988ecb89', 'Melamine Glue', 10000, '', '1'),
+	('5ef83aef4c7fb', 'TPNG120520', '2020-05-12', '5edbb0b61f621', 'Tepung', 10000, '', '3'),
+	('5ef83b09d49f9', 'HU2105103', '2020-05-21', '5ec8c2aed17c2', 'Hardener', 1000, '', '7'),
+	('5ef83b1cdb690', 'HU2105100', '2020-05-21', '5edbb028f0ef0', 'HU-100', 500, '', '7'),
+	('5ef83b2a96989', 'HU21105360', '2020-05-21', '5edbb03d3d40c', 'HU-360', 1000, '', '7'),
+	('5ef83b3b5cfa4', 'MF260520', '2020-05-26', '5ebd4988ecb89', 'Melamine Glue', 5000, '', '1'),
+	('5ef83b527e92b', 'LFE040620', '2020-06-04', '5ebd4d186bc91', 'Low Formaldehyde Emission', 10000, '', '1'),
+	('5ef83b66ba565', 'TPNG090620', '2020-06-09', '5edbb0b61f621', 'Tepung', 10000, '', '7'),
+	('5ef83ba060193', 'HU1006100', '2020-06-10', '5edbb028f0ef0', 'HU-100', 1000, '', '7'),
+	('5ef83bad98a84', 'HU1206103', '2020-06-12', '5ec8c2aed17c2', 'Hardener', 1000, '', '7'),
+	('5ef83bba8c405', 'HU1206360', '2020-06-12', '5edbb03d3d40c', 'HU-360', 1000, '', '7'),
+	('5ef83be38ec7b', 'HU1506100', '2020-06-15', '5edbb028f0ef0', 'HU-100', 500, '', '7');
 /*!40000 ALTER TABLE `bahan_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.dtl_gluemix
@@ -74,59 +91,10 @@ CREATE TABLE IF NOT EXISTS `dtl_gluemix` (
   PRIMARY KEY (`id`),
   KEY `id_bahan` (`id_bahan`),
   KEY `id_gluemix` (`id_gluemix`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.dtl_gluemix: ~48 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.dtl_gluemix: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `dtl_gluemix` DISABLE KEYS */;
-REPLACE INTO `dtl_gluemix` (`id`, `id_bahan`, `id_gluemix`, `stok_keluar`) VALUES
-	(1, '5ebd4d186bc91', 1, 0),
-	(2, '5ebd4988ecb89', 1, 240),
-	(3, '5edbb0b61f621', 1, 50),
-	(4, '5edbb028f0ef0', 1, 0),
-	(5, '5ec8c2aed17c2', 1, 0),
-	(6, '5edbb03d3d40c', 1, 50),
-	(7, '5ebd4d186bc91', 2, 250),
-	(8, '5ebd4988ecb89', 2, 0),
-	(9, '5edbb0b61f621', 2, 60),
-	(10, '5edbb028f0ef0', 2, 5),
-	(11, '5ec8c2aed17c2', 2, 5),
-	(12, '5edbb03d3d40c', 2, 0),
-	(13, '5ebd4d186bc91', 3, 0),
-	(14, '5ebd4988ecb89', 3, 250),
-	(15, '5edbb0b61f621', 3, 50),
-	(16, '5edbb028f0ef0', 3, 0),
-	(17, '5ec8c2aed17c2', 3, 0),
-	(18, '5edbb03d3d40c', 3, 30),
-	(19, '5ebd4d186bc91', 4, 260),
-	(20, '5ebd4988ecb89', 4, 0),
-	(21, '5edbb0b61f621', 4, 60),
-	(22, '5edbb028f0ef0', 4, 5),
-	(23, '5ec8c2aed17c2', 4, 5),
-	(24, '5edbb03d3d40c', 4, 0),
-	(25, '5ebd4d186bc91', 5, 270),
-	(26, '5ebd4988ecb89', 5, 0),
-	(27, '5edbb0b61f621', 5, 65),
-	(28, '5edbb028f0ef0', 5, 10),
-	(29, '5ec8c2aed17c2', 5, 10),
-	(30, '5edbb03d3d40c', 5, 0),
-	(31, '5ebd4d186bc91', 6, 0),
-	(32, '5ebd4988ecb89', 6, 240),
-	(33, '5edbb0b61f621', 6, 30),
-	(34, '5edbb028f0ef0', 6, 0),
-	(35, '5ec8c2aed17c2', 6, 0),
-	(36, '5edbb03d3d40c', 6, 20),
-	(37, '5ebd4d186bc91', 7, 270),
-	(38, '5ebd4988ecb89', 7, 0),
-	(39, '5edbb0b61f621', 7, 60),
-	(40, '5edbb028f0ef0', 7, 5),
-	(41, '5ec8c2aed17c2', 7, 5),
-	(42, '5edbb03d3d40c', 7, 0),
-	(43, '5ebd4d186bc91', 8, 280),
-	(44, '5ebd4988ecb89', 8, 0),
-	(45, '5edbb0b61f621', 8, 75),
-	(46, '5edbb028f0ef0', 8, 10),
-	(47, '5ec8c2aed17c2', 8, 10),
-	(48, '5edbb03d3d40c', 8, 0);
 /*!40000 ALTER TABLE `dtl_gluemix` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.dtl_kayu_masuk
@@ -143,16 +111,35 @@ CREATE TABLE IF NOT EXISTS `dtl_kayu_masuk` (
   PRIMARY KEY (`id`),
   KEY `id_kayu` (`id_kayu`),
   KEY `id_masuk` (`id_masuk`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.dtl_kayu_masuk: ~5 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.dtl_kayu_masuk: ~24 rows (lebih kurang)
 /*!40000 ALTER TABLE `dtl_kayu_masuk` DISABLE KEYS */;
 REPLACE INTO `dtl_kayu_masuk` (`id`, `id_kayu`, `id_masuk`, `panjang`, `diameter1`, `diameter2`, `stok_masuk`, `kubik_masuk`) VALUES
-	(6, '5ecb4d3e12f33', 2, 159, 65, 68, 100, 55.20),
-	(7, '5ecb4d4b5b93d', 2, 280, 66, 65, 210, 198.12),
-	(8, '5ecb4d587b02f', 2, 168, 54, 56, 379, 151.22),
-	(9, '5ecb4d3e12f33', 3, 160, 68, 65, 5100, 2832.72),
-	(10, '5ecb4d4b5b93d', 3, 185, 77, 84, 3100, 2913.36);
+	(3, '5ecb4d3e12f33', 2, 300, 50, 50, 2500, 1472.63),
+	(4, '5ecb4d4b5b93d', 2, 310, 56, 55, 2500, 1874.75),
+	(5, '5ecb4d587b02f', 2, 290, 51, 51, 3000, 1777.26),
+	(6, '5ecb4d3e12f33', 3, 320, 60, 61, 1000, 919.86),
+	(7, '5ee22744a86b4', 3, 300, 56, 55, 1500, 1088.56),
+	(8, '5ee2275051caf', 4, 270, 55, 55, 2000, 1282.95),
+	(9, '5ef838d8beeb3', 4, 250, 50, 51, 1500, 751.04),
+	(10, '5ee2275051caf', 5, 300, 50, 50, 1000, 589.05),
+	(11, '5ef838d8beeb3', 5, 270, 49, 50, 500, 259.77),
+	(12, '5ecb4d587b02f', 6, 340, 55, 56, 2000, 1644.94),
+	(13, '5ee22744a86b4', 6, 320, 53, 54, 2000, 1438.60),
+	(14, '5ecb4d3e12f33', 7, 380, 55, 55, 2500, 2257.04),
+	(15, '5ecb4d4b5b93d', 7, 375, 55, 54, 2500, 2186.85),
+	(16, '5ecb4d587b02f', 7, 370, 49, 50, 1500, 1067.95),
+	(17, '5ecb4d4b5b93d', 8, 350, 55, 56, 2500, 2116.65),
+	(18, '5ee22744a86b4', 8, 360, 55, 55, 2500, 2138.25),
+	(19, '5ee22744a86b4', 9, 340, 45, 46, 1500, 829.15),
+	(20, '5ee2275051caf', 9, 350, 50, 51, 1500, 1051.45),
+	(21, '5ef838d8beeb3', 10, 360, 50, 52, 2500, 1837.84),
+	(22, '5ecb4d3e12f33', 11, 410, 52, 53, 3000, 2662.41),
+	(23, '5ecb4d587b02f', 11, 400, 55, 55, 3000, 2851.00),
+	(24, '5ecb4d4b5b93d', 12, 380, 55, 55, 2500, 2257.04),
+	(25, '5ee22744a86b4', 12, 380, 52, 52, 3000, 2421.04),
+	(26, '5ee2275051caf', 13, 380, 55, 55, 3000, 2708.45);
 /*!40000 ALTER TABLE `dtl_kayu_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.dtl_plywood
@@ -167,14 +154,10 @@ CREATE TABLE IF NOT EXISTS `dtl_plywood` (
   PRIMARY KEY (`id`),
   KEY `id_vinir_keluar` (`id_vinir`),
   KEY `id_keluar` (`id_plywood`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.dtl_plywood: ~3 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.dtl_plywood: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `dtl_plywood` DISABLE KEYS */;
-REPLACE INTO `dtl_plywood` (`id`, `id_vinir`, `id_plywood`, `jenis`, `stok_keluar`, `kubik_keluar`) VALUES
-	(1, '5ee1d46a5fb7d', 1, 'face back', 5600, 7.08),
-	(2, '5ee1d4e032237', 1, 'core', 5600, 25.27),
-	(3, '5ee1d582c5bcd', 1, 'face back', 5600, 9.10);
 /*!40000 ALTER TABLE `dtl_plywood` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.gluemix
@@ -187,19 +170,10 @@ CREATE TABLE IF NOT EXISTS `gluemix` (
   `total` int(20) NOT NULL,
   `keterangan` varchar(100) DEFAULT 'NULL',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.gluemix: ~8 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.gluemix: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `gluemix` DISABLE KEYS */;
-REPLACE INTO `gluemix` (`id`, `tgl`, `tipe_glue`, `shift`, `total`, `keterangan`) VALUES
-	(1, '2020-05-12', 'Type-1 Melamine', '1', 340, ''),
-	(2, '2020-05-13', 'Type-2 LFE', '2', 320, ''),
-	(3, '2020-05-13', 'Type-1 Melamine', '1', 330, ''),
-	(4, '2020-05-15', 'Type-2 LFE', '1', 330, ''),
-	(5, '2020-05-18', 'Type-2 LFE', '2', 355, ''),
-	(6, '2020-05-18', 'Type-1 Melamine', '2', 290, ''),
-	(7, '2020-05-20', 'Type-2 LFE', '2', 340, ''),
-	(8, '2020-05-25', 'Type-2 LFE', '1', 375, '');
 /*!40000 ALTER TABLE `gluemix` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.jeniskayu
@@ -251,20 +225,20 @@ CREATE TABLE IF NOT EXISTS `kayu` (
   `id_jenis` varchar(64) NOT NULL,
   `stok` int(20) NOT NULL DEFAULT 0,
   `kubikasi` float(8,2) NOT NULL DEFAULT 0.00,
-  `kubikperlog` float(8,2) NOT NULL DEFAULT 0.00,
   `keterangan` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_jenis` (`id_jenis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.kayu: ~5 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.kayu: ~6 rows (lebih kurang)
 /*!40000 ALTER TABLE `kayu` DISABLE KEYS */;
-REPLACE INTO `kayu` (`id`, `kd_kayu`, `id_jenis`, `stok`, `kubikasi`, `kubikperlog`, `keterangan`) VALUES
-	('5ecb4d3e12f33', 'LOGMLP', '1', 5147, 2863.95, 0.56, 'Stok awal'),
-	('5ecb4d4b5b93d', 'LOGDH1', '2', 3257, 3072.25, 0.94, 'Stok awal'),
-	('5ecb4d587b02f', 'LOGMSW', '4', 379, 151.22, 0.40, 'Stok awal'),
-	('5ee22744a86b4', 'LOGMRT', '3', 780, 920.77, 0.00, ''),
-	('5ee2275051caf', 'LOGKR', '5', 50, 50.00, 0.00, '');
+REPLACE INTO `kayu` (`id`, `kd_kayu`, `id_jenis`, `stok`, `kubikasi`, `keterangan`) VALUES
+	('5ecb4d3e12f33', 'LOGMLP', '1', 8890, 7239.78, 'Stok awal'),
+	('5ecb4d4b5b93d', 'LOGDH1', '2', 9885, 8356.54, 'Stok awal'),
+	('5ecb4d587b02f', 'LOGMSW', '4', 9380, 7265.15, 'Stok awal'),
+	('5ee22744a86b4', 'LOGMRT', '3', 10355, 7826.73, ''),
+	('5ee2275051caf', 'LOGKR', '5', 7407, 5575.81, ''),
+	('5ef838d8beeb3', 'LOGBLU', '6', 4406, 2800.44, '');
 /*!40000 ALTER TABLE `kayu` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.kayu_masuk
@@ -279,13 +253,23 @@ CREATE TABLE IF NOT EXISTS `kayu_masuk` (
   `keterangan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_supplier` (`id_supplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.kayu_masuk: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.kayu_masuk: ~12 rows (lebih kurang)
 /*!40000 ALTER TABLE `kayu_masuk` DISABLE KEYS */;
 REPLACE INTO `kayu_masuk` (`id`, `id_supplier`, `invoice`, `tgl`, `jml_stok`, `jml_kubik`, `keterangan`) VALUES
-	(2, '4', 'AVC343', '2020-05-08', 689, 404.54, 'masuk'),
-	(3, '5ebeb29b38c36', 'KYHSZ81', '2020-05-20', 8200, 5746.08, '');
+	(2, '4', 'KAJR040420', '2020-04-04', 8000, 5124.64, ''),
+	(3, '5eba94e44279f', 'KTA140420', '2020-04-14', 2500, 2008.42, ''),
+	(4, '5ebeb29b38c36', 'SBJ220420', '2020-04-22', 3500, 2033.99, ''),
+	(5, '6', 'AB300420', '2020-04-30', 1500, 848.82, ''),
+	(6, '6', 'AB040520', '2020-05-05', 4000, 3083.54, ''),
+	(7, '4', 'KAJR150520', '2020-05-15', 6500, 5511.84, ''),
+	(8, '5eba94e44279f', 'KTA200520', '2020-05-20', 5000, 4254.90, ''),
+	(9, '5ebeb29b38c36', 'SBJ260520', '2020-05-26', 3000, 1880.60, ''),
+	(10, '6', 'AB300520', '2020-05-30', 2500, 1837.84, ''),
+	(11, '4', 'KAJR020620', '2020-06-02', 6000, 5513.41, ''),
+	(12, '5ebeb29b38c36', 'SBJ100620', '2020-06-10', 5500, 4678.08, ''),
+	(13, '6', 'AB150620', '2020-06-15', 3000, 2708.45, '');
 /*!40000 ALTER TABLE `kayu_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.nilai_baku
@@ -325,10 +309,10 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
 -- Membuang data untuk tabel trpbahanbaku.pegawai: ~6 rows (lebih kurang)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-18 14:35:38', '2020-05-18 20:30:53'),
-	('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', '5aad4f2aede54_jpg_d6e6d07e022235c48a75238b6608d83d.jpg', 'manager', '2020-05-27 20:20:08', '2020-05-18 20:30:53'),
+	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho', '0822771', '5ebc01246be2a.jpg', 'admin', '2020-06-30 15:21:43', '2020-05-18 20:30:53'),
+	('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', '5aad4f2aede54_jpg_d6e6d07e022235c48a75238b6608d83d.jpg', 'manager', '2020-06-27 23:40:59', '2020-05-18 20:30:53'),
 	('5ebc04fa7112c', '34', 'admin', 'admin', 'Admin', '119976', '_34.jpg', 'admin', '2020-05-18 20:30:53', '2020-05-18 20:30:53'),
-	('5ebc0d91b1761', '2352345', 'cahbekasi', '860dec1a7a44b923c725901e11bc6363', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-05-27 20:20:40', '2020-05-18 20:30:53'),
+	('5ebc0d91b1761', '2352345', 'cahbekasi', '860dec1a7a44b923c725901e11bc6363', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-06-27 23:40:44', '2020-05-18 20:30:53'),
 	('5ebc131684828', '3', 'cc', '97e5622531f92f5710497dfdc35be728', 'cc', '333', 'cc_3.jpg', '', '2020-05-18 20:30:53', '2020-05-18 20:30:53'),
 	('5ee4655ec2fc8', '90018', 'razzy', '0d4c01cb7c1fcfd6ed48e31425c637cc', 'Facrurazzy', '083657232', 'Facrurazzy_90018.jpg', 'admin', '2020-06-13 13:34:22', '2020-06-13 13:34:22');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
@@ -348,12 +332,10 @@ CREATE TABLE IF NOT EXISTS `plywood` (
   `keterangan` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Index 2` (`id_ukuran`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel trpbahanbaku.plywood: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `plywood` DISABLE KEYS */;
-REPLACE INTO `plywood` (`id`, `id_ukuran`, `tgl`, `shift`, `tipe_glue`, `tipe_ply`, `tebal`, `total_prod`, `total_kubik`, `keterangan`) VALUES
-	(1, 2, '2020-06-01', '1', 'Type-2 LFE', '3', '4.1', 5600, 38.64, '');
 /*!40000 ALTER TABLE `plywood` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.supplier
@@ -414,18 +396,57 @@ CREATE TABLE IF NOT EXISTS `vinir` (
   KEY `id_jenis` (`id_jenis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.vinir: ~9 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.vinir: ~48 rows (lebih kurang)
 /*!40000 ALTER TABLE `vinir` DISABLE KEYS */;
 REPLACE INTO `vinir` (`id`, `id_jenis`, `tebal`, `panjang`, `lebar`, `stok`, `kubikasi`, `keterangan`) VALUES
-	('5ee1d46a5fb7d', 1, 0.7, 1900, 950, -5590, 2.92, ''),
-	('5ee1d4c85b4dc', 1, 1.5, 1900, 950, 8888, 33.97, ''),
-	('5ee1d4e032237', 1, 2.5, 1900, 950, 5546, 34.84, ''),
-	('5ee1d582c5bcd', 2, 0.9, 1900, 950, -5590, 0.90, ''),
-	('5ee1d59153c0b', 2, 0.7, 1900, 950, 30190, 49.23, ''),
-	('5ee1d5a138a2c', 3, 0.6, 2600, 1300, 10, 10.00, ''),
-	('5ee1d5b22ccac', 3, 1.7, 2600, 1300, 10, 10.00, ''),
-	('5ee1d5cd33b1a', 3, 2.0, 1900, 950, 10, 10.00, ''),
-	('5ee1d601eaf07', 3, 2.0, 2600, 1300, 7167, 58.67, '');
+	('5ef844e61c406', 1, 1.0, 1900, 950, 8798, 15.84, ''),
+	('5ef8450144758', 1, 1.6, 1900, 950, 0, 0.00, ''),
+	('5ef8450f9562f', 1, 2.5, 1900, 950, 0, 0.00, ''),
+	('5ef8451a0bbfe', 1, 3.5, 1900, 950, 3806, 23.98, ''),
+	('5ef84546affb1', 1, 1.0, 2600, 1300, 9513, 32.34, ''),
+	('5ef84557043da', 1, 1.6, 2600, 1300, 0, 0.00, ''),
+	('5ef845f1d92c5', 1, 2.5, 2600, 1300, 0, 0.00, ''),
+	('5ef84601caf93', 1, 3.5, 2600, 1300, 0, 0.00, ''),
+	('5ef8460cc7f24', 2, 1.0, 1900, 950, 0, 0.00, ''),
+	('5ef8461c5880c', 2, 1.6, 1900, 950, 5506, 15.97, ''),
+	('5ef84623e09ff', 2, 2.5, 1900, 950, 0, 0.00, ''),
+	('5ef8462c6ef9a', 2, 3.5, 1900, 950, 3818, 24.05, ''),
+	('5ef84636b363c', 2, 1.0, 2600, 1300, 0, 0.00, ''),
+	('5ef8463fc6d8b', 2, 1.6, 2600, 1300, 2995, 16.17, ''),
+	('5ef846464d055', 2, 2.5, 2600, 1300, 2686, 22.56, ''),
+	('5ef8465d6db68', 2, 3.5, 2600, 1300, 0, 0.00, ''),
+	('5ef846642a2fe', 3, 1.0, 1900, 950, 0, 0.00, ''),
+	('5ef8467e59257', 3, 1.6, 1900, 950, 0, 0.00, ''),
+	('5ef84685b9761', 3, 2.5, 1900, 950, 3534, 15.90, ''),
+	('5ef8468d384ae', 3, 3.5, 1900, 950, 3806, 23.98, ''),
+	('5ef846a8982fd', 3, 1.0, 2600, 1300, 0, 0.00, ''),
+	('5ef846af0c22e', 3, 1.6, 2600, 1300, 4618, 24.94, ''),
+	('5ef846b6769fe', 3, 2.5, 2600, 1300, 2863, 24.05, ''),
+	('5ef846c9afe6d', 3, 3.5, 2600, 1300, 0, 0.00, ''),
+	('5ef846d0bfce6', 4, 1.0, 1900, 950, 4514, 8.13, ''),
+	('5ef84757eb474', 4, 1.6, 1900, 950, 0, 0.00, ''),
+	('5ef8476001dab', 4, 2.5, 1900, 950, 0, 0.00, ''),
+	('5ef8476d27b12', 4, 3.5, 1900, 950, 3162, 19.92, ''),
+	('5ef848009d90b', 4, 1.0, 2600, 1300, 7114, 24.19, ''),
+	('5ef84808269b5', 4, 1.6, 2600, 1300, 4400, 23.76, ''),
+	('5ef8480fae5d8', 4, 2.5, 2600, 1300, 0, 0.00, ''),
+	('5ef84827c54e3', 4, 3.5, 2600, 1300, 0, 0.00, ''),
+	('5ef8482fbea01', 5, 1.0, 1900, 950, 13400, 24.12, ''),
+	('5ef848374c6c8', 5, 1.6, 1900, 950, 0, 0.00, ''),
+	('5ef8483f4f64d', 5, 2.5, 1900, 950, 0, 0.00, ''),
+	('5ef848557d147', 5, 3.5, 1900, 950, 0, 0.00, ''),
+	('5ef84890363b9', 5, 1.0, 2600, 1300, 0, 0.00, ''),
+	('5ef8489742938', 5, 1.6, 2600, 1300, 0, 0.00, ''),
+	('5ef848a1ad319', 5, 2.5, 2600, 1300, 3806, 31.97, ''),
+	('5ef848a9c764e', 5, 3.5, 2600, 1300, 0, 0.00, ''),
+	('5ef848b77e9ba', 6, 1.0, 1900, 950, 0, 0.00, ''),
+	('5ef848c0c975e', 6, 1.6, 1900, 950, 8258, 23.95, ''),
+	('5ef848c81d9cc', 6, 2.5, 1900, 950, 0, 0.00, ''),
+	('5ef848e478a3c', 6, 3.5, 1900, 950, 0, 0.00, ''),
+	('5ef848eba6f4d', 6, 1.0, 2600, 1300, 0, 0.00, ''),
+	('5ef848f256a4b', 6, 1.6, 2600, 1300, 4493, 24.26, ''),
+	('5ef848f9207dd', 6, 2.5, 2600, 1300, 0, 0.00, ''),
+	('5ef848ff6eedd', 6, 3.5, 2600, 1300, 0, 0.00, '');
 /*!40000 ALTER TABLE `vinir` ENABLE KEYS */;
 
 -- membuang struktur untuk table trpbahanbaku.vinir_masuk
@@ -448,12 +469,30 @@ CREATE TABLE IF NOT EXISTS `vinir_masuk` (
   KEY `index2` (`id_vinir`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.vinir_masuk: ~3 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.vinir_masuk: ~21 rows (lebih kurang)
 /*!40000 ALTER TABLE `vinir_masuk` DISABLE KEYS */;
 REPLACE INTO `vinir_masuk` (`id`, `id_vinir`, `id_kayu`, `tgl`, `shift`, `jml_log`, `kubik_log`, `r_reel`, `v_reel`, `stok_masuk`, `kubik_masuk`, `keterangan`) VALUES
-	('5ee24f8196182', '5ee1d59153c0b', '5ecb4d4b5b93d', '2020-06-10', '1', 53, 50.00, 50, 1.9618, 30180, 39.23, NULL),
-	('5ee260f06acb4', '5ee1d4c85b4dc', '5ecb4d3e12f33', '2020-06-02', '1', 53, 30.00, 36, 1.1095, 8878, 23.97, NULL),
-	('5ee26160e2f29', '5ee1d601eaf07', '5ee22744a86b4', '2020-05-28', '1', 150, 60.00, 52, 2.8944, 7157, 48.67, NULL);
+	('5efae86d4cd38', '5ef844e61c406', '5ecb4d3e12f33', '2020-04-06', '1', 24, 20.00, 20, 0.4218, 8798, 15.84, NULL),
+	('5efae88b96eb3', '5ef8461c5880c', '5ecb4d4b5b93d', '2020-04-06', '1', 24, 20.00, 15, 0.2696, 5506, 15.97, NULL),
+	('5efae89ebc190', '5ef84685b9761', '5ee22744a86b4', '2020-04-07', '1', 26, 20.00, 20, 0.4218, 3534, 15.90, NULL),
+	('5efae8b2b045b', '5ef8476d27b12', '5ecb4d587b02f', '2020-04-08', '1', 32, 25.00, 20, 0.4218, 3162, 19.92, NULL),
+	('5efae8ccd5c99', '5ef8482fbea01', '5ee2275051caf', '2020-04-10', '1', 40, 30.00, 25, 0.6039, 13400, 24.12, NULL),
+	('5efae8fe0efcb', '5ef84546affb1', '5ecb4d3e12f33', '2020-05-12', '1', 12, 10.00, 15, 0.3859, 2371, 8.06, NULL),
+	('5efae9104deb8', '5ef846b6769fe', '5ee22744a86b4', '2020-05-13', '1', 20, 15.00, 15, 0.3859, 1435, 12.05, NULL),
+	('5efae92b6b09f', '5ef84546affb1', '5ecb4d3e12f33', '2020-05-18', '1', 37, 30.00, 25, 0.8434, 7142, 24.28, NULL),
+	('5efae9539cfbf', '5ef8463fc6d8b', '5ecb4d4b5b93d', '2020-05-20', '1', 23, 20.00, 25, 0.8434, 2995, 16.17, NULL),
+	('5efb00dea83bd', '5ef8468d384ae', '5ee22744a86b4', '2020-05-25', '1', 40, 30.00, 20, 0.4218, 3806, 23.98, NULL),
+	('5efb00fa5ea77', '5ef848c0c975e', '5ef838d8beeb3', '2020-05-28', '1', 47, 30.00, 15, 0.2696, 8258, 23.95, NULL),
+	('5efb0252aa5d1', '5ef848f256a4b', '5ef838d8beeb3', '2020-05-28', '1', 47, 30.00, 25, 0.8434, 4493, 24.26, NULL),
+	('5efb026b01cf9', '5ef848009d90b', '5ecb4d587b02f', '2020-06-02', '1', 38, 30.00, 15, 0.3859, 7114, 24.19, NULL),
+	('5efb028294e69', '5ef84808269b5', '5ecb4d587b02f', '2020-06-02', '1', 38, 30.00, 20, 0.5942, 4400, 23.76, NULL),
+	('5efb0296a242f', '5ef848a1ad319', '5ee2275051caf', '2020-06-08', '1', 53, 40.00, 20, 0.5942, 3806, 31.97, NULL),
+	('5efb02b37725e', '5ef8451a0bbfe', '5ecb4d3e12f33', '2020-06-09', '1', 37, 30.00, 20, 0.4218, 3806, 23.98, NULL),
+	('5efb02c80af47', '5ef8462c6ef9a', '5ecb4d4b5b93d', '2020-06-10', '1', 35, 30.00, 30, 0.8158, 3818, 24.05, NULL),
+	('5efb02e271235', '5ef846464d055', '5ecb4d4b5b93d', '2020-06-10', '1', 33, 28.00, 15, 0.3859, 2686, 22.56, NULL),
+	('5efb02fe06667', '5ef846af0c22e', '5ee22744a86b4', '2020-06-15', '1', 40, 31.00, 25, 0.8434, 4618, 24.94, NULL),
+	('5efb030cb3e9f', '5ef846b6769fe', '5ee22744a86b4', '2020-06-16', '1', 19, 15.00, 16, 0.4243, 1428, 12.00, NULL),
+	('5efb036049b76', '5ef846d0bfce6', '5ecb4d587b02f', '2020-06-18', '1', 12, 10.00, 17, 0.3269, 4514, 8.13, NULL);
 /*!40000 ALTER TABLE `vinir_masuk` ENABLE KEYS */;
 
 -- membuang struktur untuk view trpbahanbaku.v_bahanbantu_stok

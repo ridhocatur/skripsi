@@ -121,13 +121,12 @@ class Plywood_model extends CI_Model {
     {
         $post = $this->input->post();
         $data = array(
+            'id_ukuran' => $post["id_ukuran"],
             'tgl' => $post["tgl"],
             'shift' => $post["shift"],
             'tipe_glue' => $post["tipe_glue"],
             'tipe_ply' => $post["lapisanply"],
             'tebal' => $post["ttl_tebal"],
-            'panjang' => $post["pjgs"],
-            'lebar' => $post["lbrply"],
             'total_prod' => $post["jml_pcs"],
             'total_kubik' => $post["jml_kubik"],
             'keterangan' => $post["keterangan"]
