@@ -38,9 +38,10 @@
                         <th>No.</th>
                         <th>Tanggal</th>
                         <th>Nama</th>
-                        <th>Kode Bahan</th>
                         <th>Supplier</th>
+                        <th>Stok Awal</th>
                         <th>Stok Masuk</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,22 +52,24 @@
                             <td><?= $no; ?></td>
                             <td><?= date('d-m-Y' ,strtotime($item->tgl));?></td>
                             <td><?= $item->nama;?></td>
-                            <td align="center"><?= $item->kd_bahan; ?></td>
                             <td><?= $item->nm_sup;?></td>
-                            <td align="right"><b><?= $item->stok_masuk; ?> Kg</b></td>
+                            <td align="right"><?= $item->stok_awal; ?> Kg</td>
+                            <td align="right"><?= $item->stok_masuk; ?> Kg</td>
+                            <?php $total = $item->stok_awal + $item->stok_masuk ?>
+                            <td align="right"><b><?= $total; ?> Kg</b></td>
                         </tr>
                         <?php $no++; ?>
                     <?php endforeach; ?>
                     <tr>
-                        <td colspan="4" style="border: none;"></td>
+                        <td colspan="5" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
                     </tr>
                     <tr>
-                        <td colspan="4" style="border: none;"></td>
+                        <td colspan="5" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"></td>
                     </tr>
                     <tr>
-                        <td colspan="4" style="border: none;"></td>
+                        <td colspan="5" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
                     </tr>
                 </tbody>

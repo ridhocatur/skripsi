@@ -2,6 +2,30 @@ $(function () {
     $('.tombolReset').on('click', function() {
         $("#formModal").validate().resetForm();
     });
+    $("#formModaPass").validate({
+        rules: {
+            ubahPassword: {
+                required: true,
+                minlength: 5
+            },
+            cubahPassword: {
+                required: true,
+                equalTo: "#ubahPassword",
+                minlength: 5
+            },
+        },
+        messages: {
+            ubahPassword: {
+                required: "Kolom masih kosong. Harap Diisi",
+                minlength: "Mohon masukkan lebih dari {0}"
+            },
+            cubahPassword: {
+                required: "Kolom masih kosong. Harap Diisi",
+                minlength: "Mohon masukkan lebih dari {0}",
+                equalTo: "Password tidak sama!"
+            },
+        },
+    });
     $("#formModal").validate({
         rules: {
             // Field yang sama di semua form
@@ -253,16 +277,6 @@ $(function () {
                 error.insertAfter(element);
             }
         },
-        // invalidHandler: function(e, validator) {
-        //     var errors = validator.numberOfInvalids();
-        //     if (errors) {
-        //         $('.error-alert-bar').show();
-        //     }
-        // },
-        // submitHandler: function() {
-        //     $('.error-alert-bar').hide();
-        //     $('.success-alert-bar').show().delay(5000).fadeOut();
-        // }
     });
 });
 // TIPS -----------------------------

@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?= $data->keterangan; ?></td>
                 <td>
                     <a class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" href="<?= base_url(); ?>plywood/detail/<?= $data->id; ?>"><i class="fa fa-eye"></i></a>
-                    <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Tanggal <?= $data->tgl?>" href="<?= base_url(); ?>/plywood/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
+                    <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Tanggal <?= date('d-m-Y' ,strtotime($data->tgl)); ?>" href="<?= base_url(); ?>/plywood/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
                 </td>
                 <form action="" method="POST" id="deleteForm">
                     <input type="submit" value="" style="display:none">

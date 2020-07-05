@@ -1,8 +1,6 @@
 <!-- Bootstrap core JavaScript-->
 <script src="<?= base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url(); ?>assets/datatables/DataTables-1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url(); ?>assets/js/daterangepicker/moment.min.js"></script>
-<script src="<?= base_url(); ?>assets/js/daterangepicker/daterangepicker.min.js"></script>
 
 <!-- Core Highchart-->
 <script src="<?= base_url(); ?>assets/highcharts/highcharts.js"></script>
@@ -30,8 +28,6 @@
 
 <script type="text/javascript" src="<?= base_url(); ?>assets/prism/prism.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="<?= base_url(); ?>assets/js/script.js"></script>
-<script src="<?= base_url(); ?>assets/js/validasi.js"></script>
 
 <!-- Page level custom scripts -->
 <script>
@@ -162,36 +158,6 @@ $(document).ready(function() {
           }
         });
     });
-</script>
-<!-- Script DateTimePicker -->
-<script type="text/javascript">
-$(function() {
-
-    var start = moment();
-    var end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
-        $('#satutgl').val(start.format('YYYY-MM-DD'));
-        $('#duatgl').val(end.format('YYYY-MM-DD'));
-    }
-    $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        autoApply: true,
-        "opens": "center",
-        "drops": "auto",
-        ranges: {
-           'Hari Ini': [moment(), moment()],
-           'Kemaren': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
-           '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
-           'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
-           'Bulan Lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-    }, cb);
-    cb(start, end);
-});
 </script>
 <!-- Script Tag HTML in Input Type (Placeholder) -->
 <script type="text/javascript">

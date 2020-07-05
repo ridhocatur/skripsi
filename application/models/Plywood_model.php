@@ -95,9 +95,11 @@ class Plywood_model extends CI_Model {
         $kondisi = "";
         $sql = "SELECT ".$this->plywood.".*, ".$this->ukuran.".panjang, ".$this->ukuran.".lebar
         FROM ".$this->plywood." LEFT JOIN ".$this->ukuran." ON ".$this->plywood.".id_ukuran = ".$this->ukuran.".id";
-        if ($tgl_awal == $tgl_akhir) {
+        if ($tgl_awal != "" && $tgl_akhir == "") {
             $kondisi .= " WHERE ".$this->plywood.".tgl = '$tgl_awal'";
-        } else if ($tgl_awal != $tgl_akhir) {
+        } else if ($tgl_awal == "" && $tgl_akhir != "") {
+            $kondisi .= " WHERE ".$this->plywood.".tgl = '$tgl_akhir'";
+        } else if ($tgl_awal != "" && $tgl_akhir != "") {
             $kondisi .= " WHERE ".$this->plywood.".tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         }
         if ($ukuran != "" && $tipeglue != "") {
@@ -121,7 +123,7 @@ class Plywood_model extends CI_Model {
     {
         $post = $this->input->post();
         $data = array(
-            'id_ukuran' => $post["id_ukuran"],
+            'id_ukuran' => $post["idukuran"],
             'tgl' => $post["tgl"],
             'shift' => $post["shift"],
             'tipe_glue' => $post["tipe_glue"],

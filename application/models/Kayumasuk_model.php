@@ -95,14 +95,18 @@ class Kayumasuk_model extends CI_Model {
         $kondisi = "";
         $sql = "SELECT ".$this->kayu_masuk.".*, ".$this->supplier.".nm_sup
         FROM ".$this->kayu_masuk." LEFT JOIN ".$this->supplier." ON ".$this->kayu_masuk.".id_supplier = ".$this->supplier.".id";
-        if ($tgl_awal == $tgl_akhir) {
+        if ($tgl_awal != "" && $tgl_akhir == "") {
             $kondisi .= " WHERE ".$this->kayu_masuk.".tgl = '$tgl_awal'";
-        } else if ($tgl_awal != $tgl_akhir) {
+        } else if ($tgl_awal == "" && $tgl_akhir != "") {
+            $kondisi .= " WHERE ".$this->kayu_masuk.".tgl = '$tgl_akhir'";
+        } else if ($tgl_awal != "" && $tgl_akhir != "") {
             $kondisi .= " WHERE ".$this->kayu_masuk.".tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         }
         if ($supkayu != "") {
             if ($kondisi != "") {
                 $kondisi .= " AND ".$this->kayu_masuk.".id_supplier = '$supkayu' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->kayu_masuk.".id_supplier = '$supkayu' ORDER BY tgl ASC";
             }
         }
         $query = $this->db->query($sql.$kondisi);

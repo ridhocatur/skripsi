@@ -118,13 +118,17 @@ class Vinirmasuk_model extends CI_Model {
         LEFT JOIN ".$this->vinir." ON ".$this->vinir_masuk.".id_vinir = ".$this->vinir.".id
         LEFT JOIN ".$this->kayu." ON ".$this->vinir_masuk.".id_kayu = ".$this->kayu.".id
         LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id";
-        if ($tgl_awal == $tgl_akhir) {
+        if ($tgl_awal != "" && $tgl_akhir == "") {
             $kondisi .= " WHERE ".$this->vinir_masuk.".tgl = '$tgl_awal'";
-        } else if ($tgl_awal != $tgl_akhir) {
+        } else if ($tgl_awal == "" && $tgl_akhir != "") {
+            $kondisi .= " WHERE ".$this->vinir_masuk.".tgl = '$tgl_akhir'";
+        } else if ($tgl_awal != "" && $tgl_akhir != "") {
             $kondisi .= " WHERE ".$this->vinir_masuk.".tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         }
         if ($id_kayu != "") {
             if ($kondisi != "") {
+                $kondisi .= " AND ".$this->kayu.".id = '$id_kayu' ORDER BY tgl ASC";
+            } else {
                 $kondisi .= " WHERE ".$this->kayu.".id = '$id_kayu' ORDER BY tgl ASC";
             }
         }

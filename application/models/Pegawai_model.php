@@ -19,7 +19,12 @@ class Pegawai_model extends CI_Model {
 		return [
 			[
 				'field' => 'nik',
-                'label' => 'Nama pegawai',
+                'label' => 'NIK',
+                'rules' => 'required'
+            ],
+			[
+				'field' => 'nama',
+                'label' => 'Nama Pegawai',
                 'rules' => 'required'
             ],
             [
@@ -62,60 +67,72 @@ class Pegawai_model extends CI_Model {
         return $this->db->insert($this->pegawai, $data);
     }
 
-    public function update()
+    public function update($id)
     {
         $post = $this->input->post();
+            if (!empty($_FILES["gambar"]["name"])) {
+                $data = array(
+                    'gambar' => $this->uploadImage('gambar'),
+                    'nik' => $post["nikUbah"],
+                    'username' => $post["usernameUbah"],
+                    'nama' => $post["namaUbah"],
+                    'telp' => $post["telpUbah"],
+                    'level' => $post["levelUbah"]
+                );
+            } else {
+                $data = array(
+                    'gambar' => $post["old_imageUbah"],
+                    'nik' => $post["nikUbah"],
+                    'username' => $post["usernameUbah"],
+                    'nama' => $post["namaUbah"],
+                    'telp' => $post["telpUbah"],
+                    'level' => $post["levelUbah"]
+                );
+            }
+        return $this->db->update($this->pegawai, $data, array('id' => $id));
 
-        if (!empty($post["password"])) {
-            if (!empty($_FILES["gambar"]["name"])) {
-                $data = array(
-                    'gambar' => $this->uploadImage('gambar'),
-                    'id' => $post["id"],
-                    'nik' => $post["nik"],
-                    'username' => $post["username"],
-                    'password' => md5($post["password"]),
-                    'nama' => $post["nama"],
-                    'telp' => $post["telp"],
-                    'level' => $post["level"]
-                );
-            } else {
-                $data = array(
-                    'gambar' => $post["old_image"],
-                    'id' => $post["id"],
-                    'nik' => $post["nik"],
-                    'username' => $post["username"],
-                    'password' => md5($post["password"]),
-                    'nama' => $post["nama"],
-                    'telp' => $post["telp"],
-                    'level' => $post["level"]
-                );
-            }
+    }
+
+    public function updatePass($id)
+    {
+        $post = $this->input->post();
+        $data = array(
+            'password' => md5($post["ubahPass"])
+        );
+
+        return $this->db->update($this->pegawai, $data, array('id' => $id));
+    }
+
+    public function updateFoto($id)
+    {
+        $data = array(
+            'gambar' => $this->uploadImageProfil('gambar')
+        );
+
+        return $this->db->update($this->pegawai, $data, array('id' => $id));
+    }
+
+    public function updateProfil($id)
+    {
+        $post = $this->input->post();
+        if (!empty($post["profpass"])) {
+            $data = array(
+                'nik' => $post["nik"],
+                'username' => $post["username"],
+                'password' => md5($post["profpass"]),
+                'nama' => $post["nama"],
+                'telp' => $post["telp"]
+            );
         } else {
-            if (!empty($_FILES["gambar"]["name"])) {
-                $data = array(
-                    'gambar' => $this->uploadImage('gambar'),
-                    'id' => $post["id"],
-                    'nik' => $post["nik"],
-                    'username' => $post["username"],
-                    'nama' => $post["nama"],
-                    'telp' => $post["telp"],
-                    'level' => $post["level"]
-                );
-            } else {
-                $data = array(
-                    'gambar' => $post["old_image"],
-                    'id' => $post["id"],
-                    'nik' => $post["nik"],
-                    'username' => $post["username"],
-                    'nama' => $post["nama"],
-                    'telp' => $post["telp"],
-                    'level' => $post["level"]
-                );
-            }
+            $data = array(
+                'nik' => $post["nik"],
+                'username' => $post["username"],
+                'nama' => $post["nama"],
+                'telp' => $post["telp"]
+            );
         }
 
-        return $this->db->update($this->pegawai, $data, array('id' => $post['id']));
-
+        return $this->db->update($this->pegawai, $data, array('id' => $id));
     }
 
     public function delete($id)
@@ -129,6 +146,23 @@ class Pegawai_model extends CI_Model {
         $config['upload_path'] = './upload/pegawai/';
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
         $config['file_name'] = str_replace(' ','',$this->input->post('nama')).'_'.$this->input->post('nik');
+        $config['overwrite'] = true;
+        $config['max_size'] = 2048;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('gambar')) {
+            return $this->upload->data("file_name");
+        }
+        return "default.jpg";
+        // print_r($this->upload->display_errors());
+    }
+
+    private function uploadImageProfil()
+    {
+        $config['upload_path'] = './upload/pegawai/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['file_name'] = str_replace(' ','',$this->fungsi->user_login()->nama).'_'.$this->fungsi->user_login()->nik;
         $config['overwrite'] = true;
         $config['max_size'] = 2048;
 

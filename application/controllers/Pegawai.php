@@ -42,19 +42,27 @@ class Pegawai extends CI_Controller {
 
 	public function ubah()
 	{
-		$id = $this->input->post('id');
+		$id = $this->input->post('idUbah');
 		if(!isset($id)) redirect('pegawai');
 
 		$pegawai = $this->Pegawai_model;
-		$valid = $this->form_validation;
-		$valid->set_rules($pegawai->rules());
+		$pegawai->update($id);
+		$this->session->set_flashdata('info', 'Berhasil Di Ubah');
 
-		if ($valid->run() == TRUE) {
-			$pegawai->update($id);
-			$this->session->set_flashdata('info', 'Berhasil Di Ubah');
-		} else {
-			$this->session->set_flashdata('danger', 'Gagal Di Ubah');
-		}
+		$data["pegawai"] = $pegawai->getById($id);
+		if(!$data["pegawai"]) show_404();
+
+		redirect(site_url('pegawai'));
+	}
+
+	public function ubahPass()
+	{
+		$id = $this->input->post('idPass');
+		if(!isset($id)) redirect('pegawai');
+
+		$pegawai = $this->Pegawai_model;
+		$pegawai->updatePass($id);
+		$this->session->set_flashdata('info', 'Password Telah Di Ubah');
 
 		$data["pegawai"] = $pegawai->getById($id);
 		if(!$data["pegawai"]) show_404();

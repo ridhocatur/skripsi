@@ -32,14 +32,6 @@ class Laporan extends CI_Controller {
 		$data['stokbahan'] = $this->Bahanbantu_model->report();
 		$this->load->view("laporan/bahanbantu/cetak_stok", $data);
     }
-	public function stokbahanbulan()
-    {
-        $tgl = $this->input->post('satutgl');
-        $data['title'] = "Laporan Stok Bahan Bantu";
-		$data['stokbahan'] = $this->Bahanbantu_model->report_month($tgl);
-		$data['bulan'] = $this->Bahanbantu_model->getMonth($tgl);
-		$this->load->view("laporan/bahanbantu/cetak_stok_m", $data);
-    }
     public function bahanmasuk()
     {
         $tgl_awal = $this->input->post('satutgl');

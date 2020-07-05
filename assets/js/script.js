@@ -14,9 +14,8 @@ $(function () {
     });
 
     $('.tombolUbahPegawai').on('click', function(){
-        $('#ModalLabel').html('Ubah Data Satuan')
-        $('#password').attr('placeholder','Kosongkan jika tidak ingin di ubah')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/pegawai/ubah')
+        $('#ubahUser').html('Ubah Data User')
+        $('.modalUbahUser form').attr('action', 'http://localhost/trpbahanbaku/pegawai/ubah')
 
         const id = $(this).data('id');
 
@@ -27,13 +26,34 @@ $(function () {
             dataType: "JSON",
             cache: false,
             success: function(data) {
-                $('#id').val(data.id);
-                $('#nik').val(data.nik);
-                $('#username').val(data.username);
-                $('#nama').val(data.nama);
-                $('#telp').val(data.telp);
-                $('#level').val(data.level);
-                $('#old_image').val(data.gambar);
+                $('#idUbah').val(data.id);
+                $('#nikUbah').val(data.nik);
+                $('#usernameUbah').val(data.username);
+                $('#namaUbah').val(data.nama);
+                $('#telpUbah').val(data.telp);
+                $('#levelUbah').val(data.level);
+                $('#old_imageUbah').val(data.gambar);
+            },
+            error : function() {
+                alert("Tidak ada Data!");
+            }
+        });
+    });
+
+    $('.tombolUbahPass').on('click', function(){
+        $('.modalUbahPass form').attr('action', 'http://localhost/trpbahanbaku/pegawai/ubahPass')
+
+        const id = $(this).data('id');
+
+        $.ajax({
+            url: 'http://localhost/trpbahanbaku/pegawai/getedit',
+            data: {id : id},
+            type: "post",
+            dataType: "JSON",
+            cache: false,
+            success: function(data) {
+                $('#idPass').val(data.id);
+                $('#labelModalPass').html('Ganti Password '+data.nama);
             },
             error : function() {
                 alert("Tidak ada Data!");

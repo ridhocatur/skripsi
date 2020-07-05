@@ -1,5 +1,5 @@
 <!-- Page Heading -->
-<div class="card shadow col-md-8">
+<div class="card shadow">
 <div class="card-body">
     <form action="" method="POST">
         <div class="row">
@@ -18,8 +18,7 @@
             <div class="col-md-6">
                 <select class="form-control" name="menu_bahan" id="menu_bahan" style="display: none;" onchange="menuBahan()">
                     <option selected disabled>-- Pilih Data Bahan Bantu--</option>
-                    <option value="stokbahansemua">Stok Bahan Bantu (Semua)</option>
-                    <option value="stokbahanbulan">Stok Bahan Bantu (Per Bulan)</option>
+                    <option value="stokbahansemua">Stok Bahan Bantu</option>
                     <option value="bahanmasuk">Pemasukan Bahan Bantu</option>
                     <option value="gluemix">Pengadukan Bahan / Gluemix</option>
                 </select>
@@ -40,39 +39,39 @@
             </div>
         </div>
         <div class="row">
-        <table class="table table-borderless">
-            <tr>
-                <td style="width: 50%;" align="center" rowspan="3">
-                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" value="">
-                        <i class="fa fa-calendar"></i>&nbsp;
-                        <span></span> <i class="fa fa-caret-down"></i>
-                    </div>
-                    <input type="hidden" name="satutgl" id="satutgl" value="" disabled>
-                    <input type="hidden" name="duatgl" id="duatgl" value="" disabled>
+            <div class="form-group row col-md-3">
+                <label for="satutgl" class="col-sm-3 col-form-label text-md-right">Tgl. Awal</label>
+                <div class="col-md-9">
+                    <input type="date" class="form-control" name="satutgl" id="satutgl" disabled>
+                </div>
+            </div>
+            <div class="form-group row col-md-3">
+                <label for="duatgl" class="col-sm-3 col-form-label text-md-right">Tgl. Akhir</label>
+                <div class="col-md-9">
+                    <input type="date" class="form-control" name="duatgl" id="duatgl" disabled>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" name="select1" id="select1">
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" name="select2" id="select2">
+                </select>
+            </div>
 
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 25%;">
-                    <select class="form-control" name="select1" id="select1">
-                    </select>
-                </td>
-                <td style="width: 25%;">
-                    <select class="form-control" name="select2" id="select2">
-                    </select>
-                </td>
-                <tr>
-                    <td colspan="2">
-                        <select class="form-control" name="shift" id="shift" disabled>
-                            <option value="d" selected disabled>-- Pilih Shift --</option>
-                            <option value="">Semua Shift</option>
-                            <option value="1">Shift 1</option>
-                            <option value="2">Shift 2</option>
-                        </select>
-                    </td>
-                </tr>
-            </tr>
-        </table>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <select class="form-control" name="shift" id="shift" style="right:auto;" disabled>
+                    <option value="d" selected disabled>-- Pilih Shift --</option>
+                    <option value="">Semua Shift</option>
+                    <option value="1">Shift 1</option>
+                    <option value="2">Shift 2</option>
+                </select>
+            </div>
+            <div class="col-md-2"></div>
         </div>
         <button type="submit" class="btn btn-outline-success tombolcetak" formtarget="_blank">Tampilkan</button>
         <button type="button" class="btn btn-outline-danger" onclick="clearForm()">Clear</button>
@@ -130,13 +129,6 @@
         if ($('#menu_bahan').val() == 'stokbahansemua') {
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokbahan');
             $('#satutgl').attr('disabled', true);
-            $('#duatgl').attr('disabled', true);
-            $('#select1').empty();
-            $('#select2').empty();
-            $('#shift').attr('disabled', true);
-        } else if($('#menu_bahan').val() == 'stokbahanbulan') {
-            $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokbahanbulan');
-            $('#satutgl').attr('disabled', false);
             $('#duatgl').attr('disabled', true);
             $('#select1').empty();
             $('#select2').empty();

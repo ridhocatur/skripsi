@@ -114,7 +114,9 @@ class Vinir_model extends CI_Model {
         } else if ($pjg >= '1900') {
             $this->db->like($this->vinir.'.panjang', '2600');
         }
-        $this->db->order_by($this->vinir.'.tebal', 'ASC');
+        $this->db->where($this->vinir.'.stok >', 0)
+        ->order_by($this->vinir.'.id_jenis', 'ASC')
+        ->order_by($this->vinir.'.tebal', 'ASC');
         $query = $this->db->get();
         return $query->result();
     }

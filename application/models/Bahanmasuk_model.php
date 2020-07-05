@@ -74,13 +74,15 @@ class Bahanmasuk_model extends CI_Model {
     public function report($tglawal,$tglakhir,$supplier)
     {
         $kondisi = "";
-        $sql = "SELECT ".$this->bahanmasuk.".* ,".$this->supplier.".nm_sup ,".$this->bahanbantu.".kd_bahan
+        $sql = "SELECT ".$this->bahanmasuk.".* ,".$this->supplier.".nm_sup
         FROM ".$this->bahanmasuk."
         LEFT JOIN ".$this->supplier." ON ".$this->bahanmasuk.".id_supplier = ".$this->supplier.".id
         LEFT JOIN ".$this->bahanbantu." ON ".$this->bahanmasuk.".id_bahan = ".$this->bahanbantu.".id" ;
-        if ($tglawal == $tglakhir) {
+        if ($tglawal != "" && $tglakhir == "") {
             $kondisi .= " WHERE ".$this->bahanmasuk.".tgl = '$tglawal'";
-        } else if ($tglawal != $tglakhir) {
+        } else if ($tglawal == "" && $tglakhir != "") {
+            $kondisi .= " WHERE ".$this->bahanmasuk.".tgl = '$tglakhir'";
+        } else if ($tglawal != "" && $tglakhir != "") {
             $kondisi .= " WHERE ".$this->bahanmasuk.".tgl BETWEEN '$tglawal' AND '$tglakhir'";
         }
         if ($supplier != "") {
@@ -97,12 +99,16 @@ class Bahanmasuk_model extends CI_Model {
     public function save()
     {
         $post = $this->input->post();
+        $id_bahan = $post["id_bahan"];
+        $query = $this->db->query("SELECT ".$this->bahanbantu.".stok FROM ".$this->bahanbantu." WHERE ".$this->bahanbantu.".id = '$id_bahan'");
+        $stokAwal = $query->row('stok');
         $data = array(
             'id' => uniqid(),
             'invoice' => $post["invoice"],
             'tgl' => $post["tgl"],
             'id_bahan' => $post["id_bahan"],
             'nama' => $post["nm_bahan"],
+            'stok_awal' => $stokAwal,
             'stok_masuk' => $post["stok_masuk"],
             'keterangan' => $post["keterangan"],
             'id_supplier' => $post["id_supplier"]
