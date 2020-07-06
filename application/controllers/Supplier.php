@@ -70,4 +70,11 @@ class Supplier extends CI_Controller {
 			redirect(site_url('supplier'));
 		}
 	}
+
+	public function cariSup()
+	{
+		$id = $_POST['id'];
+		$cari = $this->Supplier_model->getById($id);
+		echo json_encode($cari);
+	}
 }

@@ -146,8 +146,6 @@ class Vinirmasuk_model extends CI_Model {
             'tgl' => $post["tgl"],
             'jml_log' => $post["kayulog"],
             'kubik_log' => $post["jmlkubik"],
-            'r_reel' => $post["jari"],
-            'v_reel' => $post["volreeling"],
             'stok_masuk' => $post["ttl_vinir"],
             'kubik_masuk' => $post["ttl_kubik"],
             'keterangan' => $post["keterangan"]

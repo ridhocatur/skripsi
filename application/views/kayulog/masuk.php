@@ -74,19 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="invoice" class="col-sm-4 col-form-label text-md-right">Invoice</label>
                 <div class="col-md-5">
-                    <input id="invoice" type="text" class="form-control" name="invoice" autocomplete="invoice" autofocus>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="id_supplier" class="col-sm-4 col-form-label text-md-right">Supplier</label>
-                <div class="col-md-5">
-                <select class="form-control" name="id_supplier" id="id_supplier">
-                    <option disabled selected>-- Pilih Supplier --</option>
-                    <?php foreach($supkayu as $data): ?>
-                      <option value="<?= $data->id; ?>"><?= $data->nm_sup; ?></option>
-                    <?php endforeach;?>
-                    </select>
+                    <input id="invoice" type="text" class="form-control" name="invoice" autocomplete="invoice" readonly>
                 </div>
             </div>
 
@@ -97,6 +85,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label for="id_supplier" class="col-sm-4 col-form-label text-md-right">Supplier</label>
+                <div class="col-md-5">
+                <select class="form-control" name="id_supplier" id="id_supplier" onchange="isiInvoice()">
+                    <option disabled selected>-- Pilih Supplier --</option>
+                    <?php foreach($supkayu as $data): ?>
+                      <option value="<?= $data->id; ?>"><?= $data->nm_sup; ?></option>
+                    <?php endforeach;?>
+                    </select>
+                </div>
+            </div>
                         <!--  ROW -->
             <table class="table table-borderless">
                 <thead>
@@ -223,5 +222,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         stok_kayu();
         kubik_kayu();
         x--;
+    }
+
+    function isiInvoice() {
+        var id = document.getElementById('id_supplier').value;
+        $.ajax({
+            url:"<?php echo base_url();?>supplier/cariSup",
+            data: {id : id},
+            type: "post",
+            dataType: "JSON",
+            success:function(data){
+                var tgl = moment($('#tgl').val()).format('DDMMYYYY');
+                var hapusPT = data.nm_sup.replace('PT. ', '');
+                var hapusHurufKecil = hapusPT.replace(/[a-z]/g,'');
+                var sup = hapusHurufKecil.replace(/\s/g, '');
+                $('#invoice').val(sup+'-'+tgl);
+            }
+        });
     }
 </script>

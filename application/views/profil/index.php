@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h6 class="m-0 font-weight-bold text-primary">Data Profil</h6>
             </div>
             <div class="card-body align-items-center">
-                <form action="<?= base_url('profil/ubahProfil'); ?>" method="POST">
+                <form action="<?= base_url('profil/ubahProfil'); ?>" method="POST" id="formProfil">
                     <input type="hidden" name="id" id="id" value="<?= $this->fungsi->user_login()->id; ?>">
                     <div class="row">
                         <div class="col-md-4">

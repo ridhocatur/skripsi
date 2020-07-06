@@ -26,6 +26,26 @@ $(function () {
             },
         },
     });
+    $("#formProfil").validate({
+        rules: {
+            profpass: {
+                minlength: 5
+            },
+            cprofpass: {
+                equalTo: "#profpass",
+                minlength: 5
+            },
+        },
+        messages: {
+            profpass: {
+                minlength: "Mohon masukkan lebih dari {0}"
+            },
+            cprofpass: {
+                minlength: "Mohon masukkan lebih dari {0}",
+                equalTo: "Password tidak sama!"
+            },
+        },
+    });
     $("#formModal").validate({
         rules: {
             // Field yang sama di semua form

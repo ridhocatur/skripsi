@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="invoice" class="col-sm-3 col-form-label text-md-right">Invoice</label>
                 <div class="col-md-8">
-                    <input id="invoice" type="text" class="form-control" name="invoice" required autocomplete="invoice" autofocus>
+                    <input id="invoice" type="text" class="form-control" name="invoice" autocomplete="invoice" readonly>
                 </div>
             </div>
 
@@ -101,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="nm_bahan" class="col-sm-3 col-form-label text-md-right">Nama Bahan</label>
                 <div class="col-md-8">
-                    <input id="nm_bahan" type="text" class="form-control" name="nm_bahan" autocomplete="nm_bahan">
+                    <input id="nm_bahan" type="text" class="form-control" name="nm_bahan" autocomplete="nm_bahan" readonly>
                 </div>
             </div>
 
@@ -151,7 +151,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             type: "post",
             dataType: "JSON",
             success:function(data){
+                var tgl = moment($('#tgl').val()).format('DDMMYYYY');
                 $('#nm_bahan').val(data.nama);
+                $('#invoice').val(data.kd_bahan+'-'+tgl);
             }
         });
     }
