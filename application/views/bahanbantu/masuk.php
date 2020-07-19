@@ -113,22 +113,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
+                <label for="id_supplier" class="col-sm-3 col-form-label text-md-right">Supplier</label>
+                <div class="col-md-8">
+                <select class="form-control" name="id_supplier" id="id_supplier">
+                    <option value="" disabled selected>-- Pilih Data --</option>
+                    <?php foreach($supbahan as $data): ?>
+                    <option value="<?= $data->id; ?>"><?= $data->nm_sup; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="keterangan" class="col-sm-3 col-form-label text-md-right">Keterangan</label>
                 <div class="col-md-8">
                     <input id="keterangan" type="text" class="form-control" name="keterangan" autocomplete="keterangan">
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="id_supplier" class="col-sm-3 col-form-label text-md-right">Supplier</label>
-            <div class="col-md-8">
-            <select class="form-control" name="id_supplier" id="id_supplier">
-                <option value="" disabled selected>-- Pilih Data --</option>
-                <?php foreach($supbahan as $data): ?>
-                <option value="<?= $data->id; ?>"><?= $data->nm_sup; ?></option>
-                <?php endforeach; ?>
-            </select>
             </div>
         </div>
 

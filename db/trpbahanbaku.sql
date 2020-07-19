@@ -385,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
 -- Membuang data untuk tabel trpbahanbaku.pegawai: ~4 rows (lebih kurang)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho Arianto', '0822771', 'CaturRidho_24800.png', 'admin', '2020-07-06 23:27:43', '2020-05-18 20:30:53'),
+	('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho Arianto', '0822771', 'CaturRidho_24800.png', 'admin', '2020-07-19 19:58:50', '2020-05-18 20:30:53'),
 	('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', 'AcilIrus_2352345.jpg', 'manager', '2020-07-05 15:00:38', '2020-05-18 20:30:53'),
 	('5ebc0d91b1761', '2352345', 'cahbekasi', 'f684497877a4a910fcdd91a2f947b4ec', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-07-06 23:23:49', '2020-05-18 20:30:53'),
 	('5ee4655ec2fc8', '800096', 'razzyman', 'd41d8cd98f00b204e9800998ecf8427e', 'Ust. Facrurazzy', '087896834', 'Facrurazzy_90018.jpg', 'admin', '2020-07-05 15:42:42', '2020-06-13 13:34:22');
@@ -408,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `plywood` (
   KEY `Index 2` (`id_ukuran`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel trpbahanbaku.plywood: ~4 rows (lebih kurang)
+-- Membuang data untuk tabel trpbahanbaku.plywood: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `plywood` DISABLE KEYS */;
 REPLACE INTO `plywood` (`id`, `id_ukuran`, `tgl`, `shift`, `tipe_glue`, `tipe_ply`, `tebal`, `total_prod`, `total_kubik`, `keterangan`) VALUES
 	(2, 1, '2020-06-23', '1', 'Type-1 Melamine', '3', 4.5, 1800, 13.50, ''),

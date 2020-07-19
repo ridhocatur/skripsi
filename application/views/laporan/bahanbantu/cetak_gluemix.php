@@ -43,7 +43,7 @@
                         <th>Tepung</th>
                         <th>HU-100</th>
                         <th>HU-103</th>
-                        <th>HU-306</th>
+                        <th>HU-360</th>
                         <th>Total Penggunaan</th>
                     </tr>
                 </thead>

@@ -16,7 +16,7 @@ class KayuLog extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = "Data Master Kayu Log";
+		$data['title'] = "Data Kayu Log";
 		$data['isi'] = "kayulog/index";
 		$data['kayulog'] = $this->Kayulog_model->getJoinAll();
 		$data['jeniskayu'] = $this->Jeniskayu_model->getAll();

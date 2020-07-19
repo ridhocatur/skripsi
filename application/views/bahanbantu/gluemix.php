@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- MODAL Tambah Data-->
 <div class="modal fade" id="tampilModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ModalLabel">Tambah Data Gluemix</h5>
@@ -95,53 +95,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="total" class="col-sm-3 col-form-label text-md-right">Glue LFE</label>
-                <div class="col-md-8">
-                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $lfe->id ?>">
-                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar lfe" name="stokkeluar[]" value="0" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="total" class="col-sm-3 col-form-label text-md-right">Glue MF</label>
-                <div class="col-md-8">
-                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $mf->id ?>">
-                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar mf" name="stokkeluar[]" value="0" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="total" class="col-sm-3 col-form-label text-md-right">Tepung</label>
-                <div class="col-md-8">
-                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $tepung->id ?>">
-                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar tepung" name="stokkeluar[]" value="0" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="total" class="col-sm-3 col-form-label text-md-right">HU-100</label>
-                <div class="col-md-8">
-                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu100->id ?>">
-                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu100" name="stokkeluar[]" value="0" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="total" class="col-sm-3 col-form-label text-md-right">HU-103</label>
-                <div class="col-md-8">
-                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu103->id ?>">
-                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu103" name="stokkeluar[]" value="0" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="total" class="col-sm-3 col-form-label text-md-right">HU-360</label>
-                <div class="col-md-8">
-                    <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu360->id ?>">
-                    <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu360" name="stokkeluar[]" value="0" readonly>
-                </div>
-            </div>
+            <table class="table table-borderless">
+                <thead>
+                    <tr style="text-align:center">
+                        <th style="width: 16%">Tepung</th>
+                        <th style="width: 16%">Lem LFE</th>
+                        <th style="width: 16%">Lem MF</th>
+                        <th style="width: 16%">HU-100</th>
+                        <th style="width: 16%">HU-103</th>
+                        <th style="width: 16%">HU-360</th>
+                    </tr>
+                </thead>
+                <tbody id="form-body" class="formData">
+                    <tr style="text-align:center">
+                        <td>
+                            <`in`put type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $tepung->id ?>">
+                            <input id="stokkeluar" type="text" class="form-control calc_stok_keluar tepung" name="stokkeluar[]" value="0" readonly>
+                        </td>
+                        <td>
+                            <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $lfe->id ?>">
+                            <input id="stokkeluar" type="text" class="form-control calc_stok_keluar lfe" name="stokkeluar[]" value="0" readonly>
+                        </td>
+                        <td>
+                            <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $mf->id ?>">
+                            <input id="stokkeluar" type="text" class="form-control calc_stok_keluar mf" name="stokkeluar[]" value="0" readonly>
+                        </td>
+                        <td>
+                            <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu100->id ?>">
+                            <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu100" name="stokkeluar[]" value="0" readonly>
+                        </td>
+                        <td>
+                            <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu103->id ?>">
+                            <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu103" name="stokkeluar[]" value="0" readonly>
+                        </td>
+                        <td>
+                            <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $hu360->id ?>">
+                            <input id="stokkeluar" type="text" class="form-control calc_stok_keluar hu360" name="stokkeluar[]" value="0" readonly>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <div class="form-group row">
                 <label for="total" class="col-sm-3 col-form-label text-md-right">Total</label>

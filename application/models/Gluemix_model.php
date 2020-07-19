@@ -58,9 +58,11 @@ class Gluemix_model extends CI_Model {
     {
         $kondisi = "";
         $sql = "SELECT ".$this->gluemix.".* FROM ".$this->gluemix;
-        if ($tgl_awal == $tgl_akhir) {
+        if ($tgl_awal != "" && $tgl_akhir == "") {
             $kondisi .= " WHERE tgl = '$tgl_awal'";
-        } else if ($tgl_awal != $tgl_akhir) {
+        } else if ($tgl_awal == "" && $tgl_akhir != "") {
+            $kondisi .= " WHERE tgl = '$tgl_akhir'";
+        } else if ($tgl_awal != "" && $tgl_akhir != "") {
             $kondisi .= " WHERE tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         }
         if ($shift != "" && $tipelem != "") {

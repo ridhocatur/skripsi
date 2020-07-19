@@ -95,6 +95,8 @@
 
     var seltipeglue ='<option selected disabled>-- Pilih Tipe Lem --</option><option value="">Semua Tipe Lem</option><option value="Type-1 Melamine">Type-1 Melamine</option><option value="Type-2 LFE">Type-2 LFE</option>';
 
+    var selukurvinir ='<option selected disabled>-- Pilih Ukuran --</option><option value="">Semua Ukuran</option><option value="1900">1900 x 950</option><option value="2600">2600 x 1300</option>';
+
     function menuUtama()
     {
         if ($('#menu_utama').val() == 'bahanbantu') {
@@ -185,7 +187,7 @@
             $('.card-body form').attr('action', '<?= base_url(); ?>laporan/stokvinir');
             $('#satutgl').attr('disabled', true);
             $('#duatgl').attr('disabled', true);
-            $('#select1').html(selukuran);
+            $('#select1').html(selukurvinir);
             $('#select2').html(seljeniskayu);
             $('#shift').attr('disabled', true);
         } else if($('#menu_vinir').val() == 'vinirmasuk') {

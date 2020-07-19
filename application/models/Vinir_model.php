@@ -121,18 +121,20 @@ class Vinir_model extends CI_Model {
         return $query->result();
     }
 
-    public function report($id_ukuran,$id_jenis)
+    public function report($ukuran,$id_jenis)
     {
         $kondisi = "";
         $sql = "SELECT ".$this->vinir.".*, ".$this->jeniskayu.".nama
         FROM ".$this->vinir."
         LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id" ;
-        if ($id_ukuran != "" && $id_jenis != "") {
-            $kondisi .= " WHERE ".$this->ukuran.".id = '$id_ukuran' AND ".$this->jeniskayu.".id = '$id_jenis'";
-        } else if ($id_ukuran == "" && $id_jenis != "") {
-            $kondisi .= " WHERE ".$this->jeniskayu.".id = '$id_jenis'";
-        } else if ($id_ukuran != "" && $id_jenis == "") {
-            $kondisi .= " WHERE ".$this->ukuran.".id = '$id_ukuran'";
+        if ($ukuran != "" && $id_jenis != "") {
+            $kondisi .= " WHERE ".$this->vinir.".panjang = '$ukuran' AND ".$this->jeniskayu.".id = '$id_jenis' AND ".$this->vinir.".stok > 0";
+        } else if ($ukuran == "" && $id_jenis != "") {
+            $kondisi .= " WHERE ".$this->jeniskayu.".id = '$id_jenis' AND ".$this->vinir.".stok > 0";
+        } else if ($ukuran != "" && $id_jenis == "") {
+            $kondisi .= " WHERE ".$this->vinir.".panjang = '$ukuran' AND ".$this->vinir.".stok > 0";
+        } else {
+            $kondisi .= " WHERE ".$this->vinir.".stok > 0";
         }
         $query = $this->db->query($sql.$kondisi);
         return $query->result();

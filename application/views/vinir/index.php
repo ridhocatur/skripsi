@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="tebal" class="col-sm-3 col-form-label text-md-right">Tebal (mm)</label>
                 <div class="col-md-8">
-                    <input id="tebal" type="text" class="form-control" name="tebal" required placeholder="Tebal">
+                    <input id="tebal" type="text" class="form-control" name="tebal" required>
                 </div>
             </div>
 
@@ -95,8 +95,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-4">
                     <select class="form-control" name="ukurpot" id="ukurpot" onchange="ukurpotong();">
                         <option selected disabled>-- Pilih Data --</option>
-                        <option value="pendek"> 1900 </option>
-                        <option value="panjang"> 2600 </option>
+                        <option value="pendek"> 1900 x 950 </option>
+                        <option value="panjang"> 2600 x 1300 </option>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -108,14 +108,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="stok" class="col-sm-3 col-form-label text-md-right">Stok (pcs)</label>
+                <label for="stok" class="col-sm-3 col-form-label text-md-right">Stok</label>
                 <div class="col-md-8">
                     <input id="stok" type="text" class="form-control" name="stok" require autocomplete="stok">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="kubikasi" class="col-sm-3 col-form-label text-md-right">Kubikasi (M<sup>3</sup>)</label>
+                <label for="kubikasi" class="col-sm-3 col-form-label text-md-right">Kubikasi</label>
                 <div class="col-md-8">
                     <input id="kubikasi" type="text" class="form-control" name="kubikasi" require autocomplete="kubikasi">
                 </div>

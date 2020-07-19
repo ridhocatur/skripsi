@@ -47,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; $totalstok = 0; $totalkubik = 0; ?>
+                    <?php $no = 1; ?>
                     <?php foreach($kayumasuk as $data) : ?>
                     <tr>
                         <?php if (sizeof($data['item']) > 0) : ?>
@@ -64,12 +64,10 @@
                                 <td align="right"><?= $i['stok_masuk']; ?></td>
                                 <td align="right"><?= $i['kubik_masuk']; ?></td>
                             </tr>
-                            <?php $totalstok += intval($i['stok_masuk']);
-                                $totalkubik += floatval($i['kubik_masuk']);?>
                         <?php endforeach; ?>
                         <td align="center" colspan="7"><b>T O T A L</b></td>
-                        <td align="right"><b><?= $totalstok; ?></b></td>
-                        <td align="right"><b><?= $totalkubik; ?></b></td>
+                        <td align="right"><b><?= $data['jml_stok']; ?></b></td>
+                        <td align="right"><b><?= $data['jml_kubik']; ?></b></td>
                     <?php endif; ?>
                     <?php $no++; ?>
                     <?php endforeach; ?>

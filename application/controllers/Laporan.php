@@ -96,6 +96,8 @@ class Laporan extends CI_Controller {
             $data['kayumasuk'][$i]['invoice'] = $masuk['invoice'];
             $data['kayumasuk'][$i]['nm_sup'] = $masuk['nm_sup'];
             $data['kayumasuk'][$i]['tgl'] = $masuk['tgl'];
+            $data['kayumasuk'][$i]['jml_stok'] = $masuk['jml_stok'];
+            $data['kayumasuk'][$i]['jml_kubik'] = $masuk['jml_kubik'];
             $datakayumasukdetail = $this->Kayumasuk_model->getDetailReport($masuk['id'], $id_jenis);
             $data['kayumasuk'][$i]['item'] = [];
             foreach($datakayumasukdetail as $kayudetail){
@@ -120,10 +122,10 @@ class Laporan extends CI_Controller {
 
     public function stokvinir()
     {
-        $id_ukuran = $this->input->post('select1');
+        $ukuran = $this->input->post('select1');
         $id_jenis = $this->input->post('select2');
         $data['title'] = "Laporan Stok Vinir";
-		$data['stokvinir'] = $this->Vinir_model->report($id_ukuran,$id_jenis);
+		$data['stokvinir'] = $this->Vinir_model->report($ukuran,$id_jenis);
         $this->load->view('laporan\vinir\cetak_stok', $data);
     }
     public function vinirmasuk()
