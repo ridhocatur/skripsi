@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tbody id="form-body" class="formData">
                     <tr style="text-align:center">
                         <td>
-                            <`in`put type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $tepung->id ?>">
+                            <input type="hidden" name="id_bahan[]" id="id_bahan" value="<?= $tepung->id ?>">
                             <input id="stokkeluar" type="text" class="form-control calc_stok_keluar tepung" name="stokkeluar[]" value="0" readonly>
                         </td>
                         <td>

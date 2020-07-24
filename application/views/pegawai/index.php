@@ -123,7 +123,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <option value="admin">Admin</option>
                       <option value="manager">Manager</option>
                       <option value="user">User</option>
-                      <option value="supplier">Supplier</option>
                     </select>
                 </div>
             </div>
@@ -198,7 +197,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <option value="admin">Admin</option>
                       <option value="manager">Manager</option>
                       <option value="user">User</option>
-                      <option value="supplier">Supplier</option>
                     </select>
                 </div>
             </div>
