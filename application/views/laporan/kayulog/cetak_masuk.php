@@ -36,7 +36,6 @@
                 <thead>
                     <tr align="center">
                         <th>No.</th>
-                        <th>Invoice</th>
                         <th>Tanggal</th>
                         <th>Supplier</th>
                         <th>Kode Kayu</th>
@@ -47,13 +46,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; ?>
+                    <?php $no = 1; $jmlstok=0 ; $jmlkubik=0; ?>
                     <?php foreach($kayumasuk as $data) : ?>
                     <tr>
                         <?php if (sizeof($data['item']) > 0) : ?>
                         <?php $x = count($data['item']); $row = $x + 1; ?>
-                        <td align="center" rowspan="<?php echo $row; ?>"><?= $no; ?></td>
-                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['invoice']; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $no++; ?></td>
                         <td align="center" rowspan="<?php echo $row; ?>"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
                         <td align="center" rowspan="<?php echo $row; ?>"><?= $data['nm_sup']; ?></td>
                         <?php foreach($data['item'] as $i) : ?>
@@ -65,24 +63,23 @@
                                 <td align="right"><?= $i['kubik_masuk']; ?></td>
                             </tr>
                         <?php endforeach; ?>
-                        <td align="center" colspan="7"><b>T O T A L</b></td>
+                        <td align="center" colspan="6"><b>T O T A L</b></td>
                         <td align="right"><b><?= $data['jml_stok']; ?></b></td>
                         <td align="right"><b><?= $data['jml_kubik']; ?></b></td>
                     <?php endif; ?>
-                    <?php $no++; ?>
                     <?php endforeach; ?>
                     </tr>
                     <tr>
                         <td colspan="7" style="border: none;"></td>
-                        <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
+                        <td align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
                     </tr>
                     <tr>
                         <td colspan="7" style="border: none;"></td>
-                        <td colspan="2" align="center" style="border: none;"></td>
+                        <td align="center" style="border: none;"></td>
                     </tr>
                     <tr>
                         <td colspan="7" style="border: none;"></td>
-                        <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
+                        <td align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
                     </tr>
                 </tbody>
             </table>

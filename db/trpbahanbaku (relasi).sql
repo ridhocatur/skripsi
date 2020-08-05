@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2020 at 06:25 PM
+-- Generation Time: Aug 01, 2020 at 09:00 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -57,6 +57,7 @@ INSERT INTO `bahan_bantu` (`id`, `kd_bahan`, `nama`, `stok`, `id_kategori`, `ket
 
 CREATE TABLE `bahan_masuk` (
   `id` varchar(64) NOT NULL,
+  `invoice` varchar(20) NOT NULL,
   `tgl` date NOT NULL,
   `id_bahan` varchar(64) NOT NULL,
   `nama` varchar(100) NOT NULL,
@@ -70,16 +71,16 @@ CREATE TABLE `bahan_masuk` (
 -- Dumping data for table `bahan_masuk`
 --
 
-INSERT INTO `bahan_masuk` (`id`, `tgl`, `id_bahan`, `nama`, `stok_awal`, `stok_masuk`, `keterangan`, `id_supplier`) VALUES
-('5eff8640438c4', '2020-06-01', '5ebd4d186bc91', 'Low Formaldehyde Emission', 0, 5000, '', '1'),
-('5eff865343252', '2020-06-02', '5ebd4988ecb89', 'Melamine Glue', 0, 2000, '', '1'),
-('5eff868cc56d2', '2020-06-14', '5ebd4d186bc91', 'Low Formaldehyde Emission', 5000, 2500, '', '1'),
-('5f0068e4e3771', '2020-06-16', '5ec8c2aed17c2', 'Hardener', 0, 1500, '', '7'),
-('5f0068f7acd18', '2020-06-17', '5ec8c2aed17c2', 'Hardener', 1500, 1500, '', '7'),
-('5f00691243d4b', '2020-06-17', '5edbb03d3d40c', 'HU-360', 0, 1500, '', '7'),
-('5f006a444db9f', '2020-06-22', '5edbb0b61f621', 'Tepung', 0, 2000, '', '3'),
-('5f00a546bca08', '2020-06-23', '5edbb028f0ef0', 'HU-100', 0, 1500, '', '7'),
-('5f1d156eb7999', '2020-06-24', '5ebd4988ecb89', 'Melamine Glue', 445, 5000, '', '1');
+INSERT INTO `bahan_masuk` (`id`, `invoice`, `tgl`, `id_bahan`, `nama`, `stok_awal`, `stok_masuk`, `keterangan`, `id_supplier`) VALUES
+('5eff8640438c4', 'LFE010620', '2020-06-01', '5ebd4d186bc91', 'Low Formaldehyde Emission', 0, 5000, '', '1'),
+('5eff865343252', 'MF020620', '2020-06-02', '5ebd4988ecb89', 'Melamine Glue', 0, 2000, '', '1'),
+('5eff868cc56d2', 'LFE140620', '2020-06-14', '5ebd4d186bc91', 'Low Formaldehyde Emission', 5000, 2500, '', '1'),
+('5f0068e4e3771', 'HU103-160620', '2020-06-16', '5ec8c2aed17c2', 'Hardener', 0, 1500, '', '7'),
+('5f0068f7acd18', 'HU103-170620', '2020-06-17', '5ec8c2aed17c2', 'Hardener', 1500, 1500, '', '7'),
+('5f00691243d4b', 'HU360-170620', '2020-06-17', '5edbb03d3d40c', 'HU-360', 0, 1500, '', '7'),
+('5f006a444db9f', 'TPGN220620', '2020-06-22', '5edbb0b61f621', 'Tepung', 0, 2000, '', '3'),
+('5f00a546bca08', 'HU100-230620', '2020-06-23', '5edbb028f0ef0', 'HU-100', 0, 1500, '', '7'),
+('5f1d156eb7999', 'GLUEMF-24062020', '2020-06-24', '5ebd4988ecb89', 'Melamine Glue', 445, 5000, '', '1');
 
 --
 -- Triggers `bahan_masuk`
@@ -253,9 +254,7 @@ INSERT INTO `dtl_kayu_masuk` (`id`, `id_kayu`, `id_masuk`, `panjang`, `diameter1
 (23, '5ecb4d587b02f', 11, 400, 55, 55, 3000, 2851.00),
 (24, '5ecb4d4b5b93d', 12, 380, 55, 55, 2500, 2257.04),
 (25, '5ee22744a86b4', 12, 380, 52, 52, 3000, 2421.04),
-(26, '5ee2275051caf', 13, 380, 55, 55, 3000, 2708.45),
-(28, '5ecb4d4b5b93d', 15, 150, 50, 50, 2400, 706.86),
-(29, '5ecb4d3e12f33', 15, 165, 54, 55, 3000, 1154.66);
+(26, '5ee2275051caf', 13, 380, 55, 55, 3000, 2708.45);
 
 --
 -- Triggers `dtl_kayu_masuk`
@@ -306,10 +305,7 @@ INSERT INTO `dtl_plywood` (`id`, `id_vinir`, `id_plywood`, `jenis`, `stok_keluar
 (12, '5ef8482fbea01', 4, 'face back', 3000, 5.42),
 (13, '5ef8482fbea01', 5, 'face back', 2000, 3.61),
 (14, '5ef8482fbea01', 5, 'core', 2000, 3.61),
-(15, '5ef8482fbea01', 5, 'face back', 2000, 3.61),
-(16, '5ef848009d90b', 6, 'face back', 4500, 15.21),
-(17, '5ef846464d055', 6, 'core', 4500, 38.02),
-(18, '5ef84546affb1', 6, 'face back', 4500, 15.21);
+(15, '5ef8482fbea01', 5, 'face back', 2000, 3.61);
 
 --
 -- Triggers `dtl_plywood`
@@ -440,8 +436,8 @@ CREATE TABLE `kayu` (
 --
 
 INSERT INTO `kayu` (`id`, `kd_kayu`, `id_jenis`, `stok`, `kubikasi`, `keterangan`) VALUES
-('5ecb4d3e12f33', 'LOGMLP', '1', 11890, 8394.44, 'Stok awal'),
-('5ecb4d4b5b93d', 'LOGDH1', '2', 12238, 9031.83, 'Stok awal'),
+('5ecb4d3e12f33', 'LOGMLP', '1', 8890, 7239.78, 'Stok awal'),
+('5ecb4d4b5b93d', 'LOGDH1', '2', 9885, 8356.54, 'Stok awal'),
 ('5ecb4d587b02f', 'LOGMSW', '4', 9329, 7233.19, 'Stok awal'),
 ('5ee22744a86b4', 'LOGMRT', '3', 10296, 7790.24, ''),
 ('5ee2275051caf', 'LOGKR', '5', 7347, 5539.95, ''),
@@ -456,6 +452,7 @@ INSERT INTO `kayu` (`id`, `kd_kayu`, `id_jenis`, `stok`, `kubikasi`, `keterangan
 CREATE TABLE `kayu_masuk` (
   `id` int(64) NOT NULL,
   `id_supplier` varchar(64) NOT NULL,
+  `invoice` varchar(20) NOT NULL,
   `tgl` date NOT NULL,
   `jml_stok` int(20) NOT NULL,
   `jml_kubik` float(8,2) NOT NULL,
@@ -466,20 +463,19 @@ CREATE TABLE `kayu_masuk` (
 -- Dumping data for table `kayu_masuk`
 --
 
-INSERT INTO `kayu_masuk` (`id`, `id_supplier`, `tgl`, `jml_stok`, `jml_kubik`, `keterangan`) VALUES
-(2, '4', '2020-04-04', 8000, 5124.64, ''),
-(3, '5eba94e44279f', '2020-04-14', 2500, 2008.42, ''),
-(4, '5ebeb29b38c36', '2020-04-22', 3500, 2033.99, ''),
-(5, '6', '2020-04-30', 1500, 848.82, ''),
-(6, '6', '2020-05-05', 4000, 3083.54, ''),
-(7, '4', '2020-05-15', 6500, 5511.84, ''),
-(8, '5eba94e44279f', '2020-05-20', 5000, 4254.90, ''),
-(9, '5ebeb29b38c36', '2020-05-26', 3000, 1880.60, ''),
-(10, '6', '2020-05-30', 2500, 1837.84, ''),
-(11, '4', '2020-06-02', 6000, 5513.41, ''),
-(12, '5ebeb29b38c36', '2020-06-10', 5500, 4678.08, ''),
-(13, '6', '2020-06-15', 3000, 2708.45, ''),
-(15, '5eba94e44279f', '2020-06-18', 5400, 1861.52, '');
+INSERT INTO `kayu_masuk` (`id`, `id_supplier`, `invoice`, `tgl`, `jml_stok`, `jml_kubik`, `keterangan`) VALUES
+(2, '4', 'KAJR040420', '2020-04-04', 8000, 5124.64, ''),
+(3, '5eba94e44279f', 'KTA140420', '2020-04-14', 2500, 2008.42, ''),
+(4, '5ebeb29b38c36', 'SBJ220420', '2020-04-22', 3500, 2033.99, ''),
+(5, '6', 'AB300420', '2020-04-30', 1500, 848.82, ''),
+(6, '6', 'AB040520', '2020-05-05', 4000, 3083.54, ''),
+(7, '4', 'KAJR150520', '2020-05-15', 6500, 5511.84, ''),
+(8, '5eba94e44279f', 'KTA200520', '2020-05-20', 5000, 4254.90, ''),
+(9, '5ebeb29b38c36', 'SBJ260520', '2020-05-26', 3000, 1880.60, ''),
+(10, '6', 'AB300520', '2020-05-30', 2500, 1837.84, ''),
+(11, '4', 'KAJR020620', '2020-06-02', 6000, 5513.41, ''),
+(12, '5ebeb29b38c36', 'SBJ100620', '2020-06-10', 5500, 4678.08, ''),
+(13, '6', 'AB150620', '2020-06-15', 3000, 2708.45, '');
 
 --
 -- Triggers `kayu_masuk`
@@ -537,9 +533,9 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho Arianto', '0822771', 'CaturRidhoArianto_24800.png', 'admin', '2020-08-05 15:55:57', '2020-05-18 12:30:53'),
-('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', 'AcilIrus_2352345.jpg', 'manager', '2020-08-02 09:51:40', '2020-05-18 12:30:53'),
-('5ebc0d91b1761', '2352345', 'cahbekasi', 'f684497877a4a910fcdd91a2f947b4ec', 'Rafio Dioda', '08227716331', 'RafioDioda_2352345.png', 'user', '2020-08-02 09:49:43', '2020-05-18 12:30:53'),
+('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho Arianto', '0822771', 'CaturRidho_24800.png', 'admin', '2020-08-01 05:55:50', '2020-05-18 12:30:53'),
+('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', 'AcilIrus_2352345.jpg', 'manager', '2020-07-05 07:00:38', '2020-05-18 12:30:53'),
+('5ebc0d91b1761', '2352345', 'cahbekasi', 'f684497877a4a910fcdd91a2f947b4ec', 'Rafio Dioda', '08227716331', 'RafioGobloge_5ebc0d91b1765.png', 'user', '2020-07-24 07:38:23', '2020-05-18 12:30:53'),
 ('5ee4655ec2fc8', '800096', 'razzyman', 'd41d8cd98f00b204e9800998ecf8427e', 'Ust. Facrurazzy', '087896834', 'Facrurazzy_90018.jpg', 'admin', '2020-07-05 07:42:42', '2020-06-13 05:34:22');
 
 -- --------------------------------------------------------
@@ -552,7 +548,7 @@ CREATE TABLE `plywood` (
   `id` int(64) UNSIGNED NOT NULL,
   `id_ukuran` int(64) UNSIGNED NOT NULL DEFAULT 0,
   `tgl` date NOT NULL,
-  `shift` enum('1','2') NOT NULL,
+  `shift` varchar(10) NOT NULL,
   `tipe_glue` varchar(20) NOT NULL,
   `tipe_ply` enum('3','5','7','9','11') NOT NULL,
   `tebal` float(8,1) NOT NULL DEFAULT 0.0,
@@ -569,8 +565,7 @@ INSERT INTO `plywood` (`id`, `id_ukuran`, `tgl`, `shift`, `tipe_glue`, `tipe_ply
 (2, 1, '2020-06-23', '1', 'Type-1 Melamine', '3', 4.5, 1800, 13.50, ''),
 (3, 2, '2020-06-23', '2', 'Type-2 LFE', '3', 5.5, 2160, 20.09, ''),
 (4, 1, '2020-06-24', '1', 'Type-1 Melamine', '3', 4.5, 2160, 16.20, ''),
-(5, 1, '2020-06-25', '1', 'Type-1 Melamine', '3', 3.0, 1440, 7.20, ''),
-(6, 7, '2020-06-29', '1', 'Type-2 LFE', '3', 4.5, 3240, 43.74, '');
+(5, 1, '2020-06-25', '1', 'Type-1 Melamine', '3', 3.0, 1440, 7.20, '');
 
 --
 -- Triggers `plywood`
@@ -659,7 +654,7 @@ INSERT INTO `vinir` (`id`, `id_jenis`, `tebal`, `panjang`, `lebar`, `stok`, `kub
 ('5ef8450144758', '1', 1.6, 1900, 950, 0, 0.00, ''),
 ('5ef8450f9562f', '1', 2.5, 1900, 950, 0, 0.00, ''),
 ('5ef8451a0bbfe', '1', 3.5, 1900, 950, 3806, 23.98, ''),
-('5ef84546affb1', '1', 1.0, 2600, 1300, 5013, 17.13, ''),
+('5ef84546affb1', '1', 1.0, 2600, 1300, 9513, 32.34, ''),
 ('5ef84557043da', '1', 1.6, 2600, 1300, 0, 0.00, ''),
 ('5ef845f1d92c5', '1', 2.5, 2600, 1300, 0, 0.00, ''),
 ('5ef84601caf93', '1', 3.5, 2600, 1300, 0, 0.00, ''),
@@ -669,7 +664,7 @@ INSERT INTO `vinir` (`id`, `id_jenis`, `tebal`, `panjang`, `lebar`, `stok`, `kub
 ('5ef8462c6ef9a', '2', 3.5, 1900, 950, 3818, 24.05, ''),
 ('5ef84636b363c', '2', 1.0, 2600, 1300, 0, 0.00, ''),
 ('5ef8463fc6d8b', '2', 1.6, 2600, 1300, 2995, 16.17, ''),
-('5ef846464d055', '2', 2.5, 2600, 1300, 1944, 16.11, ''),
+('5ef846464d055', '2', 2.5, 2600, 1300, 2686, 22.56, ''),
 ('5ef8465d6db68', '2', 3.5, 2600, 1300, 0, 0.00, ''),
 ('5ef846642a2fe', '3', 1.0, 1900, 950, 0, 0.00, ''),
 ('5ef8467e59257', '3', 1.6, 1900, 950, 0, 0.00, ''),
@@ -683,7 +678,7 @@ INSERT INTO `vinir` (`id`, `id_jenis`, `tebal`, `panjang`, `lebar`, `stok`, `kub
 ('5ef84757eb474', '4', 1.6, 1900, 950, 0, 0.00, ''),
 ('5ef8476001dab', '4', 2.5, 1900, 950, 0, 0.00, ''),
 ('5ef8476d27b12', '4', 3.5, 1900, 950, 3162, 19.92, ''),
-('5ef848009d90b', '4', 1.0, 2600, 1300, 2614, 8.98, ''),
+('5ef848009d90b', '4', 1.0, 2600, 1300, 7114, 24.19, ''),
 ('5ef84808269b5', '4', 1.6, 2600, 1300, 4400, 23.76, ''),
 ('5ef8480fae5d8', '4', 2.5, 2600, 1300, 0, 0.00, ''),
 ('5ef84827c54e3', '4', 3.5, 2600, 1300, 0, 0.00, ''),
@@ -751,8 +746,7 @@ INSERT INTO `vinir_masuk` (`id`, `id_vinir`, `id_kayu`, `tgl`, `shift`, `jml_log
 ('5efb036049b76', '5ef846d0bfce6', '5ecb4d587b02f', '2020-06-18', '1', 12, 10.00, 4514, 8.13, NULL),
 ('5f00b51166998', '5ef84685b9761', '5ee22744a86b4', '2020-06-19', '1', 59, 45.00, 8109, 36.49, NULL),
 ('5f00b543eca2a', '5ef846d0bfce6', '5ecb4d587b02f', '2020-06-19', '1', 51, 40.00, 17758, 31.96, NULL),
-('5f1d151ea132d', '5ef848374c6c8', '5ee2275051caf', '2020-06-22', '1', 60, 45.00, 12364, 35.86, NULL),
-('5f25344683aa9', '5ef846464d055', '5ecb4d4b5b93d', '2020-06-23', '1', 47, 40.00, 3758, 31.57, NULL);
+('5f1d151ea132d', '5ef848374c6c8', '5ee2275051caf', '2020-06-22', '1', 60, 45.00, 12364, 35.86, NULL);
 
 --
 -- Triggers `vinir_masuk`
@@ -941,13 +935,13 @@ ALTER TABLE `dtl_gluemix`
 -- AUTO_INCREMENT for table `dtl_kayu_masuk`
 --
 ALTER TABLE `dtl_kayu_masuk`
-  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `dtl_plywood`
 --
 ALTER TABLE `dtl_plywood`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `gluemix`
@@ -959,13 +953,13 @@ ALTER TABLE `gluemix`
 -- AUTO_INCREMENT for table `kayu_masuk`
 --
 ALTER TABLE `kayu_masuk`
-  MODIFY `id` int(64) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(64) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `plywood`
 --
 ALTER TABLE `plywood`
-  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `ukuran`

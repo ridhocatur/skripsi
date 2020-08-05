@@ -41,7 +41,7 @@
                         <th rowspan="2" style="vertical-align: middle;">Tipe Lem</th>
                         <th rowspan="2" style="vertical-align: middle;">Jenis Ketebalan</th>
                         <th rowspan="2" style="vertical-align: middle;">Ukuran</th>
-                        <th rowspan="2" style="vertical-align: middle;">Total Plywood (Lembar)</th>
+                        <th rowspan="2" style="vertical-align: middle;">Total Plywood (pcs)</th>
                         <th rowspan="2" style="vertical-align: middle;">Kubikasi (M<sup>3</sup>)</th>
                         <th colspan="5">Detail Pemakaian Vinir</th>
                     </tr>
@@ -49,7 +49,7 @@
                         <th style="vertical-align: middle;">Jenis Kayu</th>
                         <th style="vertical-align: middle;">Jenis Vinir</th>
                         <th style="vertical-align: middle;">Ukuran</th>
-                        <th style="vertical-align: middle;">Vinir Terpakai (Lembar)</th>
+                        <th style="vertical-align: middle;">Vinir Terpakai (pcs)</th>
                         <th style="vertical-align: middle;">Kubikasi (M<sup>3</sup>)</th>
                     </tr>
                 </thead>

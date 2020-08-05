@@ -38,6 +38,7 @@
                         <th>No.</th>
                         <th>Tanggal</th>
                         <th>Shift</th>
+                        <th>Tipe Lem</th>
                         <th>Glue LFE</th>
                         <th>Glue MF</th>
                         <th>Tepung</th>
@@ -54,12 +55,14 @@
                         <td align="center"><?= $no; ?></td>
                         <td align="center"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
                         <td align="center"><?= $data['shift']; ?></td>
+                        <td align="center"><?= $data['tipe_glue']; ?></td>
                         <?php if (sizeof($data['item']) > 0) : ?>
-                        <?php foreach($data['item'] as $i) : ?>
-                        <td align="right"><?= $i['stok_keluar']; ?>&nbsp;kg</td>
-                        <?php endforeach; ?>
-                        <td align="right"><b><?= $data['total']; ?>&nbsp;kg</b></td>
-                    <?php endif; ?>
+                            <?php foreach($data['item'] as $i) : ?>
+                                <?php if($i['stok_keluar'] == "0") : $i['stok_keluar'] = "-"; endif; ?>
+                                <td align="right"><?= $i['stok_keluar']; ?>&nbsp;kg</td>
+                            <?php endforeach; ?>
+                            <td align="right"><b><?= $data['total']; ?>&nbsp;kg</b></td>
+                        <?php endif; ?>
                     <?php $no++; ?>
                     <?php endforeach; ?>
                     </tr>

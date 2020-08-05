@@ -74,7 +74,9 @@ class Bahanbantu_model extends CI_Model {
 
     public function getJoinAll ()
     {
-        $this->db->select($this->bahanbantu.'.* ,'.$this->kategori.'.nm_kateg')->from($this->bahanbantu)->join($this->kategori, $this->bahanbantu.'.id_kategori =.'.$this->kategori.'.id', 'left');
+        $this->db->select($this->bahanbantu.'.* ,'.$this->kategori.'.nm_kateg')
+                ->from($this->bahanbantu)
+                ->join($this->kategori, $this->bahanbantu.'.id_kategori =.'.$this->kategori.'.id', 'left');
         $query = $this->db->get();
         return $query->result();
     }
@@ -84,9 +86,13 @@ class Bahanbantu_model extends CI_Model {
         return $this->db->get_where($this->bahanbantu, ["id" => $id])->row();
     }
 
-    public function report()
+    public function report($a)
     {
-        return $this->db->get($this->viewstok)->result();
+        if ($a != "") {
+            return $this->db->get_where($this->viewstok, ["id" => $a])->result();
+        } else {
+            return $this->db->get($this->viewstok)->result();
+        }
     }
 
     public function save()

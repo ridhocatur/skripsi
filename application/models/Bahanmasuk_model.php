@@ -8,7 +8,6 @@ class Bahanmasuk_model extends CI_Model {
     private $supplier = 'supplier';
 
     public $id;
-    public $invoice;
     public $tgl;
     public $id_bahan;
     public $nm_bahan;
@@ -19,11 +18,6 @@ class Bahanmasuk_model extends CI_Model {
     public function rules()
 	{
 		return [
-			[
-				'field' => 'invoice',
-                'label' => 'Invoice',
-                'rules' => 'required'
-            ],
 			[
 				'field' => 'tgl',
                 'label' => 'Tgl. Masuk',
@@ -104,7 +98,6 @@ class Bahanmasuk_model extends CI_Model {
         $stokAwal = $query->row('stok');
         $data = array(
             'id' => uniqid(),
-            'invoice' => $post["invoice"],
             'tgl' => $post["tgl"],
             'id_bahan' => $post["id_bahan"],
             'nama' => $post["nm_bahan"],
@@ -117,12 +110,10 @@ class Bahanmasuk_model extends CI_Model {
         return $this->db->insert($this->bahanmasuk, $data);
     }
 
-    public function update()
+    public function update($id)
     {
         $post = $this->input->post();
         $data = array(
-            'id' => $post["id"],
-            'invoice' => $post["invoice"],
             'tgl' => $post["tgl"],
             'id_bahan' => $post["id_bahan"],
             'nama' => $post["nm_bahan"],
@@ -130,7 +121,7 @@ class Bahanmasuk_model extends CI_Model {
             'keterangan' => $post["keterangan"],
             'id_supplier' => $post["id_supplier"]
         );
-        return $this->db->update($this->bahanmasuk, $data, array('id' => $post['id']));
+        return $this->db->update($this->bahanmasuk, $data, array('id' => $id));
     }
 
     public function delete($id)

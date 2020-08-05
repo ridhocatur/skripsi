@@ -28,7 +28,7 @@
 
 <script type="text/javascript" src="<?= base_url(); ?>assets/prism/prism.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery-validation/dist/jquery.validate.min.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>assets/js/daterangepicker/moment.min.js"></script>
+
 
 <!-- Page level custom scripts -->
 <script>

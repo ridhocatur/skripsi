@@ -29,51 +29,65 @@
 </center>
 <br>
 <br>
-<table class="table">
+<table class="table" width="800">
     <tr>
         <td colspan="3" align="center">
             <table width="max">
                 <thead>
                     <tr align="center">
                         <th>No.</th>
-                        <th>Kode Bahan</th>
+                        <th>Tanggal</th>
+                        <th>Supplier</th>
+                        <th>Kode Kayu</th>
                         <th>Nama</th>
-                        <th>Kategori</th>
-                        <th>Total Stok Masuk</th>
-                        <th>Total Stok Keluar</th>
-                        <th>Total Stok Sekarang</th>
+                        <th>Ukuran (Cm)<br><small>P x D1 x D2</small></th>
+                        <th>Stok Masuk (Pcs)</th>
+                        <th>Kubikasi (M<sup>3</sup>)</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php $no = 1; ?>
-                <?php foreach($stokbahan as $item) : ?>
+                    <?php $no = 1; $jmlstok=0 ; $jmlkubik=0; ?>
+                    <?php foreach($kayumasuk as $data) : ?>
                     <tr>
-                        <td><?= $no; ?></td>
-                        <td><?= $item->kd_bahan;?></td>
-                        <td><?= $item->nama;?></td>
-                        <td><?= $item->nm_kateg;?></td>
-                        <td align="right"><?= $item->masuk; ?> Kg</td>
-                        <td align="right"><?= $item->keluar; ?> Kg</td>
-                        <td align="right"><b><?= $item->stok; ?> Kg</b></td>
+                        <?php if (sizeof($data['item']) > 0) : ?>
+                        <?php $x = count($data['item']); $row = $x + 1; ?>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $no++; ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= date('d-m-Y' ,strtotime($data['tgl'])); ?></td>
+                        <td align="center" rowspan="<?php echo $row; ?>"><?= $data['nm_sup']; ?></td>
+                        <?php foreach($data['item'] as $i) : ?>
+                            <tr>
+                                <td><?= $i['kd_kayu']; ?></td>
+                                <td><?= $i['nama']; ?></td>
+                                <td align="right"><?= $i['panjang']; ?> x <?= $i['diameter1']; ?> x <?= $i['diameter2']; ?></td>
+                                <td align="right"><?= $i['stok_masuk']; ?></td>
+                                <td align="right"><?= $i['kubik_masuk']; ?></td>
+                            </tr>
+                        <?php $jmlstok += intval($i['stok_masuk']);$jmlkubik += floatval($i['kubik_masuk']);
+                        endforeach; ?>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                    <td align="center" colspan="6"><b>T O T A L</b></td>
+                    <td align="right"><b><?= $jmlstok; ?></b></td>
+                    <td align="right"><b><?= $jmlkubik; ?></b></td>
                     </tr>
-                    <?php $no++; ?>
-                <?php endforeach; ?>
                     <tr>
-                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="7" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="7" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"></td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="7" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
                     </tr>
                 </tbody>
             </table>
+            <br>
         </td>
     </tr>
+
 </table>
 <script>
     window.print();

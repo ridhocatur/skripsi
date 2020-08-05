@@ -29,14 +29,15 @@ class Laporan extends CI_Controller {
 	public function stokbahan()
     {
         $data['title'] = "Laporan Stok Bahan Bantu";
-		$data['stokbahan'] = $this->Bahanbantu_model->report();
+        $namabahan = $this->input->post('nm_bahan');
+		$data['stokbahan'] = $this->Bahanbantu_model->report($namabahan);
 		$this->load->view("laporan/bahanbantu/cetak_stok", $data);
     }
     public function bahanmasuk()
     {
-        $tgl_awal = $this->input->post('satutgl');
-        $tgl_akhir = $this->input->post('duatgl');
-        $id_supplier = $this->input->post('select1');
+        $tgl_awal = $this->input->post('tglsatu');
+        $tgl_akhir = $this->input->post('tgldua');
+        $id_supplier = $this->input->post('suplier');
         $data['title'] = 'Laporan Pemasukan Bahan Bantu';
         $data['bahanmasuk'] = $this->Bahanmasuk_model->report($tgl_awal, $tgl_akhir, $id_supplier) ;
         $this->load->view('laporan/bahanbantu/cetak_masuk', $data);
@@ -44,10 +45,10 @@ class Laporan extends CI_Controller {
     public function gluemix()
     {
         $data['gluemix'] = [];
-        $tgl_awal = $this->input->post('satutgl');
-        $tgl_akhir = $this->input->post('duatgl');
+        $tgl_awal = $this->input->post('tglsatu');
+        $tgl_akhir = $this->input->post('tgldua');
         $shift = $this->input->post('shift');
-        $tipelem = $this->input->post('select1');
+        $tipelem = $this->input->post('lem');
         $data['title'] = 'Laporan Gluemix';
         $gluemix = $this->Gluemix_model->report($tgl_awal, $tgl_akhir, $shift, $tipelem);
         $i = 0;
@@ -76,7 +77,7 @@ class Laporan extends CI_Controller {
 
     public function stokkayu()
     {
-        $id_jenis = $this->input->post('select1');
+        $id_jenis = $this->input->post('jeniskayu');
         $data['title'] = "Laporan Stok Kayu Log";
 		$data['stokkayu'] = $this->Kayulog_model->report($id_jenis);
         $this->load->view("laporan\kayulog\cetak_stok", $data);
@@ -84,16 +85,15 @@ class Laporan extends CI_Controller {
     public function kayumasuk()
     {
         $data['kayumasuk'] = [];
-        $tgl_awal = $this->input->post('satutgl');
-        $tgl_akhir = $this->input->post('duatgl');
-        $id_jenis = $this->input->post('select1');
-        $supkayu = $this->input->post('select2');
+        $tgl_awal = $this->input->post('tglsatu');
+        $tgl_akhir = $this->input->post('tgldua');
+        $id_jenis = $this->input->post('jeniskayu');
+        $supkayu = $this->input->post('suplier');
         $data['title'] = 'Laporan Pemasukan Kayu Log';
         $kayumasuk = $this->Kayumasuk_model->report($tgl_awal, $tgl_akhir, $supkayu);
         $i = 0;
         foreach($kayumasuk as $masuk){
             $data['kayumasuk'][$i]['id'] = $masuk['id'];
-            $data['kayumasuk'][$i]['invoice'] = $masuk['invoice'];
             $data['kayumasuk'][$i]['nm_sup'] = $masuk['nm_sup'];
             $data['kayumasuk'][$i]['tgl'] = $masuk['tgl'];
             $data['kayumasuk'][$i]['jml_stok'] = $masuk['jml_stok'];
@@ -113,7 +113,11 @@ class Laporan extends CI_Controller {
             }
             $i++;
         }
-        $this->load->view('laporan\kayulog\cetak_masuk', $data);
+        if ($id_jenis == "") {
+            $this->load->view('laporan\kayulog\cetak_masuk', $data);
+        } else {
+            $this->load->view('laporan\kayulog\cetak_masuk_jenis', $data);
+        }
     }
 
     // ----------------------------------------------
@@ -122,17 +126,17 @@ class Laporan extends CI_Controller {
 
     public function stokvinir()
     {
-        $ukuran = $this->input->post('select1');
-        $id_jenis = $this->input->post('select2');
+        $ukuran = $this->input->post('sizevin');
+        $id_jenis = $this->input->post('jenis');
         $data['title'] = "Laporan Stok Vinir";
 		$data['stokvinir'] = $this->Vinir_model->report($ukuran,$id_jenis);
         $this->load->view('laporan\vinir\cetak_stok', $data);
     }
     public function vinirmasuk()
     {
-        $tgl_awal = $this->input->post('satutgl');
-        $tgl_akhir = $this->input->post('duatgl');
-        $id_kayu = $this->input->post('select1');
+        $tgl_awal = $this->input->post('tglsatu');
+        $tgl_akhir = $this->input->post('tgldua');
+        $id_kayu = $this->input->post('kayulog');
         $data['title'] = "Laporan Pengolahan Vinir";
 		$data['vinirmasuk'] = $this->Vinirmasuk_model->report($id_kayu,$tgl_awal,$tgl_akhir);
         $this->load->view('laporan\vinir\cetak_masuk', $data);
@@ -140,12 +144,13 @@ class Laporan extends CI_Controller {
     public function plywood()
     {
         $data['plywood'] = [];
-        $tgl_awal = $this->input->post('satutgl');
-        $tgl_akhir = $this->input->post('duatgl');
-        $ukuran = $this->input->post('select1');
-        $tipeglue = $this->input->post('select2');
+        $tgl_awal = $this->input->post('tglsatu');
+        $tgl_akhir = $this->input->post('tgldua');
+        $ukuran = $this->input->post('ukuran');
+        $tipeglue = $this->input->post('lem');
+        $shift = $this->input->post('shift');
         $data['title'] = 'Laporan Hasil Produksi Plywood';
-        $plywood = $this->Plywood_model->report($tgl_awal, $tgl_akhir, $ukuran, $tipeglue);
+        $plywood = $this->Plywood_model->report($tgl_awal, $tgl_akhir, $ukuran, $tipeglue, $shift);
         $i = 0;
         foreach($plywood as $item){
             $data['plywood'][$i]['id'] = $item['id'];

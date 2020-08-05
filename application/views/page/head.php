@@ -23,4 +23,5 @@
   <script src="<?= base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
   <script src="<?= base_url(); ?>assets/js/script.js"></script>
   <script src="<?= base_url(); ?>assets/js/validasi.js"></script>
+  <script src="<?= base_url(); ?>assets/js/daterangepicker/moment.min.js"></script>
 </head>

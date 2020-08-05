@@ -57,7 +57,7 @@ class Gluemix_model extends CI_Model {
     public function report($tgl_awal, $tgl_akhir, $shift, $tipelem)
     {
         $kondisi = "";
-        $sql = "SELECT ".$this->gluemix.".* FROM ".$this->gluemix;
+        $sql = "SELECT * FROM ".$this->gluemix;
         if ($tgl_awal != "" && $tgl_akhir == "") {
             $kondisi .= " WHERE tgl = '$tgl_awal'";
         } else if ($tgl_awal == "" && $tgl_akhir != "") {
@@ -66,11 +66,23 @@ class Gluemix_model extends CI_Model {
             $kondisi .= " WHERE tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         }
         if ($shift != "" && $tipelem != "") {
-            $kondisi .= " AND shift = '$shift' AND tipe_glue = '$tipelem' ORDER BY tgl ASC";
+            if ($kondisi != "") {
+                $kondisi .= " AND shift = '$shift' AND tipe_glue = '$tipelem' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE shift = '$shift' AND tipe_glue = '$tipelem' ORDER BY tgl ASC";
+            }
         } else if ($shift == "" && $tipelem != "") {
-            $kondisi .= " AND tipe_glue = '$tipelem' ORDER BY tgl ASC";
+            if ($kondisi != "") {
+                $kondisi .= " AND tipe_glue = '$tipelem' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE tipe_glue = '$tipelem' ORDER BY tgl ASC";
+            }
         } else if ($shift != "" && $tipelem == "") {
-            $kondisi .= " AND shift = '$shift' ORDER BY tgl ASC";
+            if ($kondisi != "") {
+                $kondisi .= " AND shift = '$shift' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE shift = '$shift' ORDER BY tgl ASC";
+            }
         }
         $query = $this->db->query($sql.$kondisi);
         return $query->result_array();

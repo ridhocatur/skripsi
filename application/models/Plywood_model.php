@@ -90,7 +90,7 @@ class Plywood_model extends CI_Model {
         return $query->result();
     }
 
-    public function report($tgl_awal, $tgl_akhir, $ukuran, $tipeglue)
+    public function report($tgl_awal, $tgl_akhir, $ukuran, $tipeglue, $shift)
     {
         $kondisi = "";
         $sql = "SELECT ".$this->plywood.".*, ".$this->ukuran.".panjang, ".$this->ukuran.".lebar
@@ -102,17 +102,47 @@ class Plywood_model extends CI_Model {
         } else if ($tgl_awal != "" && $tgl_akhir != "") {
             $kondisi .= " WHERE ".$this->plywood.".tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         }
-        if ($ukuran != "" && $tipeglue != "") {
+        if ($ukuran != "" && $tipeglue != "" && $shift != "") {
             if ($kondisi != "") {
-                $kondisi .= " AND ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".tipe_glue = '$tipeglue' ORDER BY tgl ASC";
+                $kondisi .= " AND ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".tipe_glue = '$tipeglue' AND ".$this->plywood.".shift = '$shift' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".tipe_glue = '$tipeglue' AND ".$this->plywood.".shift = '$shift' ORDER BY tgl ASC";
             }
-        } else if ($ukuran != "" && $tipeglue == "") {
+        } else if ($ukuran != "" && $tipeglue == "" && $shift == "") {
             if ($kondisi != "") {
                 $kondisi .= " AND ".$this->plywood.".id_ukuran = '$ukuran' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->plywood.".id_ukuran = '$ukuran' ORDER BY tgl ASC";
             }
-        } else if ($ukuran == "" && $tipeglue != "") {
+        } else if ($ukuran == "" && $tipeglue != "" && $shift == "") {
             if ($kondisi != "") {
                 $kondisi .= " AND ".$this->plywood.".tipe_glue = '$tipeglue' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->plywood.".tipe_glue = '$tipeglue' ORDER BY tgl ASC";
+            }
+        } else if ($ukuran == "" && $tipeglue == "" && $shift != "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->plywood.".shift = '$shift' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->plywood.".shift = '$shift' ORDER BY tgl ASC";
+            }
+        } else if ($ukuran != "" && $tipeglue != "" && $shift == "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".tipe_glue = '$tipeglue' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".tipe_glue = '$tipeglue' ORDER BY tgl ASC";
+            }
+        } else if ($ukuran != "" && $tipeglue == "" && $shift != "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".shift = '$shift'  ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->plywood.".id_ukuran = '$ukuran' AND ".$this->plywood.".shift = '$shift'  ORDER BY tgl ASC";
+            }
+        } else if ($ukuran == "" && $tipeglue != "" && $shift != "") {
+            if ($kondisi != "") {
+                $kondisi .= " AND ".$this->plywood.".tipe_glue = '$tipeglue' AND ".$this->plywood.".shift = '$shift' ORDER BY tgl ASC";
+            } else {
+                $kondisi .= " WHERE ".$this->plywood.".tipe_glue = '$tipeglue' AND ".$this->plywood.".shift = '$shift' ORDER BY tgl ASC";
             }
         }
         $query = $this->db->query($sql.$kondisi);

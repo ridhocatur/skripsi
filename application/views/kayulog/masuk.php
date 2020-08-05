@@ -15,45 +15,83 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?= $this->session->flashdata('danger'); ?>
         </div>
     <?php endif; ?>
-<div class="card-header py-3">
-    <button type="button" class="btn btn-outline-primary tambahKayuMasuk" data-toggle="modal" data-target="#tampilModal"><i class="fa fa-plus"></i> Tambah Data</button>
-</div>
-<div class="card-body">
-    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Tgl. Masuk</th>
-                <th>Invoice</th>
-                <th>Supplier</th>
-                <th>Total Stok (pcs)</th>
-                <th>Total Kubikasi (M<sup>3</sup>)</th>
-                <th>Keterangan</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $no=1;foreach($kayumasuk as $data) : ?>
-            <tr>
-                <td><?= $no++; ?></td>
-                <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
-                <td><?= $data->invoice; ?></td>
-                <td><?= $data->nm_sup; ?></td>
-                <td><?= $data->jml_stok; ?></td>
-                <td><?= $data->jml_kubik; ?></td>
-                <td><?= $data->keterangan; ?></td>
-                <td>
-                    <a class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" href="<?= base_url(); ?>kayumasuk/detailMasuk/<?= $data->id; ?>"><i class="fa fa-eye"></i></a>
-                    <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="<?= $data->invoice?>" href="<?= base_url(); ?>kayumasuk/hapusMasuk/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
-                </td>
-                <form action="" method="POST" id="deleteForm">
-                    <input type="submit" value="" style="display:none">
-                </form>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
+    <?php if ($this->session->userdata('level') == 'manager') { ?>
+        <div class="card-header py-3">
+            <button id="cetakdata" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#cetakData"><i class="fa fa-print"></i> Cetak Data</button>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tgl. Masuk</th>
+                        <th>Supplier</th>
+                        <th>Total Stok (pcs)</th>
+                        <th>Total Kubikasi (M<sup>3</sup>)</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no=1;foreach($kayumasuk as $data) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
+                        <td><?= $data->nm_sup; ?></td>
+                        <td><?= $data->jml_stok; ?></td>
+                        <td><?= $data->jml_kubik; ?></td>
+                        <td><?= $data->keterangan; ?></td>
+                        <td>
+                            <a class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" href="<?= base_url(); ?>kayumasuk/detailMasuk/<?= $data->id; ?>"><i class="fa fa-eye"></i></a>
+                        </td>
+                        <form action="" method="POST" id="deleteForm">
+                            <input type="submit" value="" style="display:none">
+                        </form>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php } else { ?>
+        <div class="card-header py-3">
+            <button type="button" class="btn btn-outline-primary tambahKayuMasuk" data-toggle="modal" data-target="#tampilModal"><i class="fa fa-plus"></i> Tambah Data</button>
+            <button id="cetakdata" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#cetakData"><i class="fa fa-print"></i> Cetak Data</button>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tgl. Masuk</th>
+                        <th>Supplier</th>
+                        <th>Total Stok (pcs)</th>
+                        <th>Total Kubikasi (M<sup>3</sup>)</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no=1;foreach($kayumasuk as $data) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
+                        <td><?= $data->nm_sup; ?></td>
+                        <td><?= $data->jml_stok; ?></td>
+                        <td><?= $data->jml_kubik; ?></td>
+                        <td><?= $data->keterangan; ?></td>
+                        <td>
+                            <a class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" href="<?= base_url(); ?>kayumasuk/detailMasuk/<?= $data->id; ?>"><i class="fa fa-eye"></i></a>
+                            <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Tanggal <?= date('d-m-Y' ,strtotime($data->tgl)); ?>" href="<?= base_url(); ?>kayumasuk/hapusMasuk/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
+                        </td>
+                        <form action="" method="POST" id="deleteForm">
+                            <input type="submit" value="" style="display:none">
+                        </form>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php } ?>
 </div>
 
 <!-- MODAL Tambah Data-->
@@ -67,17 +105,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </button>
       </div>
       <div class="modal-body">
-      <form action="" method="POST" id="formModal">
-      <input type="hidden" name="id" id="id">
+      <form action="" method="POST" id="kayumasuk">
+        <input type="hidden" name="id" id="id">
         <div class="box-body">
             <p></p>
-            <div class="form-group row">
-                <label for="invoice" class="col-sm-4 col-form-label text-md-right">Invoice</label>
-                <div class="col-md-5">
-                    <input id="invoice" type="text" class="form-control" name="invoice" autocomplete="invoice" readonly>
-                </div>
-            </div>
-
             <div class="form-group row">
                 <label for="tgl" class="col-sm-4 col-form-label text-md-right">Tgl. Masuk</label>
                 <div class="col-md-5">
@@ -88,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="id_supplier" class="col-sm-4 col-form-label text-md-right">Supplier</label>
                 <div class="col-md-5">
-                <select class="form-control" name="id_supplier" id="id_supplier" onchange="isiInvoice()">
+                <select class="form-control" name="id_supplier" id="id_supplier">
                     <option disabled selected>-- Pilih Supplier --</option>
                     <?php foreach($supkayu as $data): ?>
                       <option value="<?= $data->id; ?>"><?= $data->nm_sup; ?></option>
@@ -163,8 +194,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <input id="keterangan" type="text" class="form-control" name="keterangan" autocomplete="keterangan">
                 </div>
             </div>
-      </div>
-      <div class="modal-footer">
+        </div>
+    </div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
         <button type="button" class="btn btn-warning tombolReset">Reset</button>
         <button type="submit" class="btn btn-success">Simpan</button>
@@ -173,6 +205,73 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
 </div>
+
+<!-- MODAL Cetak Data-->
+<div class="modal fade" id="cetakData" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Cetak Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url(); ?>laporan/kayumasuk" method="POST" target="_blank">
+        <div class="box-body">
+            <p></p>
+            <div class="form-group row">
+                <label for="tglsatu" class="col-sm-3 col-form-label text-md-right">Tgl. Awal</label>
+                <div class="col-md-8">
+                    <input id="tglsatu" type="date" class="form-control" name="tglsatu">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="tgldua" class="col-sm-3 col-form-label text-md-right">Tgl. Akhir</label>
+                <div class="col-md-8">
+                    <input id="tgldua" type="date" class="form-control" name="tgldua">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="jeniskayu" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
+                <div class="col-md-8">
+                <select class="form-control" name="jeniskayu" id="jeniskayu">
+                    <option disabled selected>-- Pilih Data --</option>
+                    <option value="">Semua Jenis Kayu</option>
+                    <?php foreach($jeniskayu as $data): ?>
+                        <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="suplier" class="col-sm-3 col-form-label text-md-right">Supplier</label>
+                <div class="col-md-8">
+                <select class="form-control" name="suplier" id="suplier">
+                    <option disabled selected>-- Pilih Data --</option>
+                    <option value="">Semua Supplier</option>
+                    <?php foreach($supkayu as $data): ?>
+                        <option value="<?= $data->id; ?>"><?= $data->nm_sup; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                </div>
+            </div>
+            <small>- Kosongkan kolom tanggal untuk menampilan semua tanggal</small><br>
+            <small>- Isi salah satu kolom tanggal bila ingin mencari data dengan 1 tanggal</small><br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success">Cetak</button>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type ="text/javascript">
     function stok_kayu() {
         var total = 0;
@@ -224,20 +323,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         x--;
     }
 
-    function isiInvoice() {
-        var id = document.getElementById('id_supplier').value;
-        $.ajax({
-            url:"<?php echo base_url();?>supplier/cariSup",
-            data: {id : id},
-            type: "post",
-            dataType: "JSON",
-            success:function(data){
-                var tgl = moment($('#tgl').val()).format('DDMMYYYY');
-                var hapusPT = data.nm_sup.replace('PT. ', '');
-                var hapusHurufKecil = hapusPT.replace(/[a-z]/g,'');
-                var sup = hapusHurufKecil.replace(/\s/g, '');
-                $('#invoice').val(sup+'-'+tgl);
-            }
-        });
-    }
+    //------------------ tombol Reset
+    $('.tombolReset').on('click', function() {
+        $('#kayumasuk')[0].reset();
+    });
 </script>

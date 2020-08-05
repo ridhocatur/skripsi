@@ -15,46 +15,85 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?= $this->session->flashdata('danger'); ?>
         </div>
     <?php endif; ?>
-<div class="card-header py-3">
-    <button type="button" class="btn btn-outline-primary tambahVinirMasuk" data-toggle="modal" data-target="#tampilModal"><i class="fa fa-plus"></i> Tambah Data</button>
-    <button type="button" href="<?= base_url(); ?>vinirmasuk/ubahBaku/1" data-id="1" class="btn btn-outline-success editNilaiTetap" data-toggle="modal" data-target="#tampilBaku"><i class="fa fa-edit"></i> Edit Nilai Baku</button>
-</div>
-<div class="card-body">
-    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Jenis Kayu</th>
-                <th>Ukuran (mm)</th>
-                <th>Stok (pcs)</th>
-                <th>Kubikasi (M<sup>3</sup>)</th>
-                <th>Keterangan</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $no=1; foreach ($vinirmasuk as $data) : ?>
-            <tr>
-                <td><?= $no++; ?></td>
-                <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
-                <td><?= $data->nama; ?></td>
-                <td><?= $data->tebal; ?> mm x <?= $data->panjang; ?> x <?= $data->lebar; ?></td>
-                <td><?= $data->stok_masuk; ?></td>
-                <td><?= $data->kubik_masuk; ?></td>
-                <td><?= $data->keterangan; ?></td>
-                <td>
-                    <a href="<?= base_url(); ?>vinirmasuk/detailMasuk/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" ><i class="fa fa-eye"></i></a>
-                    <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Tanggal <?= $data->tgl?>" href="<?= base_url(); ?>vinirmasuk/hapusMasuk/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
-                </td>
-                <form action="" method="POST" id="deleteForm">
-                    <input type="submit" value="" style="display:none">
-                </form>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
+    <?php if ($this->session->userdata('level') == 'manager') { ?>
+        <div class="card-header py-3">
+            <button id="cetakdata" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#cetakData"><i class="fa fa-print"></i> Cetak Data</button>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Jenis Kayu</th>
+                        <th>Ukuran (mm)</th>
+                        <th>Stok (pcs)</th>
+                        <th>Kubikasi (M<sup>3</sup>)</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no=1; foreach ($vinirmasuk as $data) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
+                        <td><?= $data->nama; ?></td>
+                        <td><?= $data->tebal; ?> mm x <?= $data->panjang; ?> x <?= $data->lebar; ?></td>
+                        <td><?= $data->stok_masuk; ?></td>
+                        <td><?= $data->kubik_masuk; ?></td>
+                        <td><?= $data->keterangan; ?></td>
+                        <td>
+                            <a href="<?= base_url(); ?>vinirmasuk/detailMasuk/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" ><i class="fa fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php } else { ?>
+        <div class="card-header py-3">
+            <button type="button" class="btn btn-outline-primary tambahVinirMasuk" data-toggle="modal" data-target="#tampilModal"><i class="fa fa-plus"></i> Tambah Data</button>
+            <button type="button" href="<?= base_url(); ?>vinirmasuk/ubahBaku/1" data-id="1" class="btn btn-outline-success editNilaiTetap" data-toggle="modal" data-target="#tampilBaku"><i class="fa fa-edit"></i> Edit Nilai Baku</button>
+            <button id="cetakdata" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#cetakData"><i class="fa fa-print"></i> Cetak Data</button>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Jenis Kayu</th>
+                        <th>Ukuran (mm)</th>
+                        <th>Stok (pcs)</th>
+                        <th>Kubikasi (M<sup>3</sup>)</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no=1; foreach ($vinirmasuk as $data) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= date('d-m-Y' ,strtotime($data->tgl)); ?></td>
+                        <td><?= $data->nama; ?></td>
+                        <td><?= $data->tebal; ?> mm x <?= $data->panjang; ?> x <?= $data->lebar; ?></td>
+                        <td><?= $data->stok_masuk; ?></td>
+                        <td><?= $data->kubik_masuk; ?></td>
+                        <td><?= $data->keterangan; ?></td>
+                        <td>
+                            <a href="<?= base_url(); ?>vinirmasuk/detailMasuk/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm" data-id="<?= $data->id; ?>" ><i class="fa fa-eye"></i></a>
+                            <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Tanggal <?= $data->tgl?>" href="<?= base_url(); ?>vinirmasuk/hapusMasuk/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
+                        </td>
+                        <form action="" method="POST" id="deleteForm">
+                            <input type="submit" value="" style="display:none">
+                        </form>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php } ?>
 </div>
 
 <!-- MODAL Tambah Data-->
@@ -68,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="POST" id="formModal">
+        <form action="" method="POST" id="vinirMasuk">
         <input type="hidden" name="id" id="id">
         <input type="hidden" name="id_kayu" id="id_kayu" value="">
         <input type="hidden" name="id_vinir" id="id_vinir" value="">
@@ -231,6 +270,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
 </div>
+
+<!-- MODAL Cetak Data-->
+<div class="modal fade" id="cetakData" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Cetak Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url();?>laporan/vinirmasuk" method="POST" target="_blank">
+            <div class="box-body">
+                <div class="form-group row">
+                    <label for="tglsatu" class="col-sm-3 col-form-label text-md-right">Tgl. Awal</label>
+                    <div class="col-md-8">
+                        <input id="tglsatu" type="date" class="form-control" name="tglsatu">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tgldua" class="col-sm-3 col-form-label text-md-right">Tgl. Akhir</label>
+                    <div class="col-md-8">
+                        <input id="tgldua" type="date" class="form-control" name="tgldua">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="kayulog" class="col-sm-3 col-form-label text-md-right">Kode Kayu</label>
+                    <div class="col-md-8">
+                    <select class="form-control" name="kayulog" id="kayulog">
+                        <option selected disabled>- Pilih Kode Log -</option>
+                        <option value="">Semua Kayu Log</option>
+                        <?php foreach($kayulog as $data): ?>
+                            <option value="<?= $data->id; ?>"><?= $data->kd_kayu; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    </div>
+                </div>
+                <small>- Kosongkan kolom tanggal untuk menampilan semua tanggal</small><br>
+                <small>- Isi salah satu kolom tanggal bila ingin mencari data dengan 1 tanggal</small><br>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success">Cetak</button>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     function jenis(){
         var id = $('#jeniskayu').val();
@@ -315,4 +407,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#ttl_vinir').val(totalvin);
         $('#ttl_kubik').val(kubikvin.toFixed(2));
     };
+
+    //------------------ tombol Reset
+    $('.tombolReset').on('click', function() {
+        $('#vinirMasuk')[0].reset();
+    });
 </script>

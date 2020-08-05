@@ -4,8 +4,8 @@ $(function () {
         $('#formModal')[0].reset();
         $('#vinir').html('<option selected disabled>-- Pilih Data --</option>');
     });
-    //---------------------------------
 
+    //--------------------------------- Pegawai
     $('.tambahPegawai').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
         $('#password').attr('placeholder','')
@@ -190,13 +190,13 @@ $(function () {
     //----------------- Kayu
     $('.tambahKayu').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        // $('#formModal')[0].reset();
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/kayulog/tambahKayu')
+        $('#kayumaster')[0].reset();
+        $('form#kayumaster').attr('action', 'http://localhost/trpbahanbaku/kayulog/tambahKayu')
     });
 
     $('.tombolUbahKayu').on('click', function(){
         $('#ModalLabel').html('Ubah Data Kayu')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/kayulog/ubahKayu')
+        $('form#kayumaster').attr('action', 'http://localhost/trpbahanbaku/kayulog/ubahKayu')
 
         const id = $(this).data('id');
 
@@ -224,13 +224,13 @@ $(function () {
     //----------------- Master Bahan Bantu
     $('.tambahbahanbantu').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        // $('#formModal')[0].reset();
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/bahanbantu/tambahBantu')
+        $('#bahanMaster')[0].reset();
+        $('form#bahanMaster').attr('action', 'http://localhost/trpbahanbaku/bahanbantu/tambahBantu')
     });
 
     $('.ubahbahanbantu').on('click', function(){
         $('#ModalLabel').html('Ubah Data')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/bahanbantu/ubahBantu')
+        $('form#bahanMaster').attr('action', 'http://localhost/trpbahanbaku/bahanbantu/ubahBantu')
 
         const id = $(this).data('id');
 
@@ -259,14 +259,14 @@ $(function () {
     //----------------- Bahan Masuk
     $('.tambahBahanMasuk').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/bahanmasuk/tambahMasuk')
-        // $('#formModal')[0].reset();
+        $('form#bahanMasuk').attr('action', 'http://localhost/trpbahanbaku/bahanmasuk/tambahMasuk')
+        $('#bahanMasuk')[0].reset();
         // $('#stok_masuk').prop("disabled", false);
     });
 
     $('.tombolUbahBahanMasuk').on('click', function(){
         $('#ModalLabel').html('Ubah Data Bahan')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/bahanmasuk/ubahMasuk')
+        $('form#bahanMasuk').attr('action', 'http://localhost/trpbahanbaku/bahanmasuk/ubahMasuk')
         // $('#stok_masuk').prop("disabled", true);
 
         const id = $(this).data('id');
@@ -281,7 +281,6 @@ $(function () {
                 // console.log(data);
                 $('#id').val(data.id);
                 $('#tgl').val(data.tgl);
-                $('#invoice').val(data.invoice);
                 $('#id_bahan').val(data.id_bahan);
                 $('#nm_bahan').val(data.nama);
                 $('#stok_masuk').val(data.stok_masuk);
@@ -297,15 +296,15 @@ $(function () {
     //----------------- Master Vinir
     $('.tambahVinir').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        // $('#formModal')[0].reset();
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/vinir/tambah')
+        $('#vinirmaster')[0].reset();
+        $('form#vinirmaster').attr('action', 'http://localhost/trpbahanbaku/vinir/tambah')
         $('#id_jenis').prop("disabled", false);
         $('#id_ukuran').prop("disabled", false);
     });
 
     $('.ubahVinir').on('click', function(){
         $('#ModalLabel').html('Ubah Data')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/vinir/ubah')
+        $('form#vinirmaster').attr('action', 'http://localhost/trpbahanbaku/vinir/ubah')
         $('#id_jenis').prop("disabled", true);
         $('#id_ukuran').prop("disabled", true);
 
@@ -336,12 +335,13 @@ $(function () {
     //----------------- Vinir Masuk
     $('.tambahVinirMasuk').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/vinirmasuk/tambahMasuk')
+        $('#vinirMasuk')[0].reset();
+        $('form#vinirMasuk').attr('action', 'http://localhost/trpbahanbaku/vinirmasuk/tambahMasuk')
     });
 
     $('.tombolUbahVinirMasuk').on('click', function(){
         $('#ModalLabel').html('Ubah Data Bahan')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/vinirmasuk/ubahMasuk')
+        $('form#vinirMasuk').attr('action', 'http://localhost/trpbahanbaku/vinirmasuk/ubahMasuk')
         $('#id_kayu').prop("disabled", true);
 
         const id = $(this).data('id');
@@ -392,8 +392,7 @@ $(function () {
     //----------------- Gluemix
     $('.tambahGluemix').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/gluemix/tambahGlue')
-        // $('#formModal')[0].reset();
+        $('form#Gluemix').attr('action', 'http://localhost/trpbahanbaku/gluemix/tambahGlue')
     });
      //---- sambungan form.php untuk kalkulasi total Gluemix
     $("body").on('keyup', '.calc_stok_keluar', function(e) {
@@ -404,8 +403,7 @@ $(function () {
       //----------------- Plywood
     $('.tambahPlywood').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/plywood/tambah')
-        // $('#formModal')[0].reset();
+        $('form#Plywood').attr('action', 'http://localhost/trpbahanbaku/plywood/tambah')
     });
 
     $(document).ready(function () {
@@ -440,7 +438,7 @@ $(function () {
       //----------------- Kayu Masuk
     $('.tambahKayuMasuk').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')
-        $('.modal-body form').attr('action', 'http://localhost/trpbahanbaku/kayumasuk/tambahMasuk')
+        $('form#kayumasuk').attr('action', 'http://localhost/trpbahanbaku/kayumasuk/tambahMasuk')
         // $('#formModal')[0].reset();
     });
       //---- sambungan form.php untuk kalkulasi total Kayu Masuk

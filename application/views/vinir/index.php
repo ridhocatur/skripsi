@@ -15,45 +15,80 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?= $this->session->flashdata('danger'); ?>
         </div>
     <?php endif; ?>
-<div class="card-header py-3">
-    <button type="button" class="btn btn-outline-primary tambahVinir" data-toggle="modal" data-target="#modalVinir"><i class="fa fa-plus"></i> Tambah Data</button>
-</div>
-<div class="card-body">
-    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Jenis Kayu</th>
-                <th>Tebal</th>
-                <th>Ukuran</th>
-                <th>Stok (pcs)</th>
-                <th>Kubikasi (M<sup>3</sup>)</th>
-                <th>Keterangan</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $no = 1; foreach($vinir as $data) : ?>
-            <tr>
-                <td><?= $no++; ?></td>
-                <td><?= $data->nama; ?></td>
-                <td><?= $data->tebal; ?> mm</td>
-                <td><?= $data->panjang; ?> x <?= $data->lebar; ?></td>
-                <td><?= $data->stok; ?></td>
-                <td><?= $data->kubikasi; ?></td>
-                <td><?= $data->keterangan; ?></td>
-                <td>
-                    <button href="<?= base_url(); ?>vinir/edit/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm ubahVinir" data-toggle="modal" data-target="#modalVinir" data-id="<?= $data->id; ?>" ><i class="fa fa-edit"></i></button>
-                    <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Jenis <?= $data->nama?>" href="<?= base_url(); ?>vinir/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
-                </td>
-                <form action="" method="POST" id="deleteForm">
-                    <input type="submit" value="" style="display:none">
-                </form>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
+    <?php if ($this->session->userdata('level') == 'manager') { ?>
+        <div class="card-header py-3">
+            <button id="cetakdata" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#cetakData"><i class="fa fa-print"></i> Cetak Data</button>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Jenis Kayu</th>
+                        <th>Tebal</th>
+                        <th>Ukuran</th>
+                        <th>Stok (pcs)</th>
+                        <th>Kubikasi (M<sup>3</sup>)</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no = 1; foreach($vinir as $data) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $data->nama; ?></td>
+                        <td><?= $data->tebal; ?> mm</td>
+                        <td><?= $data->panjang; ?> x <?= $data->lebar; ?></td>
+                        <td><?= $data->stok; ?></td>
+                        <td><?= $data->kubikasi; ?></td>
+                        <td><?= $data->keterangan; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php } else { ?>
+        <div class="card-header py-3">
+            <button type="button" class="btn btn-outline-primary tambahVinir" data-toggle="modal" data-target="#modalVinir"><i class="fa fa-plus"></i> Tambah Data</button>
+            <button id="cetakdata" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#cetakData"><i class="fa fa-print"></i> Cetak Data</button>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Jenis Kayu</th>
+                        <th>Tebal</th>
+                        <th>Ukuran</th>
+                        <th>Stok (pcs)</th>
+                        <th>Kubikasi (M<sup>3</sup>)</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no = 1; foreach($vinir as $data) : ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $data->nama; ?></td>
+                        <td><?= $data->tebal; ?> mm</td>
+                        <td><?= $data->panjang; ?> x <?= $data->lebar; ?></td>
+                        <td><?= $data->stok; ?></td>
+                        <td><?= $data->kubikasi; ?></td>
+                        <td><?= $data->keterangan; ?></td>
+                        <td>
+                            <button href="<?= base_url(); ?>vinir/edit/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm ubahVinir" data-toggle="modal" data-target="#modalVinir" data-id="<?= $data->id; ?>" ><i class="fa fa-edit"></i></button>
+                            <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="Jenis <?= $data->nama?>" href="<?= base_url(); ?>vinir/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
+                        </td>
+                        <form action="" method="POST" id="deleteForm">
+                            <input type="submit" value="" style="display:none">
+                        </form>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php } ?>
 </div>
 
 <!-- MODAL Tambah Data-->
@@ -67,7 +102,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </button>
       </div>
       <div class="modal-body">
-      <form action="" method="POST" id="formModal">
+      <form action="" method="POST" id="vinirmaster">
       <input type="hidden" name="id" id="id">
         <div class="box-body">
             <p></p>
@@ -139,6 +174,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
 </div>
+
+<!-- MODAL Cetak Data-->
+<div class="modal fade" id="cetakData" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Cetak Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="<?= base_url(); ?>laporan/stokvinir" method="POST" target="_blank">
+        <div class="box-body">
+            <p></p>
+            <div class="form-group row">
+                <label for="jenis" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
+                <div class="col-md-8">
+                <select class="form-control" name="jenis" id="jenis">
+                    <option disabled selected>-- Pilih Data --</option>
+                    <option value="">Semua Jenis</option>
+                  <?php foreach($jenis as $data): ?>
+                    <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
+                  <?php endforeach; ?>
+                </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="sizevin" class="col-sm-3 col-form-label text-md-right">Ukuran (mm)</label>
+                <div class="col-md-8">
+                    <select class="form-control" name="sizevin" id="sizevin" onchange="ukurpotong();">
+                        <option selected disabled>-- Pilih Ukuran --</option>
+                        <option value="">Semua Ukuran</option>
+                        <option value="1900">1900 x 950</option>
+                        <option value="2600">2600 x 1300</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success">Cetak</button>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
     function ukurpotong(){
         if($('#ukurpot').val() == 'pendek'){
@@ -149,4 +235,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#lbr').val(parseInt(2600/2));
         }
     };
+
+    //------------------ tombol Reset
+    $('.tombolReset').on('click', function() {
+        $('#vinirmaster')[0].reset();
+    });
 </script>

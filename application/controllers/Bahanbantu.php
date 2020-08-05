@@ -31,6 +31,7 @@ class BahanBantu extends CI_Controller {
 		$data['isi'] = "bahanbantu/index";
 		$data['bahanbantu'] = $this->bahanbantu->getJoinAll();
 		$data['kategori'] = $this->kategori->getAll();
+		$data['namabahan'] = $this->bahanbantu->getAll();
 		$this->load->view('template',$data);
 	}
 

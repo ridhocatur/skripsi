@@ -6,7 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <h3>Jenis Kayu : <b><?= $detail->nama; ?></b></h3>
         <h5>Shift : <b><?= $detail->shift; ?></b></h5>
         <h5>Tanggal : <b><?= date('d-F-Y' ,strtotime($detail->tgl)); ?></b></h5>
-        <a class="btn btn-info" href="<?= base_url(); ?>vinirmasuk">Kembali</a>
     </div>
     <div class="card-body">
         <div class="row">
@@ -47,12 +46,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="form-group row">
             <div class="col-md-3">
                 <label for="ttl_vinir">Total Vinir (pcs)</label>
-                <input type="text" name="ttl_vinir" id="ttl_vinir" class="form-control" value="<?= $detail->stok_masuk; ?> mm" readonly>
+                <input type="text" name="ttl_vinir" id="ttl_vinir" class="form-control" value="<?= $detail->stok_masuk; ?>" readonly>
             </div>
             <div class="col-md-3">
-                <label for="ttl_kubik">Total Kubikasi (M<sup>3</sup>)</label>
-                <input type="text" name="ttl_kubik" id="ttl_kubik" class="form-control" value="<?= $detail->kubik_masuk; ?> mm" readonly>
+                <label for="ttl_kubik">Total Vinir (M<sup>3</sup>)</label>
+                <input type="text" name="ttl_kubik" id="ttl_kubik" class="form-control" value="<?= $detail->kubik_masuk; ?>" readonly>
             </div>
         </div>
     </div>
+</div>
+<div class="row justify-content-center">
+    <a href="<?= base_url('vinirmasuk'); ?>" class="btn btn-secondary btn-lg"><i class="fa fa-arrow-circle-left" ></i> Kembali</a>
 </div>

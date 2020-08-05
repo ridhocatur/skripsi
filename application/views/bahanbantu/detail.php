@@ -6,10 +6,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <h3>Tipe Lem : <b><?= $byId->tipe_glue; ?></b></h3>
     <h5>Shift : <b><?= $byId->shift; ?></b></h5>
     <h5>Tanggal : <b><?= date('d-F-Y' ,strtotime($byId->tgl)); ?></b></h5>
-    <a class="btn btn-info" href="<?= base_url(); ?>gluemix">Kembali</a>
 </div>
 <div class="card-body">
-    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+    <table class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Kode Bahan</th>
@@ -31,5 +30,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </tr>
     </table>
     <br>
+    <div class="row justify-content-center">
+        <a href="<?= base_url('gluemix'); ?>" class="btn btn-outline-secondary btn-lg"><i class="fa fa-arrow-circle-left" ></i> Kembali</a>
+    </div>
 </div>
 </div>

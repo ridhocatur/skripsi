@@ -3,14 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="card shadow mb-4">
 <div class="card-header py-3">
-    <h4>Invoice : <b><?= $byId->invoice; ?></b></h4>
     <h4>Supplier : <b><?= $byId->nm_sup; ?></b></h4>
     <h5>Tanggal : <b><?= date('d-F-Y' ,strtotime($byId->tgl)); ?></b></h5>
     <br>
-    <a class="btn btn-outline-info" href="<?= base_url(); ?>kayumasuk">Kembali</a>
 </div>
 <div class="card-body">
-    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+    <table class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr style="text-align: center;">
                 <th style="width: 20%">Kode Kayu</th>
@@ -38,5 +36,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </tr>
     </table>
     <br>
+    <div class="row justify-content-center">
+        <a href="<?= base_url('kayumasuk'); ?>" class="btn btn-outline-secondary btn-lg"><i class="fa fa-arrow-circle-left" ></i> Kembali</a>
+    </div>
 </div>
 </div>

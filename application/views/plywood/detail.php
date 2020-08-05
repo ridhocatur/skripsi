@@ -2,9 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="card shadow">
-<div class="card-header">
-    <a class="btn btn-outline-info" href="<?= base_url(); ?>/plywood">Kembali</a>
-</div>
 <div class="card-body">
     <h5>Detail Plywood</h5>
     <table class="table table-striped table-bordered" style="width:100%">
@@ -12,10 +9,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
                 <th>Tanggal</th>
                 <th>Shift</th>
-                <th>Tipe Glue</th>
+                <th>Tipe Lem</th>
                 <th>Lapisan</th>
                 <th>Ukuran</th>
-                <th>Total Produksi (lembar)</th>
+                <th>Total Produksi (pcs)</th>
                 <th>Total Kubikasi (M<sup>3</sup>)</th>
             </tr>
         </thead>
@@ -39,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Jenis Kayu</th>
                 <th>Jenis Vinir</th>
                 <th>Ukuran</th>
-                <th>Vinir Terpakai (lembar)</th>
+                <th>Vinir Terpakai (pcs)</th>
                 <th>Kubikasi (M<sup>3</sup>)</th>
             </tr>
         </thead>
@@ -47,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php $total1 = 0; $total2 =  0; foreach($detail as $data) : ?>
             <tr>
                 <td><?= $data->nama; ?></td>
-                <td><?= $data->jenis; ?></td>
+                <td><?= ucfirst($data->jenis); ?></td>
                 <td><?= $data->tblvin; ?> mm x <?= $data->pjgvin; ?> x <?= $data->lbrvin; ?></td>
                 <td align="center"><?= $data->stok_keluar; ?></td>
                 <td align="center"><?= $data->kubik_keluar; ?></td>
@@ -63,5 +60,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </tr>
     </table>
     <br>
+    <div class="row justify-content-center">
+        <a href="<?= base_url('plywood'); ?>" class="btn btn-outline-secondary btn-lg"><i class="fa fa-arrow-circle-left" ></i> Kembali</a>
+    </div>
 </div>
 </div>

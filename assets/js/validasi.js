@@ -119,9 +119,6 @@ $(function () {
             },
 
             // Kayu Log Masuk
-            invoice: {
-                required: true
-            },
             tgl: {
                 required: true
             },
@@ -242,9 +239,6 @@ $(function () {
             },
 
             // Kayu Log Masuk
-            invoice: {
-                required: "Kolom masih kosong. Harap Diisi"
-            },
             tgl: {
                 required: "Harap masukkan tanggal dengan benar"
             },

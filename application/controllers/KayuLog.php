@@ -83,6 +83,7 @@ class KayuLog extends CI_Controller {
 		$data['kayumasuk'] = $this->Kayumasuk_model->getJoinAll();
 		$data['supkayu'] = $this->Supplier_model->SupKayu();
 		$data['kayulog'] = $this->Kayulog_model->getAll();
+		$data['jeniskayu'] = $this->Jeniskayu_model->getAll();
 		$this->load->view('template',$data);
 	}
 

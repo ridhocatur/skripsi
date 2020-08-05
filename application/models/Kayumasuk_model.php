@@ -12,11 +12,6 @@ class Kayumasuk_model extends CI_Model {
     public function rules()
 	{
 		return [
-			[
-				'field' => 'invoice',
-                'label' => 'Invoice',
-                'rules' => 'required'
-            ],
             [
 				'field' => 'id_supplier',
                 'label' => 'Supplier',
@@ -118,7 +113,6 @@ class Kayumasuk_model extends CI_Model {
         $post = $this->input->post();
         $data = array(
             'tgl' => $post["tgl"],
-            'invoice' => $post["invoice"],
             'id_supplier' => $post["id_supplier"],
             'jml_stok' => $post["total_stok"],
             'jml_kubik' => $post["total_kubik"],
