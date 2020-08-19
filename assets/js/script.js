@@ -321,7 +321,9 @@ $(function () {
                 $('#id').val(data.id);
                 $('#id_jenis').val(data.id_jenis);
                 $('#tebal').val(data.tebal);
-                $('#id_ukuran').val(data.id_ukuran);
+                $('#ukurpot').val(data.potongan);
+                $('#pjg').val(data.panjang);
+                $('#lbr').val(data.lebar);
                 $('#stok').val(data.stok);
                 $('#kubikasi').val(data.kubikasi);
                 $('#keterangan').val(data.keterangan);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2020 at 06:25 PM
+-- Generation Time: Aug 16, 2020 at 07:46 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -33,7 +33,7 @@ CREATE TABLE `bahan_bantu` (
   `kd_bahan` varchar(20) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `stok` int(20) NOT NULL,
-  `id_kategori` varchar(64) NOT NULL,
+  `id_kategori` varchar(64) DEFAULT NULL,
   `keterangan` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -58,12 +58,12 @@ INSERT INTO `bahan_bantu` (`id`, `kd_bahan`, `nama`, `stok`, `id_kategori`, `ket
 CREATE TABLE `bahan_masuk` (
   `id` varchar(64) NOT NULL,
   `tgl` date NOT NULL,
-  `id_bahan` varchar(64) NOT NULL,
+  `id_bahan` varchar(64) DEFAULT NULL,
   `nama` varchar(100) NOT NULL,
   `stok_awal` int(20) NOT NULL,
   `stok_masuk` int(20) NOT NULL,
   `keterangan` varchar(100) DEFAULT NULL,
-  `id_supplier` varchar(64) NOT NULL
+  `id_supplier` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -394,6 +394,7 @@ INSERT INTO `jeniskayu` (`id`, `kd_jenis`, `nama`, `keterangan`) VALUES
 ('3', 'MRT', 'Meranti', ''),
 ('4', 'MSW', 'Mersawa', ''),
 ('5', 'KR', 'Kruing', ''),
+('5f38ffb7e073a', 'TEST', 'Testing', 'test'),
 ('6', 'BL', 'Balau', '');
 
 -- --------------------------------------------------------
@@ -416,9 +417,7 @@ INSERT INTO `kategori` (`id`, `nm_kateg`, `keterangan`) VALUES
 ('1', 'Lem Plywood', 'lem'),
 ('2', 'Tepung Industri', ''),
 ('4', 'Kayu Log', ''),
-('5', 'Hardener', 'hardener'),
-('6', 'Veneer Basah', ''),
-('7', 'Veneer Kering', '');
+('5', 'Hardener', 'hardener');
 
 -- --------------------------------------------------------
 
@@ -429,7 +428,7 @@ INSERT INTO `kategori` (`id`, `nm_kateg`, `keterangan`) VALUES
 CREATE TABLE `kayu` (
   `id` varchar(64) NOT NULL,
   `kd_kayu` varchar(20) NOT NULL,
-  `id_jenis` varchar(64) NOT NULL,
+  `id_jenis` varchar(64) DEFAULT NULL,
   `stok` int(20) NOT NULL DEFAULT 0,
   `kubikasi` float(8,2) NOT NULL DEFAULT 0.00,
   `keterangan` varchar(100) NOT NULL
@@ -455,7 +454,7 @@ INSERT INTO `kayu` (`id`, `kd_kayu`, `id_jenis`, `stok`, `kubikasi`, `keterangan
 
 CREATE TABLE `kayu_masuk` (
   `id` int(64) NOT NULL,
-  `id_supplier` varchar(64) NOT NULL,
+  `id_supplier` varchar(64) DEFAULT NULL,
   `tgl` date NOT NULL,
   `jml_stok` int(20) NOT NULL,
   `jml_kubik` float(8,2) NOT NULL,
@@ -537,10 +536,10 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id`, `nik`, `username`, `password`, `nama`, `telp`, `gambar`, `level`, `last_login`, `created_at`) VALUES
-('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho Arianto', '0822771', 'CaturRidhoArianto_24800.png', 'admin', '2020-08-05 15:55:57', '2020-05-18 12:30:53'),
-('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', 'AcilIrus_2352345.jpg', 'manager', '2020-08-02 09:51:40', '2020-05-18 12:30:53'),
+('5ebc01246be2a', '24800', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Catur Ridho Arianto', '0822771', 'CaturRidhoArianto_24800.jpg', 'admin', '2020-08-16 08:37:56', '2020-05-18 12:30:53'),
+('5ebc02de8ed27', '2352345', 'acilirus', 'ee2bea29b7318b32e644d190da953f15', 'Acil Irus', '12121', 'AcilIrus_2352345.JPG', 'manager', '2020-08-02 09:51:40', '2020-05-18 12:30:53'),
 ('5ebc0d91b1761', '2352345', 'cahbekasi', 'f684497877a4a910fcdd91a2f947b4ec', 'Rafio Dioda', '08227716331', 'RafioDioda_2352345.png', 'user', '2020-08-02 09:49:43', '2020-05-18 12:30:53'),
-('5ee4655ec2fc8', '800096', 'razzyman', 'd41d8cd98f00b204e9800998ecf8427e', 'Ust. Facrurazzy', '087896834', 'Facrurazzy_90018.jpg', 'admin', '2020-07-05 07:42:42', '2020-06-13 05:34:22');
+('5ee4655ec2fc8', '800096', 'razzyman', 'd41d8cd98f00b204e9800998ecf8427e', 'Facrurazzy', '087896834', 'Facrurazzy_800096.jpg', 'admin', '2020-07-05 07:42:42', '2020-06-13 05:34:22');
 
 -- --------------------------------------------------------
 
@@ -607,7 +606,6 @@ INSERT INTO `supplier` (`id`, `nm_sup`, `sup`, `alamat`, `email`, `telp`, `keter
 ('3', 'PT. Bogasari Flour Mills', 'bahan', 'jakarta', 'bogasari@gmail.com', '021554621', 'tepung'),
 ('4', 'PT. Kayu Ara Jaya Raya', 'kayu', 'kaltim', '', '', ''),
 ('5eba94e44279f', 'PT. Kahayan Terang Abadi', 'kayu', 'Barito Kuala', 'kahayan@gmail.com', '0892763312', ''),
-('5ebd45995c945', 'PT. Gelora Citra', 'Bahan bantu', 'jl. barito kuala', 'gckabanjarmasin@gmail.com', '0511676354', ''),
 ('5ebeb29b38c36', 'PT. Sumber Berkat Jaya', 'Kayu', 'Jl. Sudimara', '', '0887467324', ''),
 ('6', 'PT. Austral Byna', 'kayu', NULL, NULL, NULL, NULL),
 ('7', 'Japan Hydrazine Co. Inc', 'bahan', 'Jakarta', '', '', 'ADH');
@@ -641,8 +639,9 @@ INSERT INTO `ukuran` (`id`, `lebar`, `panjang`) VALUES
 
 CREATE TABLE `vinir` (
   `id` varchar(64) NOT NULL,
-  `id_jenis` varchar(64) NOT NULL,
+  `id_jenis` varchar(64) DEFAULT NULL,
   `tebal` float(8,1) NOT NULL,
+  `potongan` varchar(20) NOT NULL,
   `panjang` int(11) NOT NULL DEFAULT 0,
   `lebar` int(11) NOT NULL DEFAULT 0,
   `stok` int(20) NOT NULL DEFAULT 0,
@@ -654,55 +653,56 @@ CREATE TABLE `vinir` (
 -- Dumping data for table `vinir`
 --
 
-INSERT INTO `vinir` (`id`, `id_jenis`, `tebal`, `panjang`, `lebar`, `stok`, `kubikasi`, `keterangan`) VALUES
-('5ef844e61c406', '1', 1.0, 1900, 950, 298, 0.49, ''),
-('5ef8450144758', '1', 1.6, 1900, 950, 0, 0.00, ''),
-('5ef8450f9562f', '1', 2.5, 1900, 950, 0, 0.00, ''),
-('5ef8451a0bbfe', '1', 3.5, 1900, 950, 3806, 23.98, ''),
-('5ef84546affb1', '1', 1.0, 2600, 1300, 5013, 17.13, ''),
-('5ef84557043da', '1', 1.6, 2600, 1300, 0, 0.00, ''),
-('5ef845f1d92c5', '1', 2.5, 2600, 1300, 0, 0.00, ''),
-('5ef84601caf93', '1', 3.5, 2600, 1300, 0, 0.00, ''),
-('5ef8460cc7f24', '2', 1.0, 1900, 950, 0, 0.00, ''),
-('5ef8461c5880c', '2', 1.6, 1900, 950, 5506, 15.97, ''),
-('5ef84623e09ff', '2', 2.5, 1900, 950, 0, 0.00, ''),
-('5ef8462c6ef9a', '2', 3.5, 1900, 950, 3818, 24.05, ''),
-('5ef84636b363c', '2', 1.0, 2600, 1300, 0, 0.00, ''),
-('5ef8463fc6d8b', '2', 1.6, 2600, 1300, 2995, 16.17, ''),
-('5ef846464d055', '2', 2.5, 2600, 1300, 1944, 16.11, ''),
-('5ef8465d6db68', '2', 3.5, 2600, 1300, 0, 0.00, ''),
-('5ef846642a2fe', '3', 1.0, 1900, 950, 0, 0.00, ''),
-('5ef8467e59257', '3', 1.6, 1900, 950, 0, 0.00, ''),
-('5ef84685b9761', '3', 2.5, 1900, 950, 6143, 27.57, ''),
-('5ef8468d384ae', '3', 3.5, 1900, 950, 806, 5.03, ''),
-('5ef846a8982fd', '3', 1.0, 2600, 1300, 0, 0.00, ''),
-('5ef846af0c22e', '3', 1.6, 2600, 1300, 4618, 24.94, ''),
-('5ef846b6769fe', '3', 2.5, 2600, 1300, 2863, 24.05, ''),
-('5ef846c9afe6d', '3', 3.5, 2600, 1300, 0, 0.00, ''),
-('5ef846d0bfce6', '4', 1.0, 1900, 950, 16772, 30.16, ''),
-('5ef84757eb474', '4', 1.6, 1900, 950, 0, 0.00, ''),
-('5ef8476001dab', '4', 2.5, 1900, 950, 0, 0.00, ''),
-('5ef8476d27b12', '4', 3.5, 1900, 950, 3162, 19.92, ''),
-('5ef848009d90b', '4', 1.0, 2600, 1300, 2614, 8.98, ''),
-('5ef84808269b5', '4', 1.6, 2600, 1300, 4400, 23.76, ''),
-('5ef8480fae5d8', '4', 2.5, 2600, 1300, 0, 0.00, ''),
-('5ef84827c54e3', '4', 3.5, 2600, 1300, 0, 0.00, ''),
-('5ef8482fbea01', '5', 1.0, 1900, 950, 4400, 7.87, ''),
-('5ef848374c6c8', '5', 1.6, 1900, 950, 12364, 35.86, ''),
-('5ef8483f4f64d', '5', 2.5, 1900, 950, 0, 0.00, ''),
-('5ef848557d147', '5', 3.5, 1900, 950, 0, 0.00, ''),
-('5ef84890363b9', '5', 1.0, 2600, 1300, 0, 0.00, ''),
-('5ef8489742938', '5', 1.6, 2600, 1300, 0, 0.00, ''),
-('5ef848a1ad319', '5', 2.5, 2600, 1300, 3806, 31.97, ''),
-('5ef848a9c764e', '5', 3.5, 2600, 1300, 0, 0.00, ''),
-('5ef848b77e9ba', '6', 1.0, 1900, 950, 0, 0.00, ''),
-('5ef848c0c975e', '6', 1.6, 1900, 950, 8258, 23.95, ''),
-('5ef848c81d9cc', '6', 2.5, 1900, 950, 0, 0.00, ''),
-('5ef848e478a3c', '6', 3.5, 1900, 950, 0, 0.00, ''),
-('5ef848eba6f4d', '6', 1.0, 2600, 1300, 0, 0.00, ''),
-('5ef848f256a4b', '6', 1.6, 2600, 1300, 4493, 24.26, ''),
-('5ef848f9207dd', '6', 2.5, 2600, 1300, 0, 0.00, ''),
-('5ef848ff6eedd', '6', 3.5, 2600, 1300, 0, 0.00, '');
+INSERT INTO `vinir` (`id`, `id_jenis`, `tebal`, `potongan`, `panjang`, `lebar`, `stok`, `kubikasi`, `keterangan`) VALUES
+('5ef844e61c406', '1', 1.0, 'pendek', 1900, 950, 298, 0.49, ''),
+('5ef8450144758', '1', 1.6, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef8450f9562f', '1', 2.5, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef8451a0bbfe', '1', 3.5, 'pendek', 1900, 950, 3806, 23.98, ''),
+('5ef84546affb1', '1', 1.0, 'panjang', 2600, 1300, 5013, 17.13, ''),
+('5ef84557043da', '1', 1.6, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef845f1d92c5', '1', 2.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef84601caf93', '1', 3.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef8460cc7f24', '2', 1.0, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef8461c5880c', '2', 1.6, 'pendek', 1900, 950, 5506, 15.97, ''),
+('5ef84623e09ff', '2', 2.5, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef8462c6ef9a', '2', 3.5, 'pendek', 1900, 950, 3818, 24.05, ''),
+('5ef84636b363c', '2', 1.0, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef8463fc6d8b', '2', 1.6, 'panjang', 2600, 1300, 2995, 16.17, ''),
+('5ef846464d055', '2', 2.5, 'panjang', 2600, 1300, 1944, 16.11, ''),
+('5ef8465d6db68', '2', 3.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef846642a2fe', '3', 1.0, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef8467e59257', '3', 1.6, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef84685b9761', '3', 2.5, 'pendek', 1900, 950, 6143, 27.57, ''),
+('5ef8468d384ae', '3', 3.5, 'pendek', 1900, 950, 806, 5.03, ''),
+('5ef846a8982fd', '3', 1.0, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef846af0c22e', '3', 1.6, 'panjang', 2600, 1300, 4618, 24.94, ''),
+('5ef846b6769fe', '3', 2.5, 'panjang', 2600, 1300, 2863, 24.05, ''),
+('5ef846c9afe6d', '3', 3.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef846d0bfce6', '4', 1.0, 'pendek', 1900, 950, 16772, 30.16, ''),
+('5ef84757eb474', '4', 1.6, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef8476001dab', '4', 2.5, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef8476d27b12', '4', 3.5, 'pendek', 1900, 950, 3162, 19.92, ''),
+('5ef848009d90b', '4', 1.0, 'panjang', 2600, 1300, 2614, 8.98, ''),
+('5ef84808269b5', '4', 1.6, 'panjang', 2600, 1300, 4400, 23.76, ''),
+('5ef8480fae5d8', '4', 2.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef84827c54e3', '4', 3.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef8482fbea01', '5', 1.0, 'pendek', 1900, 950, 4400, 7.87, ''),
+('5ef848374c6c8', '5', 1.6, 'pendek', 1900, 950, 12364, 35.86, ''),
+('5ef8483f4f64d', '5', 2.5, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef848557d147', '5', 3.5, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef84890363b9', '5', 1.0, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef8489742938', '5', 1.6, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef848a1ad319', '5', 2.5, 'panjang', 2600, 1300, 3806, 31.97, ''),
+('5ef848a9c764e', '5', 3.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef848b77e9ba', '6', 1.0, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef848c0c975e', '6', 1.6, 'pendek', 1900, 950, 8258, 23.95, ''),
+('5ef848c81d9cc', '6', 2.5, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef848e478a3c', '6', 3.5, 'pendek', 1900, 950, 0, 0.00, ''),
+('5ef848eba6f4d', '6', 1.0, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef848f256a4b', '6', 1.6, 'panjang', 2600, 1300, 4493, 24.26, ''),
+('5ef848f9207dd', '6', 2.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5ef848ff6eedd', '6', 3.5, 'panjang', 2600, 1300, 0, 0.00, ''),
+('5f39001b938d5', '5f38ffb7e073a', 22.0, 'panjang', 2600, 1300, 0, 0.00, '');
 
 -- --------------------------------------------------------
 
@@ -768,6 +768,13 @@ DELIMITER $$
 CREATE TRIGGER `kayulog_vinirmasuk_insert` BEFORE INSERT ON `vinir_masuk` FOR EACH ROW BEGIN
 	UPDATE kayu SET stok=stok-NEW.jml_log, kubikasi=kubikasi-NEW.kubik_masuk
     WHERE id = NEW.id_kayu;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `vinirmasuk_delete` BEFORE DELETE ON `vinir_masuk` FOR EACH ROW BEGIN
+	UPDATE vinir SET stok=stok-OLD.stok_masuk, kubikasi=kubikasi-OLD.kubik_masuk
+    WHERE id = OLD.id_vinir;
 END
 $$
 DELIMITER ;
@@ -941,7 +948,7 @@ ALTER TABLE `dtl_gluemix`
 -- AUTO_INCREMENT for table `dtl_kayu_masuk`
 --
 ALTER TABLE `dtl_kayu_masuk`
-  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `dtl_plywood`
@@ -959,7 +966,7 @@ ALTER TABLE `gluemix`
 -- AUTO_INCREMENT for table `kayu_masuk`
 --
 ALTER TABLE `kayu_masuk`
-  MODIFY `id` int(64) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(64) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `plywood`
@@ -971,7 +978,7 @@ ALTER TABLE `plywood`
 -- AUTO_INCREMENT for table `ukuran`
 --
 ALTER TABLE `ukuran`
-  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(64) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -981,14 +988,14 @@ ALTER TABLE `ukuran`
 -- Constraints for table `bahan_bantu`
 --
 ALTER TABLE `bahan_bantu`
-  ADD CONSTRAINT `bahan_bantu_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `bahan_bantu_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bahan_masuk`
 --
 ALTER TABLE `bahan_masuk`
-  ADD CONSTRAINT `bahan_masuk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `bahan_masuk_ibfk_2` FOREIGN KEY (`id_bahan`) REFERENCES `bahan_bantu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `bahan_masuk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `bahan_masuk_ibfk_2` FOREIGN KEY (`id_bahan`) REFERENCES `bahan_bantu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dtl_gluemix`
@@ -1000,46 +1007,46 @@ ALTER TABLE `dtl_gluemix`
 -- Constraints for table `dtl_kayu_masuk`
 --
 ALTER TABLE `dtl_kayu_masuk`
-  ADD CONSTRAINT `dtl_kayu_masuk_ibfk_1` FOREIGN KEY (`id_kayu`) REFERENCES `kayu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `dtl_kayu_masuk_ibfk_2` FOREIGN KEY (`id_masuk`) REFERENCES `kayu_masuk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `dtl_kayu_masuk_ibfk_1` FOREIGN KEY (`id_kayu`) REFERENCES `kayu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dtl_kayu_masuk_ibfk_2` FOREIGN KEY (`id_masuk`) REFERENCES `kayu_masuk` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dtl_plywood`
 --
 ALTER TABLE `dtl_plywood`
-  ADD CONSTRAINT `dtl_plywood_ibfk_1` FOREIGN KEY (`id_plywood`) REFERENCES `plywood` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `dtl_plywood_ibfk_2` FOREIGN KEY (`id_vinir`) REFERENCES `vinir` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `dtl_plywood_ibfk_1` FOREIGN KEY (`id_plywood`) REFERENCES `plywood` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dtl_plywood_ibfk_2` FOREIGN KEY (`id_vinir`) REFERENCES `vinir` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kayu`
 --
 ALTER TABLE `kayu`
-  ADD CONSTRAINT `kayu_ibfk_1` FOREIGN KEY (`id_jenis`) REFERENCES `jeniskayu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `kayu_ibfk_1` FOREIGN KEY (`id_jenis`) REFERENCES `jeniskayu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kayu_masuk`
 --
 ALTER TABLE `kayu_masuk`
-  ADD CONSTRAINT `kayu_masuk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `kayu_masuk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `plywood`
 --
 ALTER TABLE `plywood`
-  ADD CONSTRAINT `plywood_ibfk_1` FOREIGN KEY (`id_ukuran`) REFERENCES `ukuran` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `plywood_ibfk_1` FOREIGN KEY (`id_ukuran`) REFERENCES `ukuran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `vinir`
 --
 ALTER TABLE `vinir`
-  ADD CONSTRAINT `vinir_ibfk_1` FOREIGN KEY (`id_jenis`) REFERENCES `jeniskayu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `vinir_ibfk_1` FOREIGN KEY (`id_jenis`) REFERENCES `jeniskayu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `vinir_masuk`
 --
 ALTER TABLE `vinir_masuk`
-  ADD CONSTRAINT `vinir_masuk_ibfk_1` FOREIGN KEY (`id_vinir`) REFERENCES `vinir` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `vinir_masuk_ibfk_2` FOREIGN KEY (`id_kayu`) REFERENCES `kayu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `vinir_masuk_ibfk_1` FOREIGN KEY (`id_vinir`) REFERENCES `vinir` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vinir_masuk_ibfk_2` FOREIGN KEY (`id_kayu`) REFERENCES `kayu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -198,5 +198,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //------------------ tombol Reset
     $('.tombolReset').on('click', function() {
         $('#kayumaster')[0].reset();
+        $("#kayumaster").validate().resetForm();
     });
 </script>

@@ -236,5 +236,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //------------------ tombol Reset
     $('.tombolReset').on('click', function() {
         $('#bahanMasuk')[0].reset();
+        $("#bahanMasuk").validate().resetForm();
     });
 </script>

@@ -93,16 +93,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
             <div class="form-group row">
-                <label for="email" class="col-sm-3 col-form-label text-md-right">E-mail</label>
+                <label for="telp" class="col-sm-3 col-form-label text-md-right">Telepon</label>
                 <div class="col-md-8">
-                    <input id="email" type="email" class="form-control" name="email" autocomplete="email">
+                    <input id="telp" type="text" class="form-control" name="telp" autocomplete="telp">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="telp" class="col-sm-3 col-form-label text-md-right">Telepon</label>
+                <label for="email" class="col-sm-3 col-form-label text-md-right">E-mail</label>
                 <div class="col-md-8">
-                    <input id="telp" type="text" class="form-control" name="telp" autocomplete="telp">
+                    <input id="email" type="email" class="form-control" name="email" autocomplete="email">
                 </div>
             </div>
 

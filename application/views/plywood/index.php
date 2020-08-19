@@ -207,7 +207,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </td>
                         <td>
-                            <input id="jml_kubikvinir" type="text" class="form-control jml_kubikvinir" name="jml_kubikvinir[]" required readonly>
+                            <input id="jml_kubikvinir" type="text" class="form-control jml_kubikvinir" name="jml_kubikvinir[]" readonly>
                         </td>
                         <td>
                             <div class="input-group-btn">
@@ -392,7 +392,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                     html += '<input type="hidden" id="tblply" class="tbl_ply" name="tblply[]" value=""></td>';
                     html += '<td><select class="form-control" name="jenis[]" id="jenis"><option selected disabled>-- Pilih Data --</option><option value="face back">Face Back</option><option value="core">Core</option><option value="long grain">Long Grain</option></select></td>';
-                    html += '<td><input id="jml_kubikvinir" type="text" class="form-control jml_kubikvinir" name="jml_kubikvinir[]" required readonly></td>';
+                    html += '<td><input id="jml_kubikvinir" type="text" class="form-control jml_kubikvinir" name="jml_kubikvinir[]" readonly></td>';
                     html += '<td><button type="button" class="btn btn-danger" onclick="del_form(this)">-</button></td>';
                     html += '</select>';
                     html += '</tr>';

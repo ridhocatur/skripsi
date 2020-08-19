@@ -131,17 +131,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <table class="table table-borderless">
                 <thead>
                     <tr style="text-align:center">
-                        <th style="width: 1%"></th>
                         <th style="width: 22%">Kode Kayu</th>
-                        <th style="width: 32%" colspan="3">Ukuran Kayu (Cm) <br> <small>P=Panjang, D=Diameter</small></th>
-                        <th style="width: 22%">Stok Masuk</th>
-                        <th style="width: 22%">Kubikasi (M<sup>3</sup>)</th>
+                        <th style="width: 37%" colspan="3">Ukuran Kayu (Cm) <br> <small>P=Panjang, D=Diameter</small></th>
+                        <th style="width: 20%">Stok Masuk</th>
+                        <th style="width: 20%">Kubikasi (M<sup>3</sup>)</th>
                         <th style="width: 1%"></th>
                     </tr>
                 </thead>
                 <tbody id="form-body" class="formData">
                     <tr style="text-align:center">
-                        <td></td>
                         <td>
                             <select class="form-control" name="id_kayu[]" id="id_kayu">
                                 <option disabled selected>Pilih Data</option>
@@ -151,16 +149,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </td>
                         <td>
-                            <input id="panjang" type="text" class="form-control panjang_kayu" placeholder="P" name="panjang[]" required>
+                            <input id="panjang" type="number" class="form-control panjang_kayu" placeholder="P" name="panjang[]" required>
                         </td>
                         <td>
-                            <input id="diameter1" type="text" class="form-control diameter_kayu1" placeholder="D1" name="diameter1[]" required>
+                            <input id="diameter1" type="number" class="form-control diameter_kayu1" placeholder="D1" name="diameter1[]" required>
                         </td>
                         <td>
-                            <input id="diameter2" type="text" class="form-control diameter_kayu2" placeholder="D2" name="diameter2[]" required>
+                            <input id="diameter2" type="number" class="form-control diameter_kayu2" placeholder="D2" name="diameter2[]" required>
                         </td>
                         <td>
-                            <input id="jmlstokkayu" type="text" class="form-control jml_stok_kayu" name="jmlstokkayu[]" required>
+                            <input id="jmlstokkayu" type="number" class="form-control jml_stok_kayu" name="jmlstokkayu[]" required>
                         </td>
                         <td>
                             <input id="jmlkubikkayu" type="text" class="form-control jml_kubik_kayu" name="jmlkubikkayu[]" required readonly>
@@ -300,10 +298,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         html += '<tr style="text-align:center">';
         html += '<td></td>';
         html += '<td><select class="form-control" name="id_kayu[]" id="id_kayu"><option disabled selected>Pilih Data</option><?php foreach($kayulog as $data): ?><option value="<?= $data->id; ?>"><?= $data->kd_kayu; ?></option><?php endforeach;?></select></td>';
-        html += '<td><input id="panjang" type="text" class="form-control panjang_kayu" placeholder="P" name="panjang[]" required></td>';
-        html += '<td><input id="diameter1" type="text" class="form-control diameter_kayu1" placeholder="D1" name="diameter1[]" required></td>';
-        html += '<td><input id="diameter2" type="text" class="form-control diameter_kayu2" placeholder="D2" name="diameter2[]" required></td>';
-        html += '<td><input id="jmlstokkayu" type="text" class="form-control jml_stok_kayu" name="jmlstokkayu[]" required></td>';
+        html += '<td><input id="panjang" type="number" class="form-control panjang_kayu" placeholder="P" name="panjang[]" required></td>';
+        html += '<td><input id="diameter1" type="number" class="form-control diameter_kayu1" placeholder="D1" name="diameter1[]" required></td>';
+        html += '<td><input id="diameter2" type="number" class="form-control diameter_kayu2" placeholder="D2" name="diameter2[]" required></td>';
+        html += '<td><input id="jmlstokkayu" type="number" class="form-control jml_stok_kayu" name="jmlstokkayu[]" required></td>';
         html += '<td><input id="jmlkubikkayu" type="text" class="form-control jml_kubik_kayu" name="jmlkubikkayu[]" required readonly></td>';
         html += '<td><button type="button" class="btn btn-outline-danger hapus" onclick="del_form(this)">-</button></td>';
         html += '</tr>';
@@ -326,5 +324,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //------------------ tombol Reset
     $('.tombolReset').on('click', function() {
         $('#kayumasuk')[0].reset();
+        $("#kayumasuk").validate().resetForm();
     });
 </script>

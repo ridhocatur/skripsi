@@ -305,5 +305,6 @@ function kalkulasi() {
         //------------------ tombol Reset
     $('.tombolReset').on('click', function() {
         $('#Gluemix')[0].reset();
+        $("#Gluemix").validate().resetForm();
     });
 </script>

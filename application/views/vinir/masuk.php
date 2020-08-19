@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php } else { ?>
         <div class="card-header py-3">
             <button type="button" class="btn btn-outline-primary tambahVinirMasuk" data-toggle="modal" data-target="#tampilModal"><i class="fa fa-plus"></i> Tambah Data</button>
-            <button type="button" href="<?= base_url(); ?>vinirmasuk/ubahBaku/1" data-id="1" class="btn btn-outline-success editNilaiTetap" data-toggle="modal" data-target="#tampilBaku"><i class="fa fa-edit"></i> Edit Nilai Baku</button>
+            <button type="button" href="<?= base_url(); ?>vinirmasuk/ubahBaku/1" data-id="1" class="btn btn-outline-success editNilaiTetap" data-toggle="modal" data-target="#tampilBaku"><i class="fa fa-edit"></i> Edit Nilai Tetap</button>
             <button id="cetakdata" class="btn btn-outline-info pull-right" data-toggle="modal" data-target="#cetakData"><i class="fa fa-print"></i> Cetak Data</button>
         </div>
         <div class="card-body">
@@ -221,7 +221,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalLabel">Edit Nilai Baku</h5>
+        <h5 class="modal-title" id="ModalLabel">Edit Nilai Tetap</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -411,5 +411,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //------------------ tombol Reset
     $('.tombolReset').on('click', function() {
         $('#vinirMasuk')[0].reset();
+        $("#vinirMasuk").validate().resetForm();
     });
 </script>

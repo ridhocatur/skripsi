@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             Keterangan : <br>
                             PR = Jml. Vinir (pcs)<br>
                             VR = Volume Reeling (M<sup>3</sup>)<br>
-                            V = Volume Vinir per Lembar (M<sup>3</sup>)
+                            V = Volume Vinir per Lembar (M<sup>3</sup>)<br>
                             p = Panjang Vinir (mm) <br>
                             l = Lebar Vinir (mm) <br>
                             t = Tebal Vinir (mm) <br>

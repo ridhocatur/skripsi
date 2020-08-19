@@ -239,5 +239,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //------------------ tombol Reset
     $('.tombolReset').on('click', function() {
         $('#vinirmaster')[0].reset();
+        $("#vinirmaster").validate().resetForm();
     });
 </script>

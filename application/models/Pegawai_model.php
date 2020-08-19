@@ -72,7 +72,7 @@ class Pegawai_model extends CI_Model {
         $post = $this->input->post();
             if (!empty($_FILES["gambar"]["name"])) {
                 $data = array(
-                    'gambar' => $this->uploadImage('gambar'),
+                    'gambar' => $this->updateImage('gambar'),
                     'nik' => $post["nikUbah"],
                     'username' => $post["usernameUbah"],
                     'nama' => $post["namaUbah"],
@@ -81,7 +81,6 @@ class Pegawai_model extends CI_Model {
                 );
             } else {
                 $data = array(
-                    'gambar' => $post["old_imageUbah"],
                     'nik' => $post["nikUbah"],
                     'username' => $post["usernameUbah"],
                     'nama' => $post["namaUbah"],
@@ -90,7 +89,6 @@ class Pegawai_model extends CI_Model {
                 );
             }
         return $this->db->update($this->pegawai, $data, array('id' => $id));
-
     }
 
     public function updatePass($id)
@@ -146,6 +144,23 @@ class Pegawai_model extends CI_Model {
         $config['upload_path'] = './upload/pegawai/';
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
         $config['file_name'] = str_replace(' ','',$this->input->post('nama')).'_'.$this->input->post('nik');
+        $config['overwrite'] = true;
+        $config['max_size'] = 2048;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('gambar')) {
+            return $this->upload->data("file_name");
+        }
+        return "default.jpg";
+        // print_r($this->upload->display_errors());
+    }
+
+    private function updateImage()
+    {
+        $config['upload_path'] = './upload/pegawai/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['file_name'] = str_replace(' ','',$this->input->post('namaUbah')).'_'.$this->input->post('nikUbah');
         $config['overwrite'] = true;
         $config['max_size'] = 2048;
 

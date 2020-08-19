@@ -46,6 +46,327 @@ $(function () {
             },
         },
     });
+
+    // Bahan Bantu Master
+    $("#bahanMaster").validate({
+        rules: {
+            kd_bahan: {
+                required: true,
+            },
+            nama: {
+                required: true,
+                minlength: 3
+            },
+            stok: {
+                required: true,
+                number: true
+            },
+            id_kategori: {
+                required: true,
+            },
+        },
+        messages: {
+            nama: {
+                required: "Kolom masih kosong. Harap Diisi",
+                minlength: "Mohon masukkan lebih dari {0}"
+            },
+            stok: {
+                required: "Kolom masih kosong. Harap Diisi",
+                number: "Harap Masukkan Hanya Angka"
+            },
+            kd_bahan: {
+                required: "Kolom masih kosong. Harap Diisi"
+            },
+            id_kategori: {
+                required: "Kolom masih kosong. Harap Diisi"
+            },
+        },
+    });
+
+    // Bahan Bantu Masuk
+    $("#bahanMasuk").validate({
+        rules: {
+            tgl: {
+                required: true,
+            },
+            id_bahan: {
+                required: true,
+            },
+            stok_masuk: {
+                required: true,
+                number: true
+            },
+            id_supplier: {
+                required: true,
+            },
+        },
+        messages: {
+            tgl: {
+                required: "Tanggal masih kosong. Harap Diisi"
+            },
+            id_bahan: {
+                required: "Harap dipilih terlebih dahulu"
+            },
+            stok_masuk: {
+                required: "Kolom masih kosong. Harap Diisi",
+                number: "Hanya diisi dengan angka"
+            },
+            id_supplier: {
+                required: "Harap dipilih terlebih dahulu"
+            },
+        },
+    });
+
+    // Gluemix
+    $("#Gluemix").validate({
+        rules: {
+            tgl: {
+                required: true,
+            },
+            tipe_glue: {
+                required: true,
+            },
+            shift: {
+                required: true,
+            },
+        },
+        messages: {
+            tgl: {
+                required: "Tanggal masih kosong. Harap Diisi"
+            },
+            tipe_glue: {
+                required: "Kolom masih kosong. Harap Diisi"
+            },
+            shift: {
+                required: "Harap dipilih"
+            },
+        },
+    });
+
+    // Kayu Log Master
+    $("#kayumaster").validate({
+        rules: {
+            kd_kayu: {
+                required: true,
+            },
+            kd_jenis: {
+                required: true,
+            },
+            stok: {
+                required: true,
+                number: true
+            },
+            kubikasi: {
+                required: true,
+                number: true
+            },
+        },
+        messages: {
+            kd_kayu: {
+                required: "Kolom masih kosong. Harap Diisi"
+            },
+            kd_jenis: {
+                required: "Harap dipilih terlebih dahulu"
+            },
+            stok: {
+                required: "Kolom masih kosong. Harap Diisi",
+                number: "Hanya angka saja"
+            },
+            kubikasi: {
+                required: "Kolom masih kosong. Harap Diisi",
+                number: "Hanya angka saja"
+            },
+        },
+    });
+
+    // Kayu Log Masuk
+    $("#kayumasuk").validate({
+        rules: {
+            tgl: {
+                required: true,
+            },
+            id_supplier: {
+                required: true,
+            },
+            panjang: {
+                required: true,
+                number: true
+            },
+            diameter1: {
+                required: true,
+                number: true
+            },
+            diameter2: {
+                required: true,
+                number: true
+            },
+            jmlstokkayu: {
+                required: true,
+                number: true
+            },
+        },
+        messages: {
+            tgl: {
+                required: "Tanggal masih kosong. Harap Diisi"
+            },
+            id_supplier: {
+                required: "Harap dipilih terlebih dahulu"
+            },
+            panjang: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+            diameter1: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+            diameter2: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+            jmlstokkayu: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+        },
+    });
+
+    // Vinir Master
+    $("#vinirmaster").validate({
+        rules: {
+            id_jenis: {
+                required: true,
+            },
+            tebal: {
+                required: true,
+                number: true
+            },
+            ukurpot: {
+                required: true,
+            },
+            stok: {
+                required: true,
+                number: true
+            },
+            kubikasi: {
+                required: true,
+                number: true
+            },
+        },
+        messages: {
+            id_jenis: {
+                required: "Harap dipilih terlebih dahulu"
+            },
+            tebal: {
+                required: "Harap diisi terlebih dahulu",
+                number: "Hanya angka"
+            },
+            ukurpot: {
+                required: "Harap dipilih",
+            },
+            stok: {
+                required: "Harap diisi terlebih dahulu",
+                number: "Hanya angka"
+            },
+            kubikasi: {
+                required: "Harap diisi terlebih dahulu",
+                number: "Hanya angka"
+            },
+        },
+    });
+
+    // Vinir Masuk
+    $("#vinirMasuk").validate({
+        rules: {
+            jeniskayu: {
+                required: true,
+            },
+            jmlkubik: {
+                required: true,
+                number: true
+            },
+            tgl: {
+                required: true,
+            },
+            ukurpot: {
+                required: true,
+            },
+            jari: {
+                required: true,
+                number: true
+            },
+        },
+        messages: {
+            jeniskayu: {
+                required: "Harap dipilih"
+            },
+            jmlkubik: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+            tgl: {
+                required: "Tanggal masih kosong"
+            },
+            ukurpot: {
+                required: "Harap dipilih"
+            },
+            jari: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+        },
+    });
+
+    // Plywood
+    $("#Plywood").validate({
+        rules: {
+            tipe_glue: {
+                required: true,
+            },
+            id_ukuran: {
+                required: true,
+            },
+            tgl: {
+                required: true,
+            },
+            lapisanply: {
+                required: true,
+            },
+            shift: {
+                required: true,
+            },
+            vinir_keluar: {
+                required: true,
+                number: true
+            },
+        },
+        messages: {
+            tipe_glue: {
+                required: "Harap dipilih"
+            },
+            id_ukuran: {
+                required: "Harap dipilih"
+            },
+            tgl: {
+                required: "Tanggal masih kosong"
+            },
+            lapisanply: {
+                required: "Harap dipilih"
+            },
+            shift: {
+                required: "Harap dipilih"
+            },
+            jari: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+            vinir_keluar: {
+                required: "Harap diisi",
+                number: "Hanya angka"
+            },
+        },
+    });
+
     $("#formModal").validate({
         rules: {
             // Field yang sama di semua form
@@ -94,51 +415,6 @@ $(function () {
                 required: true,
                 minlength: 3
             },
-
-            // Bahan Bantu
-            kd_bahan: {
-                required: true,
-            },
-
-            // Bahan Masuk
-            id_bahan: {
-                required: true
-            },
-            stok_masuk: {
-                required: true,
-                number: true
-            },
-
-            // Master Kayu Log
-            kd_kayu: {
-                required: true,
-            },
-            kubikasi: {
-                required: true,
-                number: true
-            },
-
-            // Kayu Log Masuk
-            tgl: {
-                required: true
-            },
-            jmlstokkayu: {
-                number: true,
-                required: true
-            },
-            panjang: {
-                number: true,
-                required: true
-            },
-            diameter1: {
-                number: true,
-                required: true
-            },
-            diameter2: {
-                number: true,
-                required: true
-            },
-
 
             // Pegawai
             nik: {
@@ -219,46 +495,6 @@ $(function () {
                 email: "Harap masukkan email dengan benar"
             },
 
-            // Bahan Bantu
-            kd_bahan: {
-                required: "Kolom masih kosong. Harap Diisi"
-            },
-
-            // Bahan Masuk
-            id_bahan: {
-                required: "Kolom masih kosong. Harap Diisi"
-            },
-            stok_masuk: {
-                required: "Kolom masih kosong. Harap Diisi",
-                number: "Harap Masukkan Hanya Angka"
-            },
-
-            // Kayu Log
-            kd_kayu: {
-                required: "Kolom masih kosong. Harap Diisi"
-            },
-
-            // Kayu Log Masuk
-            tgl: {
-                required: "Harap masukkan tanggal dengan benar"
-            },
-            jmlstokkayu: {
-                number: "Hanya Angka",
-                required: "Harap Diisi"
-            },
-            panjang: {
-                number: "Hanya Angka",
-                required: "Harap Diisi"
-            },
-            diameter1: {
-                number: "Hanya Angka",
-                required: "Harap Diisi"
-            },
-            diameter2: {
-                number: "Hanya Angka",
-                required: "Harap Diisi"
-            },
-
             // Pegawai
             nik: {
                 required: "Kolom masih kosong. Harap Diisi"
@@ -274,12 +510,6 @@ $(function () {
                 required: "Kolom masih kosong. Harap Diisi",
                 minlength: "Mohon masukkan lebih dari {0}",
                 equalTo: "Password tidak sama!"
-            },
-
-            // Master Vinir
-            tebal: {
-                required: "Kolom masih kosong. Harap Diisi",
-                number: "Harap Masukkan Hanya Angka"
             },
         },
         errorElement: 'div',

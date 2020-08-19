@@ -105,28 +105,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="form-group row">
                 <label for="kd_bahan" class="col-sm-3 col-form-label text-md-right">Kode Bahan</label>
                 <div class="col-md-8">
-                    <input id="kd_bahan" type="text" class="form-control" name="kd_bahan" autocomplete="kd_bahan" autofocus>
+                    <input id="kd_bahan" type="text" class="form-control" name="kd_bahan" autocomplete="kd_bahan" autofocus require>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="nama" class="col-sm-3 col-form-label text-md-right">Nama Bahan</label>
                 <div class="col-md-8">
-                    <input id="nama" type="text" class="form-control" name="nama" autocomplete="nama">
+                    <input id="nama" type="text" class="form-control" name="nama" autocomplete="nama" require>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="stok" class="col-sm-3 col-form-label text-md-right">Stok</label>
                 <div class="col-md-8">
-                    <input id="stok" type="text" class="form-control" name="stok" autocomplete="stok">
+                    <input id="stok" type="text" class="form-control" name="stok" autocomplete="stok" require>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="id_kategori" class="col-sm-3 col-form-label text-md-right">Kategori</label>
                 <div class="col-md-8">
-                <select class="form-control" name="id_kategori" id="id_kategori">
+                <select class="form-control" name="id_kategori" id="id_kategori" require>
                   <option value="" disabled selected>-- Pilih Data --</option>
                   <?php foreach($kategori as $data): ?>
                     <option value="<?= $data->id; ?>"><?= $data->nm_kateg; ?></option>
@@ -197,9 +197,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#cetakBahan').submit();
     });
 
-
     // ------------------ tombol Reset
     $('.tombolReset').on('click', function() {
         $('#bahanMaster')[0].reset();
+        $("#bahanMaster").validate().resetForm();
     });
 </script>

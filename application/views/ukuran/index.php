@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?= $data->lebar ?></td>
                 <td>
                     <a href="<?= base_url(); ?>ukuran/ubah/<?= $data->id; ?>" class="btn btn-info btn-circle btn-sm UbahUkuran" data-toggle="modal" data-target="#tampilModal" data-id="<?= $data->id; ?>" ><i class="fa fa-edit"></i></a>
-                    <button id="delete" class="btn btn-danger btn-circle btn-sm" href="<?= base_url(); ?>ukuran/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
+                    <button id="delete" class="btn btn-danger btn-circle btn-sm" data-title="<?= $data->panjang ?> x <?= $data->lebar ?>" href="<?= base_url(); ?>ukuran/hapus/<?= $data->id; ?>"><i class="fa fa-trash"></i></button>
                 </td>
                 <form action="" method="POST" id="deleteForm">
                     <input type="submit" value="" style="display:none">
