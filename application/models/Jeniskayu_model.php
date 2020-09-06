@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Jeniskayu_model extends CI_Model {
 
     private $jeniskayu = 'jeniskayu';
+    private $vinir = 'vinir';
+    private $kayu = 'kayu';
 
     public $id;
     public $kd_jenis;
@@ -68,6 +70,15 @@ class Jeniskayu_model extends CI_Model {
 
     public function delete($id)
     {
-        return $this->db->delete($this->jeniskayu, array("id" => $id));
+        $vinir = $this->db->select('id_jenis')->from($this->vinir)->where('id_jenis', $id)->count_all_results();
+        $kayu = $this->db->select('id_jenis')->from($this->kayu)->where('id_jenis', $id)->count_all_results();
+        if ($vinir > 0 && $kayu > 0) {
+            $this->session->set_flashdata('danger', 'Data Masih Digunakan');
+            redirect(site_url('jeniskayu'));
+        } else {
+            $this->db->delete($this->jeniskayu, array("id" => $id));
+			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
+            redirect(site_url('jeniskayu'));
+        }
     }
 }

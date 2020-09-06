@@ -64,11 +64,7 @@ class Supplier extends CI_Controller {
 	public function hapus($id = null)
 	{
 		if(!isset($id)) show_404();
-
-		if ($this->Supplier_model->delete($id)){
-			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
-			redirect(site_url('supplier'));
-		}
+		$this->Supplier_model->delete($id);
 	}
 
 	public function cariSup()

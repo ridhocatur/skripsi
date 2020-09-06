@@ -137,20 +137,6 @@ class Kayumasuk_model extends CI_Model {
             $this->db->insert_batch($this->dtl_kayu_masuk, $data2);
     }
 
-    public function update()
-    {
-        $post = $this->input->post();
-        $data = array(
-            'id' => $post["id"],
-            'kd_kayu' => $post["kd_kayu"],
-            'id_jenis' => $post["kd_jenis"],
-            'stok' => $post["stok"],
-            'kubikasi' => $post["kubikasi"],
-            'keterangan' => $post["keterangan"]
-        );
-        return $this->db->update($this->kayulog, $data, array('id' => $post['id']));
-    }
-
     public function delete($id)
     {
         return $this->db->delete($this->kayu_masuk, array("id" => $id));

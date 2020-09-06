@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Kategori_model extends CI_Model {
 
     private $kategori = 'kategori';
+    private $bahanbantu = 'bahan_bantu';
 
     public $id;
     public $nm_kateg;
@@ -60,6 +61,16 @@ class Kategori_model extends CI_Model {
 
     public function delete($id)
     {
-        return $this->db->delete($this->kategori, array("id" => $id));
+        $this->db->select('id_kategori')->from($this->bahanbantu)->where('id_kategori', $id);
+        $nilai = $this->db->count_all_results();
+        if ($nilai > 0) {
+            $this->session->set_flashdata('danger', 'Data Masih Digunakan');
+            redirect(site_url('kategori'));
+        } else {
+            $this->db->delete($this->kategori, array("id" => $id));
+			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
+            redirect(site_url('kategori'));
+        }
+        // return $this->db->delete($this->kategori, array("id" => $id));
     }
 }

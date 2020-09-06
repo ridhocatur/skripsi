@@ -151,11 +151,11 @@ $(document).ready(function() {
           if (result.value) {
             document.getElementById('deleteForm').action = href;
             document.getElementById('deleteForm').submit();
-            Swal.fire(
-                'Terhapus!',
-                'Data berhasil di hapus.',
-                'success'
-            )
+            // Swal.fire(
+            //     'Terhapus!',
+            //     'Data berhasil di hapus.',
+            //     'success'
+            // )
           }
         });
     });

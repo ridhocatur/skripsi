@@ -64,10 +64,6 @@ class Ukuran extends CI_Controller {
 	public function hapus($id = null)
 	{
 		if(!isset($id)) show_404();
-
-		if ($this->Ukuran_model->delete($id)){
-			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
-			redirect(site_url('ukuran'));
-		}
+		$this->Ukuran_model->delete($id);
 	}
 }

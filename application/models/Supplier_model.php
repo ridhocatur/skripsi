@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Supplier_model extends CI_Model {
 
     private $supplier = 'supplier';
+    private $bahan_masuk = 'bahan_masuk';
+    private $kayu_masuk = 'kayu_masuk';
 
     public $id;
     public $nm_sup;
@@ -96,6 +98,19 @@ class Supplier_model extends CI_Model {
 
     public function delete($id)
     {
-        return $this->db->delete($this->supplier, array("id" => $id));
+        $kayu = $this->db->select('id_supplier')->from($this->kayu_masuk)->where('id_supplier', $id)->count_all_results();
+        $bahan = $this->db->select('id_supplier')->from($this->bahan_masuk)->where('id_supplier', $id)->count_all_results();
+        // var_dump($kayu, $bahan); die();
+        if ($kayu > 0) {
+            $this->session->set_flashdata('danger', 'Data Masih Digunakan');
+            redirect(site_url('supplier'));
+        } else if ($bahan > 0) {
+            $this->session->set_flashdata('danger', 'Data Masih Digunakan');
+            redirect(site_url('supplier'));
+        } else {
+            $this->db->delete($this->supplier, array("id" => $id));
+			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
+            redirect(site_url('supplier'));
+        }
     }
 }

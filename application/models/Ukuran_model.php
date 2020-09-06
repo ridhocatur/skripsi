@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Ukuran_model extends CI_Model {
 
     private $ukuran = 'ukuran';
+    private $plywood = 'plywood';
 
     public $id;
     public $panjang;
@@ -64,6 +65,15 @@ class Ukuran_model extends CI_Model {
 
     public function delete($id)
     {
-        return $this->db->delete($this->ukuran, array("id" => $id));
+        $this->db->select('id_ukuran')->from($this->plywood)->where('id_ukuran', $id);
+        $nilai = $this->db->count_all_results();
+        if ($nilai > 0) {
+            $this->session->set_flashdata('danger', 'Data Masih Digunakan');
+            redirect(site_url('ukuran'));
+        } else {
+            $this->db->delete($this->ukuran, array("id" => $id));
+			$this->session->set_flashdata('info', 'Berhasil Di Hapus');
+            redirect(site_url('ukuran'));
+        }
     }
 }
