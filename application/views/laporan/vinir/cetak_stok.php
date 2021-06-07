@@ -22,6 +22,7 @@
                     <h3>DATA <?= strtoupper($title); ?></h3>
                     <h4>PT. TANJUNG RAYA PLYWOOD</h4>
                     <h6>Desa Tinggiran II Luar, Barito Kuala</h6>
+                    <b>Periode : <?= date('F Y',strtotime($tanggal)); ?></b>
                 </center>
             </td>
         </tr>
@@ -37,8 +38,8 @@
                     <tr align="center">
                         <th>No.</th>
                         <th>Jenis Kayu</th>
-                        <th>Ukuran</th>
-                        <th>Stok (Pcs)</th>
+                        <th>Ukuran Vinir</th>
+                        <th>Stok Digunakan (Pcs)</th>
                         <th>Kubikasi (M<sup>3</sup>)</th>
                     </tr>
                 </thead>
@@ -50,11 +51,18 @@
                             <td><?= $no; ?></td>
                             <td><?= $item->nama;?></td>
                             <td><?= $item->tebal;?> mm <?= $item->panjang;?> x <?= $item->lebar;?></td>
-                            <td align="right"><?= $item->stok; ?></td>
-                            <td align="right"><?= $item->kubikasi; ?></td>
+                            <td align="right"><?= $item->stok_keluar; ?></td>
+                            <td align="right"><?= $item->kubik_keluar; ?></td>
+                            <?php $total1 += intval($item->stok_keluar) ?>
+                            <?php $total2 += floatval($item->kubik_keluar) ?>
                         </tr>
                         <?php $no++; ?>
                     <?php endforeach; ?>
+                    <tr>
+                        <td colspan="3" align="center"><b>T O T A L</b></td>
+                        <td align="right"><b><?= $total1; ?></b></td>
+                        <td align="right"><b><?= $total2; ?></b></td>
+                    </tr>
                     <tr>
                         <td colspan="3" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>

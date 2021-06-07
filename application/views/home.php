@@ -247,7 +247,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	    	success: function(response){
 	    		visualize_barang2("chart-kayulog","Kayu Log",response);
 	    	},
-	    	errror: function(){
+	    	error: function(){
 	    		alert('error');
 	    	}
 	    });
@@ -261,7 +261,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			var pend = data[1];
 			var panj = data[2];
 			var fushion = $.concat(pend, panj);
-			console.log(fushion);
 			Highcharts.chart(id, {
 	        chart: {
 	          type: 'column'

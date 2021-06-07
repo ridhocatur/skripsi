@@ -189,6 +189,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <form action="<?= base_url(); ?>laporan/stokvinir" method="POST" target="_blank">
         <div class="box-body">
             <p></p>
+
+            <div class="form-group row">
+                <label for="tglsatu" class="col-sm-3 col-form-label text-md-right">Tgl. Awal</label>
+                <div class="col-md-8">
+                    <input id="tglsatu" type="date" class="form-control" value="<?= date('Y-m-d'); ?>" name="tglsatu">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="tgldua" class="col-sm-3 col-form-label text-md-right">Tgl. Akhir</label>
+                <div class="col-md-8">
+                    <input id="tgldua" type="date" class="form-control" value="<?= date('Y-m-d'); ?>" name="tgldua">
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label for="jenis" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
                 <div class="col-md-8">

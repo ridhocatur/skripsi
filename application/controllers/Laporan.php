@@ -12,7 +12,7 @@ class Laporan extends CI_Controller {
 
     public function index() {
     	$data['title'] = "Cetak Laporan";
-        $data['isi'] = "laporan/index";
+        $data['isi'] = "laporan/index2";
         $data['ukuran'] = $this->Ukuran_model->getAll();
         $data['jeniskayu'] = $this->Jeniskayu_model->getAll();
         $data['kategori'] = $this->Kategori_model->getAll();
@@ -28,10 +28,32 @@ class Laporan extends CI_Controller {
 
 	public function stokbahan()
     {
-        $data['title'] = "Laporan Stok Bahan Bantu";
-        $namabahan = $this->input->post('nm_bahan');
-		$data['stokbahan'] = $this->Bahanbantu_model->report($namabahan);
-		$this->load->view("laporan/bahanbantu/cetak_stok", $data);
+        $data['title'] = "Laporan Penggunaan Bahan Bantu";
+        $tgl_awal        = $this->input->post('tglsatu');
+        $tgl_akhir       = $this->input->post('tgldua');
+        $tipe_glue       = $this->input->post('nm_bahan');
+        $data['tanggal'] = $tgl_awal;
+        $stokbahan       = $this->Bahanbantu_model->report($tgl_awal, $tgl_akhir, $tipe_glue);
+        $i = 0;
+        foreach($stokbahan as $bahan){
+            $data['stokbahan'][$i]['id']          = $bahan['id'];
+            $data['stokbahan'][$i]['tipe_glue']   = $bahan['tipe_glue'];
+            $data['stokbahan'][$i]['nama']        = $bahan['nama'];
+            $data['stokbahan'][$i]['nm_kateg']    = $bahan['nm_kateg'];
+            $data['stokbahan'][$i]['kd_bahan']    = $bahan['kd_bahan'];
+            $data['stokbahan'][$i]['stok_keluar'] = $bahan['stok_keluar'];
+
+            $bahanmasuk                           = $this->Bahanmasuk_model->idBahan($bahan['id']);
+
+            $data['stokbahan'][$i]['item'] = [];
+            foreach($bahanmasuk as $masuk){
+                $data['stokbahan'][$i]['item'][] = [
+                    'masuk' => $masuk->masuk
+                ];
+            }
+            $i++;
+        }
+        $this->load->view("laporan/bahanbantu/cetak_stok", $data);
     }
     public function bahanmasuk()
     {
@@ -39,7 +61,7 @@ class Laporan extends CI_Controller {
         $tgl_akhir = $this->input->post('tgldua');
         $id_supplier = $this->input->post('suplier');
         $data['title'] = 'Laporan Pemasukan Bahan Bantu';
-        $data['bahanmasuk'] = $this->Bahanmasuk_model->report($tgl_awal, $tgl_akhir, $id_supplier) ;
+        $data['bahanmasuk'] = $this->Bahanmasuk_model->report($tgl_awal, $tgl_akhir, $id_supplier);
         $this->load->view('laporan/bahanbantu/cetak_masuk', $data);
     }
     public function gluemix()
@@ -77,9 +99,30 @@ class Laporan extends CI_Controller {
 
     public function stokkayu()
     {
-        $id_jenis = $this->input->post('jeniskayu');
-        $data['title'] = "Laporan Stok Kayu Log";
-		$data['stokkayu'] = $this->Kayulog_model->report($id_jenis);
+        $id_jenis         = $this->input->post('jeniskayu');
+        $tgl_awal         = $this->input->post('tglsatu');
+        $tgl_akhir        = $this->input->post('tgldua');
+        $data['tanggal']  = $tgl_awal;
+        $data['title']    = "Laporan Penggunaan Kayu Log";
+        $data['stokkayu'] = $this->Kayulog_model->report($tgl_awal, $tgl_akhir, $id_jenis);
+        // $i = 0;
+        // foreach($stokkayu as $kayu){
+        //     $data['stokkayu'][$i]['id']          = $kayu['id'];
+        //     $data['stokkayu'][$i]['kd_kayu']     = $kayu['kd_kayu'];
+        //     $data['stokkayu'][$i]['nama']        = $kayu['nama'];
+        //     $data['stokkayu'][$i]['jml_log']     = $kayu['jml_log'];
+        //     $data['stokkayu'][$i]['kubik_log']   = $kayu['kubik_log'];
+
+        //     $kayumasuk                           = $this->Bahanmasuk_model->idBahan($kayu['id']);
+
+        //     $data['stokkayu'][$i]['item'] = [];
+        //     foreach($kayumasuk as $masuk){
+        //         $data['stokkayu'][$i]['item'][] = [
+        //             'masuk' => $masuk->masuk
+        //         ];
+        //     }
+        //     $i++;
+        // }
         $this->load->view("laporan\kayulog\cetak_stok", $data);
     }
     public function kayumasuk()
@@ -126,10 +169,13 @@ class Laporan extends CI_Controller {
 
     public function stokvinir()
     {
-        $ukuran = $this->input->post('sizevin');
-        $id_jenis = $this->input->post('jenis');
-        $data['title'] = "Laporan Stok Vinir";
-		$data['stokvinir'] = $this->Vinir_model->report($ukuran,$id_jenis);
+        $ukuran            = $this->input->post('sizevin');
+        $id_jenis          = $this->input->post('jenis');
+        $tgl_awal          = $this->input->post('tglsatu');
+        $tgl_akhir         = $this->input->post('tgldua');
+        $data['tanggal']   = $tgl_awal;
+        $data['title']     = "Laporan Penggunaan Vinir";
+		$data['stokvinir'] = $this->Vinir_model->report($tgl_awal,$tgl_akhir,$ukuran,$id_jenis);
         $this->load->view('laporan\vinir\cetak_stok', $data);
     }
     public function vinirmasuk()

@@ -63,11 +63,16 @@
                                 <td align="right"><?= $i['kubik_masuk']; ?></td>
                             </tr>
                         <?php endforeach; ?>
-                        <td align="center" colspan="6"><b>T O T A L</b></td>
+                        <td align="center" colspan="6"><b>J U M L A H</b></td>
                         <td align="right"><b><?= $data['jml_stok']; ?></b></td>
                         <td align="right"><b><?= $data['jml_kubik']; ?></b></td>
-                    <?php endif; ?>
+                    <?php $jmlstok += intval($data['jml_stok']);$jmlkubik += floatval($data['jml_kubik']);endif; ?>
                     <?php endforeach; ?>
+                    <tr>
+                        <td align="center" colspan="6"><b>T O T A L</b></td>
+                        <td align="right"><b><?= $jmlstok; ?></b></td>
+                        <td align="right"><b><?= $jmlkubik; ?></b></td>
+                    </tr>
                     </tr>
                     <tr>
                         <td colspan="7" style="border: none;"></td>

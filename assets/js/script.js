@@ -122,6 +122,37 @@ $(function () {
         });
     });
 
+    //----------------- Kategori
+    $('.tambahUpdatestok').on('click', function() {
+        $('#ModalLabel').html('Tambah Data Baru')
+        // $('#formModal')[0].reset();
+        $('#formModal').attr('action', 'http://localhost/trpbahanbaku/updatestok/tambah')
+    });
+
+    $('.tombolUbahUpdatestok').on('click', function(){
+        $('#ModalLabel').html('Ubah Data')
+        $('#formModal').attr('action', 'http://localhost/trpbahanbaku/updatestok/ubah')
+
+        const id = $(this).data('id');
+
+        $.ajax({
+            url: 'http://localhost/trpbahanbaku/updatestok/getedit',
+            data: {id : id},
+            type: "post",
+            dataType: "JSON",
+            cache: false,
+            success: function(data) {
+                $('#id').val(data.id);
+                $('#kd_bahan').val(data.kode_bahan);
+                $('#nm_bahan').val(data.nama_bahan);
+                $('#stok').val(data.total_stok_sekarang);
+            },
+            error : function() {
+                alert("Tidak ada Data!");
+            }
+        });
+    });
+
     //----------------- Ukuran
     $('.tambahUkuran').on('click', function() {
         $('#ModalLabel').html('Tambah Data Baru')

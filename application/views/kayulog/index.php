@@ -165,20 +165,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </button>
       </div>
       <div class="modal-body">
-      <form action="<?= base_url(); ?>laporan/stokkayu" method="POST" target="_blank">
+      <form action="<?= base_url(); ?>laporan/stokkayu" method="POST" target="_blank" id="penggunaanKayu">
         <div class="box-body">
             <p></p>
             <div class="form-group row">
-                <label for="jeniskayu" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
+                <label for="tglsatu" class="col-sm-3 col-form-label text-md-right">Tgl. Awal</label>
                 <div class="col-md-8">
-                <select class="form-control" name="jeniskayu" id="jeniskayu">
-                  <option value="" disabled selected>-- Pilih Data --</option>
-                  <option value=""> Semua Jenis </option>
-                  <?php foreach($jeniskayu as $data): ?>
-                    <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
-                  <?php endforeach; ?>
-                </select>
+                    <input id="tglsatu" type="date" class="form-control" value="<?= date('Y-m-d'); ?>" name="tglsatu">
                 </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="tgldua" class="col-sm-3 col-form-label text-md-right">Tgl. Akhir</label>
+                <div class="col-md-8">
+                    <input id="tgldua" type="date" class="form-control" value="<?= date('Y-m-d'); ?>" name="tgldua">
+                </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="jeniskayu" class="col-sm-3 col-form-label text-md-right">Jenis Kayu</label>
+              <div class="col-md-8">
+              <select class="form-control" name="jeniskayu" id="jeniskayu">
+                <option value="" disabled selected>-- Pilih Data --</option>
+                <option value=""> Semua Jenis </option>
+                <?php foreach($jeniskayu as $data): ?>
+                  <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
+                <?php endforeach; ?>
+              </select>
+              </div>
             </div>
       </div>
       <div class="modal-footer">

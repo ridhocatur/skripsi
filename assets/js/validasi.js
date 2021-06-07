@@ -82,6 +82,30 @@ $(function () {
             },
         },
     });
+    $("#penggunaanBahanBantu").validate({
+        rules: {
+            tglsatu: {
+                required: true
+            },
+            tgldua: {
+                required: true
+            },
+            nm_bahan: {
+                required: true
+            },
+        },
+        messages: {
+            tglsatu: {
+                required: "Harap Diisi"
+            },
+            tgldua: {
+                required: "Harap Diisi"
+            },
+            nm_bahan: {
+                required: "Harap Diisi"
+            },
+        },
+    });
 
     // Bahan Bantu Masuk
     $("#bahanMasuk").validate({
@@ -175,6 +199,24 @@ $(function () {
             kubikasi: {
                 required: "Kolom masih kosong. Harap Diisi",
                 number: "Hanya angka saja"
+            },
+        },
+    });
+    $("#penggunaanKayu").validate({
+        rules: {
+            tglsatu: {
+                required: true
+            },
+            tgldua: {
+                required: true
+            },
+        },
+        messages: {
+            tglsatu: {
+                required: "Harap Diisi"
+            },
+            tgldua: {
+                required: "Harap Diisi"
             },
         },
     });

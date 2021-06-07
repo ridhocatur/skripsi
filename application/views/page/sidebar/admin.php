@@ -52,3 +52,6 @@
 <li class="nav-item <?= $this->uri->segment(1) == 'rumus' ? 'active' : '' ?>">
   <a class="nav-link" href="<?= base_url('rumus'); ?>"><i class="fa fa-book"></i><span> Rumus</span></a>
 </li>
+<li class="nav-item <?= $this->uri->segment(1) == 'updatestok' ? 'active' : '' ?>">
+  <a class="nav-link" href="<?= base_url('updatestok'); ?>"><i class="fa fa-book"></i><span> Update Stok</span></a>
+</li>

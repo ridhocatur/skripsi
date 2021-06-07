@@ -65,6 +65,13 @@ class Bahanmasuk_model extends CI_Model {
         return $this->db->get_where($this->bahanmasuk, ["id" => $id])->row();
     }
 
+    public function idBahan($id)
+    {
+        $sql = "SELECT SUM(stok_masuk) AS masuk FROM bahan_masuk WHERE id_bahan = '$id' GROUP BY id_bahan";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
     public function report($tglawal,$tglakhir,$supplier)
     {
         $kondisi = "";

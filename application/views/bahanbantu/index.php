@@ -159,25 +159,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ModalLabel">Tambah Data</h5>
+        <h5 class="modal-title" id="ModalLabel">Cetak Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form action="<?= base_url('laporan/stokbahan'); ?>" method="POST" target="_blank">
+      <form action="<?= base_url('laporan/stokbahan'); ?>" method="POST" target="_blank" id="penggunaanBahanBantu">
       <input type="hidden" name="id" id="id">
         <div class="box-body">
             <p></p>
+
             <div class="form-group row">
-                <label for="nm_bahan" class="col-sm-3 col-form-label text-md-right">Nama Bahan</label>
+                <label for="tglsatu" class="col-sm-3 col-form-label text-md-right">Tgl. Awal</label>
+                <div class="col-md-8">
+                    <input id="tglsatu" type="date" class="form-control" value="<?= date('Y-m-d'); ?>" name="tglsatu">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="tgldua" class="col-sm-3 col-form-label text-md-right">Tgl. Akhir</label>
+                <div class="col-md-8">
+                    <input id="tgldua" type="date" class="form-control" value="<?= date('Y-m-d'); ?>" name="tgldua">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="nm_bahan" class="col-sm-3 col-form-label text-md-right">Tipe Lem</label>
                 <div class="col-md-8">
                 <select class="form-control" name="nm_bahan" id="nm_bahan">
-                <option disabled selected>-- Pilih Data --</option>
-                <option value="">Semua Bahan Bantu</option>
-                <?php foreach($namabahan as $data): ?>
-                    <option value="<?= $data->id; ?>"><?= $data->nama; ?></option>
-                <?php endforeach; ?>
+                    <option disabled selected>-- Pilih Data --</option>
+                    <option value="Type-1 Melamine">Type-1 Melamine</option>
+                    <option value="Type-2 LFE">Type-2 LFE</option>
                 </select>
                 </div>
             </div>
@@ -201,5 +214,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     $('.tombolReset').on('click', function() {
         $('#bahanMaster')[0].reset();
         $("#bahanMaster").validate().resetForm();
-    });
+    });​
 </script>

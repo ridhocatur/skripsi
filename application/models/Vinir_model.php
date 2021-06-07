@@ -121,20 +121,34 @@ class Vinir_model extends CI_Model {
         return $query->result();
     }
 
-    public function report($ukuran,$id_jenis)
+    public function report($tgl_awal, $tgl_akhir, $ukuran,$id_jenis)
     {
         $kondisi = "";
-        $sql = "SELECT ".$this->vinir.".*, ".$this->jeniskayu.".nama
-        FROM ".$this->vinir."
-        LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id" ;
+        // $sql = "SELECT ".$this->vinir.".*, ".$this->jeniskayu.".nama
+        // FROM ".$this->vinir."
+        // LEFT JOIN ".$this->jeniskayu." ON ".$this->vinir.".id_jenis = ".$this->jeniskayu.".id" ;
+        // if ($ukuran != "" && $id_jenis != "") {
+        //     $kondisi .= " WHERE ".$this->vinir.".panjang = '$ukuran' AND ".$this->jeniskayu.".id = '$id_jenis' AND ".$this->vinir.".stok > 0";
+        // } else if ($ukuran == "" && $id_jenis != "") {
+        //     $kondisi .= " WHERE ".$this->jeniskayu.".id = '$id_jenis' AND ".$this->vinir.".stok > 0";
+        // } else if ($ukuran != "" && $id_jenis == "") {
+        //     $kondisi .= " WHERE ".$this->vinir.".panjang = '$ukuran' AND ".$this->vinir.".stok > 0";
+        // } else {
+        //     $kondisi .= " WHERE ".$this->vinir.".stok > 0";
+        // }
+        $sql = "SELECT vinir.tebal, vinir.id, vinir.panjang, vinir.lebar, jeniskayu.nama, SUM(dtl_plywood.stok_keluar) AS stok_keluar, SUM(dtl_plywood.kubik_keluar) AS kubik_keluar FROM vinir
+                LEFT JOIN jeniskayu ON vinir.id_jenis = jeniskayu.id
+                LEFT JOIN dtl_plywood ON vinir.id = dtl_plywood.id_vinir
+                LEFT JOIN plywood ON plywood.id = dtl_plywood.id_plywood
+                WHERE plywood.tgl BETWEEN '$tgl_awal' AND '$tgl_akhir'";
         if ($ukuran != "" && $id_jenis != "") {
-            $kondisi .= " WHERE ".$this->vinir.".panjang = '$ukuran' AND ".$this->jeniskayu.".id = '$id_jenis' AND ".$this->vinir.".stok > 0";
+            $kondisi .= " AND ".$this->vinir.".panjang = '$ukuran' AND ".$this->jeniskayu.".id = '$id_jenis' AND stok_keluar > 0 GROUP BY dtl_plywood.id_vinir";
         } else if ($ukuran == "" && $id_jenis != "") {
-            $kondisi .= " WHERE ".$this->jeniskayu.".id = '$id_jenis' AND ".$this->vinir.".stok > 0";
+            $kondisi .= " AND ".$this->jeniskayu.".id = '$id_jenis' AND stok_keluar > 0 GROUP BY dtl_plywood.id_vinir";
         } else if ($ukuran != "" && $id_jenis == "") {
-            $kondisi .= " WHERE ".$this->vinir.".panjang = '$ukuran' AND ".$this->vinir.".stok > 0";
+            $kondisi .= " AND ".$this->vinir.".panjang = '$ukuran' AND stok_keluar > 0 GROUP BY dtl_plywood.id_vinir";
         } else {
-            $kondisi .= " WHERE ".$this->vinir.".stok > 0";
+            $kondisi .= " AND stok_keluar > 0 GROUP BY dtl_plywood.id_vinir";
         }
         $query = $this->db->query($sql.$kondisi);
         return $query->result();

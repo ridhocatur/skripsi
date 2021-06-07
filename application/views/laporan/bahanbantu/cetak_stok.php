@@ -22,6 +22,7 @@
                     <h3>DATA <?= strtoupper($title); ?></h3>
                     <h4>PT. TANJUNG RAYA PLYWOOD</h4>
                     <h6>Desa Tinggiran II Luar, Barito Kuala</h6>
+                    <b>Periode : <?= date('F Y',strtotime($tanggal)); ?></b>
                 </center>
             </td>
         </tr>
@@ -34,40 +35,45 @@
         <td colspan="3" align="center">
             <table width="max">
                 <thead>
+                    <!-- <tr>
+                        <div class="chart-area" id="grafik"></div>
+                    </tr> -->
                     <tr align="center">
-                        <th>No.</th>
                         <th>Kode Bahan</th>
                         <th>Nama</th>
+                        <th>Tipe Lem</th>
                         <th>Kategori</th>
-                        <th>Total Stok Masuk</th>
-                        <th>Total Stok Keluar</th>
-                        <th>Total Stok Sekarang</th>
+                        <!-- <th>Stok Bahan</th> -->
+                        <th>Penggunaan Bahan</th>
+                        <!-- <th>Bahan yang Tersedia</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                <?php $no = 1; ?>
                 <?php foreach($stokbahan as $item) : ?>
                     <tr>
-                        <td><?= $no; ?></td>
-                        <td><?= $item->kd_bahan;?></td>
-                        <td><?= $item->nama;?></td>
-                        <td><?= $item->nm_kateg;?></td>
-                        <td align="right"><?= $item->masuk; ?> Kg</td>
-                        <td align="right"><?= $item->keluar; ?> Kg</td>
-                        <td align="right"><b><?= $item->stok; ?> Kg</b></td>
+                        <td><?= $item['kd_bahan'];?></td>
+                        <td><?= $item['nama'];?></td>
+                        <td><?= $item['tipe_glue'];?></td>
+                        <td><?= $item['nm_kateg'];?></td>
+                        <!-- <?php if (sizeof($item['item']) > 0) : ?>
+                          <?php foreach ($item['item'] as $i) : ?>
+                            <td align="right"><?= $i['masuk']; ?> Kg</td>
+                          <?php $masuk  = $i['masuk']; endforeach; ?>
+                        <?php endif; $keluar = $item['stok_keluar']; $total  = $masuk - $keluar; ?> -->
+                        <td align="right"><?= $item['stok_keluar']; ?> Kg</td>
+                        <!-- <td align="right"><b><?= $total; ?> Kg</b></td> -->
                     </tr>
-                    <?php $no++; ?>
                 <?php endforeach; ?>
                     <tr>
-                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="3" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;">Tinggiran II Luar, <?= date('d-m-Y'); ?> <br>Dibuat Oleh,</td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="3" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"></td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="border: none;"></td>
+                        <td colspan="3" style="border: none;"></td>
                         <td colspan="2" align="center" style="border: none;"><?= $this->fungsi->user_login()->nama; ?></td>
                     </tr>
                 </tbody>
